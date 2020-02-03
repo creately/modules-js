@@ -1,0 +1,17 @@
+{
+  "name": "@creately/hello-world",
+  "version": "1.0.6",
+  "description": "An example module to test the monorepo",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "lint": "prettier --write ./src/**/*.ts",
+    "test": "jest --coverage",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/creately/modules-js.git",
+    "directory": "packages/hello-world"
+  }
+}
