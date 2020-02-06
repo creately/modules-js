@@ -68,7 +68,7 @@ function isPackagePublishedGPR(pkg) {
  * on Default NPM Package Registry.
  */
 function isPackagePublishedNPM(pkg) {
-    const { out, err } = executeNpmCommand(pkg, `v ${pkg.info.name}@${pkg.info.version} --registry=${REGISTRY}`);
+    const { out, err } = executeNpmCommand(pkg, `v ${pkg.info.name}@${pkg.info.version}`);
     return out && out.toString().length;
 }
 
