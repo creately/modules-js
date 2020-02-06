@@ -1,14 +1,17 @@
 const {
-    getAvailablePackages,
+    getModifiedPackages,
     isPackagePublished,
     installDependencies,
     publishPackageToGPR,
+    executeCustomScript,
 } = require('./_shared');
 
-for ( const pkg of getAvailablePackages()) {
+for ( const pkg of getModifiedPackages()) {
+    console.log(`processing ${pkg.info.name}`)
     if (isPackagePublished(pkg)) {
         continue;
     }
     installDependencies(pkg);
-    publishPackageToGPR(pkg)
+    executeCustomScript(pkg, 'test');
+    publishPackageToGPR(pkg);
 }

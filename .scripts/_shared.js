@@ -8,7 +8,7 @@ const { readdirSync, readFileSync } = require('fs');
 const REGISTRY = 'https://npm.pkg.github.com/creately';
 
 /**
- * Returns a list of package info
+ * Returns a list of available package info
  */
 function getAvailablePackages() {
     return readdirSync(resolve('./packages'))
@@ -21,11 +21,31 @@ function getAvailablePackages() {
 }
 
 /**
+ * Returns a list of modified package info
+ */
+function getModifiedPackages() {
+    const regex = /packages\/([a-z\-]+)/gm;
+    const modifiedPaths = execSync(`git diff --name-only master`).toString();
+    const packageDirs = new Set();
+    const matches = modifiedPaths.match(regex);
+    if (!matches) {
+        return [];
+    }
+    for (const match of matches) {
+        // NOTE: may not work on windows, check (but we're using this only on CI)
+        const packageDir = match.split('/')[1];
+        packageDirs.add(packageDir);
+    }
+    return getAvailablePackages()
+        .filter(pkg => packageDirs.has(pkg.name));
+}
+
+/**
  * Execute an npm command with proper configurations set
  */
 function executeNpmCommand(pkg, args) {
     try {
-        const cmd = `npm ${args} --registry=${REGISTRY}`;
+        const cmd = `npm --registry=${REGISTRY} ${args}`;
         const opt = { cwd: pkg.path };
         const out = execSync(cmd, opt);
         return { out: out.toString() };
@@ -47,6 +67,9 @@ function isPackagePublished(pkg) {
  */
 function installDependencies(pkg) {
     const { out, err } = executeNpmCommand(pkg, `ci`);
+    if ( err ) {
+        throw err;
+    }
     return out && out.toString().length;
 }
 
@@ -54,8 +77,22 @@ function installDependencies(pkg) {
  * Publish the new package version to Github Package Registry
  */
 function publishPackageToGPR(pkg) {
-    const { out, err } = executeNpmCommand(pkg, `publish`);
+    const { out, err } = executeNpmCommand(pkg, `publish --dry-run`);
+    if ( err ) {
+        throw err;
+    }
     return out && out.toString().length;
+}
+
+/**
+ * Publish the new package version to Github Package Registry
+ */
+function executeCustomScript(pkg, script, args = []) {
+    const { out, err } = executeNpmCommand(pkg, `run ${script} -- ${args.join(' ')}`);
+    if ( err ) {
+        throw err;
+    }
+    return !!out;
 }
 
 /**
@@ -64,8 +101,10 @@ function publishPackageToGPR(pkg) {
 module.exports = {
     REGISTRY,
     getAvailablePackages,
+    getModifiedPackages,
     executeNpmCommand,
     isPackagePublished,
     installDependencies,
     publishPackageToGPR,
+    executeCustomScript,
 }
