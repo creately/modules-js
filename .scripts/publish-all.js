@@ -1,17 +1,26 @@
 const {
     getModifiedPackages,
-    isPackagePublished,
+    isPackagePublishedGPR,
+    isPackagePublishedNPM,
     installDependencies,
     publishPackageToGPR,
+    publishPackageToNPM,
     executeCustomScript,
 } = require('./_shared');
 
 for ( const pkg of getModifiedPackages()) {
     console.log(`processing ${pkg.info.name}`)
-    if (isPackagePublished(pkg)) {
+    const isOnGPR = isPackagePublishedGPR(pkg);
+    const isOnNPM = isPackagePublishedNPM(pkg);
+    if (isOnNPM && isOnGPR) {
         continue;
     }
     installDependencies(pkg);
     executeCustomScript(pkg, 'test');
-    publishPackageToGPR(pkg);
+    if (!isOnGPR) {
+        publishPackageToGPR(pkg);
+    }
+    if (!isOnNPM) {
+        publishPackageToNPM(pkg);
+    }
 }

@@ -45,7 +45,7 @@ function getModifiedPackages() {
  */
 function executeNpmCommand(pkg, args) {
     try {
-        const cmd = `npm --registry=${REGISTRY} ${args}`;
+        const cmd = `npm ${args}`;
         const opt = { cwd: pkg.path };
         const out = execSync(cmd, opt);
         return { out: out.toString() };
@@ -56,8 +56,18 @@ function executeNpmCommand(pkg, args) {
 
 /**
  * Checks whether the package version is already published
+ * on Github Package Registry.
  */
-function isPackagePublished(pkg) {
+function isPackagePublishedGPR(pkg) {
+    const { out, err } = executeNpmCommand(pkg, `v ${pkg.info.name}@${pkg.info.version} --registry=${REGISTRY}`);
+    return out && out.toString().length;
+}
+
+/**
+ * Checks whether the package version is already published
+ * on Default NPM Package Registry.
+ */
+function isPackagePublishedNPM(pkg) {
     const { out, err } = executeNpmCommand(pkg, `v ${pkg.info.name}@${pkg.info.version}`);
     return out && out.toString().length;
 }
@@ -66,7 +76,7 @@ function isPackagePublished(pkg) {
  * Installs all npm dependencies using the `npm ci` command
  */
 function installDependencies(pkg) {
-    const { out, err } = executeNpmCommand(pkg, `ci`);
+    const { out, err } = executeNpmCommand(pkg, `ci --registry=${REGISTRY}`);
     if ( err ) {
         throw err;
     }
@@ -77,7 +87,18 @@ function installDependencies(pkg) {
  * Publish the new package version to Github Package Registry
  */
 function publishPackageToGPR(pkg) {
-    const { out, err } = executeNpmCommand(pkg, `publish --dry-run`);
+    const { out, err } = executeNpmCommand(pkg, `publish --registry=${REGISTRY}`);
+    if ( err ) {
+        throw err;
+    }
+    return out && out.toString().length;
+}
+
+/**
+ * Publish the new package version to Default NPM Package Registry
+ */
+function publishPackageToNPM(pkg) {
+    const { out, err } = executeNpmCommand(pkg, `publish --access=public`);
     if ( err ) {
         throw err;
     }
@@ -103,8 +124,10 @@ module.exports = {
     getAvailablePackages,
     getModifiedPackages,
     executeNpmCommand,
-    isPackagePublished,
+    isPackagePublishedGPR,
+    isPackagePublishedNPM,
     installDependencies,
     publishPackageToGPR,
+    publishPackageToNPM,
     executeCustomScript,
 }
