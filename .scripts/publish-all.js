@@ -1,5 +1,5 @@
 const {
-    getModifiedPackages,
+    getAvailablePackages,
     isPackagePublishedGPR,
     isPackagePublishedNPM,
     installDependencies,
@@ -8,7 +8,7 @@ const {
     executeCustomScript,
 } = require('./_shared');
 
-for ( const pkg of getModifiedPackages()) {
+for ( const pkg of getAvailablePackages()) {
     console.log(`processing ${pkg.info.name}`)
     const isOnGPR = isPackagePublishedGPR(pkg);
     const isOnNPM = isPackagePublishedNPM(pkg);
