@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "lint": "prettier --write ./src/*.ts ./src/**/*.ts",
+    "lint": "prettier --write './src/**/*.ts'",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cover": "jest --coverage",
