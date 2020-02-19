@@ -1,0 +1,46 @@
+{
+  "name": "@creately/pluto",
+  "version": "1.0.0",
+  "description": "An end-to-end testing framework.",
+  "main": "dist/main.js",
+  "typings": "dist/main.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "prettier --print-width 120 --single-quote --trailing-comma es5 --write \"src/**/*.ts\"",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
+    "prepare": "npm run lint && npm run build",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "bin": {
+    "pluto": "./dist/pluto.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/creately/modules-js.git",
+    "directory": "packages/pluto"
+  },
+  "preferGlobal": true,
+  "author": "Creately",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/lodash": "4.14.149",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "selenium-webdriver": "4.0.0-alpha.5",
+    "ts-jest": "^24.2.0",
+    "ts-node": "8.6.2",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2"
+  },
+  "dependencies": {
+    "@types/selenium-webdriver": "4.0.6",
+    "colors": "^1.4.0",
+    "globby": "^10.0.1",
+    "yargs": "^15.0.2"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
