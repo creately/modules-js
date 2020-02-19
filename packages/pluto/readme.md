@@ -1,6 +1,8 @@
-# Pluto
+![npm package](logo/Pluto-Logo.png)
 
-### An end to end testing framework.
+# Pluto: An end to end testing framework.
+
+"Don't forget your e2e tests"
 
 Pluto is an e2e testing framework that uses Selenium to execute test cases. It includes interfaces for tests that can be written for specific cases, alongside types that define specs and tests.
 
