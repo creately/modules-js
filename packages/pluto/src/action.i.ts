@@ -3,7 +3,6 @@
  */
 
 export default interface Action {
-
   /**
    * The execute method accepts a string array or arguments and a context
    * object that contains any necessary objects to perform the action.
