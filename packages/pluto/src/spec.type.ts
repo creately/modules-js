@@ -1,4 +1,4 @@
-type spec = {
+declare type spec = {
   title: string;
   action?: any;
   assert?: any;

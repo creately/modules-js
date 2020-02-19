@@ -2,51 +2,76 @@
 
 ### An end to end testing framework.
 
-## Setting up for local development
+Pluto is an e2e testing framework that uses Selenium to execute test cases. It includes interfaces for tests that can be written for specific cases, alongside types that define specs and tests.
 
-### Clone this repository
+## Installation
 
+- Install Pluto as a global npm package.
 ```shell
-git clone git@github.com/creately/modules-js.git
-cd modules-js/packages/pluto
-npm install
-```
-
-### Set up the package
-
-The package can be installed locally, symlinked or installed globally.
-
-- Symlinking the package folder:
-```shell
-pluto $ npm link
-myapp $ npm link pluto
-```
-
-- Installing globally:
-
-When installing the package globally, your `$NODE_PATH` environment variable should be set. If it isn't, add the following to `.bashrc` or `.zshrc` :
-```shell
-export NODE_PATH=$(npm root --quiet -g)
-```
-
-Then install the package.
-```shell
-pluto $ npm run prepare
-pluto $ npm install -g ./
+npm install -g @creately/pluto
 ```
 
 - Set up Chrome and Firefox webdrivers for Selenium
 
 Webdrivers should be downloaded and installed for the browser versions available in the environment. Webdrivers and installation instructions can be found here: https://selenium.dev/documentation/en/webdriver/driver_requirements/
 
+- Selenium
+You will need to install TypeScript definitions for Selenium Webdriver to write actions usinf Selenium.
 
-### Running package
+## Usage
 
-The package is written in Typescript and needs to be rebuilt after making any changes using `npm run build`.
+### Actions
 
-Test specs should be contained in `*.test.js` or `*.test.ts` files.
+An action is a class that performs one specific action. The framwork executes the action instance's `execute` method when the action is run. See the [Action Interface](src/action.i.ts) for information.
 
-Run `pluto` in the folder containing spec files or pass the path with the `--path` argument.
+**Example Action**
+
+```ts
+// got-to.action.ts
+
+import { Action } from '@creately/pluto';
+import { By, until, WebDriver } from 'selenium-webdriver';
+
+/**
+ * Navigates to the specified URL.
+ */
+export default class GoTo implements Action {
+  async execute(args: string[], context: any): Promise<string[]> {
+    const driver: WebDriver = context.driver;
+    const url = args[0];
+    await driver.get(args[0]);
+    return [''];
+  }
+}
+
+```
+
+### Tests & Specs
+
+Test files have the extension `*.test.ts` and contain a series of specs for that particular test.
+
+**Example Test**
+```ts
+// simple.test.ts
+
+import { registerActions, addTest } from '@creately/pluto';
+import GoTo from '../go-to.action';
+
+registerActions(GoTo);
+
+addTest('simple test', [
+    {
+        title: 'goes to creately demo start page',
+        action: GoTo,
+        args: ['https://creately.com/demo-start']
+    },
+]);
+
+```
+
+## Running tests
+
+Run `pluto` in the folder containing test files or pass the path with the `--path` argument.
 
 | Argument             | Description                                            |
 | ---------------------|:-------------------------------------------------------| 
