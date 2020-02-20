@@ -18,6 +18,7 @@ npm install -g @creately/pluto
 Webdrivers should be downloaded and installed for the browser versions available in the environment. Webdrivers and installation instructions can be found here: https://selenium.dev/documentation/en/webdriver/driver_requirements/
 
 - Selenium
+
 You will need to install TypeScript definitions for Selenium Webdriver to write actions usinf Selenium.
 
 ## Usage
@@ -84,3 +85,8 @@ Run `pluto` in the folder containing test files or pass the path with the `--pat
 | `--devtools, -d`     | Show devtools                                          | 
 | `--firefox, -f`      | Use Mozilla Firefox instead of Chrome                  | 
 | `--maximise, -m`     | Maximise browser window on open                        | 
+
+## Attributions
+[Love vector created by freepik - www.freepik.com](https://www.freepik.com/free-photos-vectors/love)
+
+[Watercolor vector created by freepik - www.freepik.com](https://www.freepik.com/free-photos-vectors/watercolor)
