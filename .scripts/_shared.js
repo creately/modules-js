@@ -60,7 +60,7 @@ function executeNpmCommand(pkg, args) {
  */
 function isPackagePublishedGPR(pkg) {
     const { out, err } = executeNpmCommand(pkg, `v ${pkg.info.name}@${pkg.info.version} --registry=${REGISTRY}`);
-    return out && out.toString().length;
+    return Boolean(out && out.toString().trim().length);
 }
 
 /**
@@ -69,7 +69,7 @@ function isPackagePublishedGPR(pkg) {
  */
 function isPackagePublishedNPM(pkg) {
     const { out, err } = executeNpmCommand(pkg, `v ${pkg.info.name}@${pkg.info.version}`);
-    return out && out.toString().length;
+    return Boolean(out && out.toString().trim().length);
 }
 
 /**
