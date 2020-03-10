@@ -3,67 +3,6 @@ import { switchMap, share } from 'rxjs/operators';
 import { once } from 'lodash';
 
 
-/**
- * Defines the types of postmesssage send events
- */
-export enum PostMessageSendEventType {
-    /**
-     * Fired when a shape is touched
-     */
-    shapeTouch = 'shape:touch',
-
-
-    /**
-     * Fired when the selection changes
-     */
-    shapeSelect = 'shape:select',
-
-
-    /**
-     * Fired when the document is loaded
-     */
-    documentLoad = 'document:load',
-
-    /**
-     * Fired when diagram data changes
-     */
-    documentData = 'document:data',
-
-}
-
-
-/**
- * Defines the types of postmesssage revice events
- */
-export enum PostMessageRecvEventType {
-    /**
-     * Subscribe to the shape touch
-     */
-    shapeTouchSubscribe = 'shape:touch:subscribe',
-
-
-    /**
-     * Subscribe to selection changes
-     */
-    shapeSelectSubscribe = 'shape:select:subscribe',
-
-    /**
-     * Subscribe to diagram data changes
-     */
-    documentDataSubscribe = 'document:data:subscribe',
-
-    /**
-     * Event type to modify document
-     */
-    documentModify = 'document:modify',
-
-    /**
-     * Event type to set user token
-     */
-    userSetToken = 'user:setToken',
-
-}
-
 
 
 export class PostMessageAPI {
@@ -77,14 +16,19 @@ export class PostMessageAPI {
     public sendToParent( event: string, data: object ) {
             this.sendToWindow( event, data, this.getParentWindow());
     }
-
+    private isIFrame (input: HTMLElement | null):input is HTMLIFrameElement {
+        return input !== null && input.tagName === 'IFRAME';
+    }
     /**
      * Sends a message to the given window.
      */
     public sendToWindow( event: string, data: object, targetWindow: any ) {
         try {
-            const message = JSON.stringify({ source: 'creately', event, data });
-            targetWindow.postMessage( message, '*' );
+            var frame = document.getElementById(targetWindow);
+            if (this.isIFrame(frame) && frame.contentWindow) {
+                const message = JSON.stringify({ source: 'creately', event, data });
+                frame.contentWindow.postMessage( message, '*' );
+            }
         } catch ( err ) {
             // FIXME: check whether this behavior is okay
         }
@@ -100,7 +44,6 @@ export class PostMessageAPI {
                 // FIXME: check the origin of the message
                 try {
                     const data = JSON.parse( event.data );
-                    //u can use handleIncomingMessages
                         return of( data );
                 } catch ( err ) {
                     // FIXME: check whether this behavior is okay
