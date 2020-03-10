@@ -8,16 +8,24 @@ Pluto is an e2e testing framework that uses Selenium to execute test cases. It i
 
 ## Installation
 
-- Install Pluto as a global npm package.
+### Install Pluto as a global npm package.
 ```shell
 npm install -g @creately/pluto
 ```
 
-- Set up Chrome and Firefox webdrivers for Selenium
+Note: When installing the package globally, your $NODE_PATH environment variable should be set to the global package directory. If it isn't set already, add the following to .bashrc or .zshrc :
 
-Webdrivers should be downloaded and installed for the browser versions available in the environment. Webdrivers and installation instructions can be found here: https://selenium.dev/documentation/en/webdriver/driver_requirements/
+```shell
+export NODE_PATH=$(npm root --quiet -g)
+```
 
-- Using Selenium in actions
+See [Loading from the global folders](https://nodejs.org/api/modules.html#modules_loading_from_the_global_folders) for more configuration information.
+
+### Set up Chrome and Firefox webdrivers for Selenium
+
+Webdrivers should be downloaded and installed for the browser versions available in the environment. Webdrivers and installation instructions can be found on the [Official Selenium Docs](https://selenium.dev/documentation/en/webdriver/driver_requirements).
+
+### Using Selenium in actions
 
 You may install TypeScript definitions for Selenium Webdriver in your project to write actions using Selenium.
 ```shell
@@ -37,15 +45,14 @@ See the [Action Interface](src/action.i.ts) for more information.
 **Example Action**
 
 ```ts
-// got-to.action.ts
+// go-to.action.ts
 
-import { Action } from '@creately/pluto';
 import { By, until, WebDriver } from 'selenium-webdriver';
 
 /**
  * Navigates to the specified URL.
  */
-export default class GoTo implements Action {
+export default class GoTo {
   async execute(args: string[], context: any): Promise<string[]> {
     // Get the WebDriver instance
     const driver: WebDriver = context.driver;
@@ -75,13 +82,13 @@ See the [Spec Type](src/spec.type.ts) for more information.
 ```ts
 // simple.test.ts
 
-import { registerActions, addTest, Equals } from '@creately/pluto';
+const pluto = require('@creately/pluto');
 import GoTo from '../go-to.action';
 import GetUrl from '../get-url.action';
 
-registerActions(GoTo);
+pluto.registerActions(GoTo);
 
-addTest('simple test', [
+pluto.addTest('simple test', [
     {
         title: 'goes to creately demo start page',
         action: GoTo,
@@ -94,7 +101,7 @@ addTest('simple test', [
     },
     {
         title: 'checks URL has changed',
-        assert: Equals,
+        assert: pluto.Equals,
         args: ['$url', 'https://app.creately.com/diagram/create']
     },
 ]);
