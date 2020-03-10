@@ -76,7 +76,8 @@ export enum PostMessageSendEventType{
 }
 
 export class Document {
-    constructor(private doc:Doctype , private postMessage:PostMessageAPI){
+    private postMessage:PostMessageAPI =  new PostMessageAPI();
+    constructor(private doc:Doctype){
         const event = PostMessageSendEventType.userSetToken;
         const message =  {
             token:this.doc.user.token
