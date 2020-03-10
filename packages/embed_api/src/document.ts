@@ -87,26 +87,14 @@ export class Document {
     /**
      * subscribe
      */
-    public subscribeDocument() : Observable<unknown>{
-        const event = PostMessageSendEventType.documentDataSubscribe;
+    public subscribe( event:string ) : Observable<unknown>{
+        // const event = PostMessageSendEventType.documentDataSubscribe;
         const message =  {};
         this.postMessage.sendToWindow(event,message,this.doc.iframe.parent);
         return this.postMessage.recv().pipe(
             switchMap( msg => this.handleIncomingMessages(msg))
-           );    }
-
-    /**
-     * subscribe
-     */
-    public subscribeSelection() : Observable<unknown>{
-        const event = PostMessageSendEventType.shapeSelectSubscribe;
-        const message =  {};
-        this.postMessage.sendToWindow(event,message,this.doc.iframe.parent);
-       return this.postMessage.recv().pipe(
-         switchMap( msg => this.handleIncomingMessages(msg))
-        );
-    }
-
+           );
+        }
 
     /**
      * modify
