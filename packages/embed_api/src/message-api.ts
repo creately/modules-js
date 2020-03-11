@@ -16,6 +16,11 @@ export class PostMessageAPI {
     public sendToParent( event: string, data: object ) {
             this.sendToWindow( event, data, this.getParentWindow());
     }
+
+    /**
+     * this will check if given object is a iframe or not.base on that this will return a boolean.
+     * @param input Html Object
+     */
     private isIFrame (input: HTMLElement | null):input is HTMLIFrameElement {
         return input !== null && input.tagName === 'IFRAME';
     }

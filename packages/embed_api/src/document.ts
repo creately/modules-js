@@ -1,14 +1,13 @@
 import {PostMessageAPI} from './message-api';
 import { of, empty, Observable } from 'rxjs';
-import {Doc} from './interface/Document.i';
-import {Iframe} from './interface/Iframe.i';
-import {User} from './interface/User.i';
 import { switchMap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 interface Doctype {
-    iframe:Iframe;
-    user:User;
-    document:Doc;
+    iFrameId:string;
+    token:string;
+    docID:string;
+    docMode:string;
 }
 
 /**
@@ -80,36 +79,44 @@ export class Document {
     constructor(private doc:Doctype){
         const event = PostMessageSendEventType.userSetToken;
         const message =  {
-            token:this.doc.user.token
+            token:this.doc.token
         };
-        this.postMessage.sendToWindow(event,message,this.doc.iframe.parent)
+        this.postMessage.sendToWindow(event,message,this.doc.iFrameId)
     }
     /**
-     * subscribe
+     * subscribe to this function will give the result the base on event that user requested
      */
-    public subscribe( event:string ) : Observable<unknown>{
-        // const event = PostMessageSendEventType.documentDataSubscribe;
-        const message =  {};
-        this.postMessage.sendToWindow(event,message,this.doc.iframe.parent);
-        return this.postMessage.recv().pipe(
-            switchMap( msg => this.handleIncomingMessages(msg))
-           );
+    public subscribe( event:PostMessageSendEventType ) : Observable<unknown>{
+        if (Object.values(PostMessageSendEventType).includes(event)) {
+            const message =  {};
+            this.postMessage.sendToWindow(event,message,this.doc.iFrameId);
+            return this.postMessage.recv().pipe(
+                switchMap( msg => this.handleIncomingMessages(msg))
+               );
+            }
+            return throwError('Event is not valid');
         }
 
     /**
-     * modify
+     * this function will able to modify the document user have to send the changeable properties to function
+     *     document.name = 'AAA';
+     * document.shapes.aaaaaaa.x = 100;
      */
     public modify( document:object ) {
         const event = PostMessageSendEventType.documentModify;
         const message =  {
-            modifier: { $set: {document} }
+            modifier: { $set: document }
         };
-        this.postMessage.sendToWindow(event,message,this.doc.iframe.parent);
+        this.postMessage.sendToWindow(event,message,this.doc.iFrameId);
        return this.postMessage.recv().pipe(
          switchMap( msg => this.handleIncomingMessages(msg))
         );
     }
 
+ /**
+  * this function will filter out the incoming postMessage base on the event.
+  * @param msg
+  */
     public handleIncomingMessages( msg: any ) {
         if ( !msg || typeof msg !== 'object' ) {
             return of();
