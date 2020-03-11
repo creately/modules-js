@@ -1,5 +1,5 @@
 import {PostMessageAPI} from './message-api';
-import { of, empty, Observable } from 'rxjs';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
@@ -30,6 +30,13 @@ export enum PostMessageRecvEventType {
      * Fired when the document is loaded
      */
     documentLoad = 'document:load',
+
+
+
+    /**
+     * Fired when the document is loaded
+     */
+    documentReady = 'document:ready',
 
     /**
      * Fired when diagram data changes
@@ -76,20 +83,33 @@ export enum PostMessageSendEventType{
 
 export class Document {
     private postMessage:PostMessageAPI =  new PostMessageAPI();
+    private documentReady = new BehaviorSubject(false);
+    private documentLoad = new BehaviorSubject(false);
+
     constructor(private doc:Doctype){
         const event = PostMessageSendEventType.userSetToken;
         const message =  {
             token:this.doc.token
         };
-        this.postMessage.sendToWindow(event,message,this.doc.iFrameId)
+        this.documentLoad.pipe(
+        ).subscribe( value => {
+            if( value === true ) {
+                console.log('documentLoad', value);
+                this.postMessage.sendToWindow(event,message,this.doc.iFrameId);
+            }
+        });
     }
     /**
      * subscribe to this function will give the result the base on event that user requested
      */
-    public subscribe( event:PostMessageSendEventType ) : Observable<unknown>{
+    public on( event:PostMessageSendEventType ) : Observable<unknown>{
         if (Object.values(PostMessageSendEventType).includes(event)) {
             const message =  {};
-            this.postMessage.sendToWindow(event,message,this.doc.iFrameId);
+            this.documentReady.subscribe( value => {
+                if( value === true ){
+                console.log('documentReady', value);
+                this.postMessage.sendToWindow(event,message,this.doc.iFrameId);}
+            });
             return this.postMessage.recv().pipe(
                 switchMap( msg => this.handleIncomingMessages(msg))
                );
@@ -131,6 +151,14 @@ export class Document {
         if ( event === PostMessageRecvEventType.documentModify ) {
             return of(data);
         }
-        return empty();
+        if ( event === PostMessageRecvEventType.documentReady ) {
+            this.documentReady.next(true);
+            return of();
+        }
+        if ( event === PostMessageRecvEventType.documentLoad ) {
+            this.documentLoad.next(true);
+            return of();
+        }
+        return of();
     }
 }
