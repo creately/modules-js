@@ -15,7 +15,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -r dist && tsc",
     "prepare": "npm run build"
   },
   "keywords": [],

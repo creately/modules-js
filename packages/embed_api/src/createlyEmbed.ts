@@ -81,7 +81,7 @@ export enum PostMessageSendEventType{
 
 }
 
-export class Document {
+export class CreatelyEmbed {
     private postMessage:PostMessageAPI =  new PostMessageAPI();
     private documentReady = new BehaviorSubject(false);
     private documentLoad = new BehaviorSubject(false);
@@ -91,6 +91,13 @@ export class Document {
         const message =  {
             token:this.doc.token
         };
+        const iframe = document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.position = "absolute";
+        iframe.src = `https://app.creately.com/diagram/${this.doc.docID}/${this.doc.docMode}/`;
+        iframe.id = this.doc.iFrameId;
+        document.body.appendChild(iframe);
         this.documentLoad.pipe(
         ).subscribe( value => {
             if( value === true ) {
@@ -132,7 +139,23 @@ export class Document {
          switchMap( msg => this.handleIncomingMessages(msg))
         );
     }
-
+    /**
+     * this can overwrite the exiting iframe src url
+     * @param baseUrl base url ex app.creatly.com
+     */
+    public setAppBaseUrl (baseUrl:string) {
+        let frame = document.getElementById(this.doc.iFrameId);
+        if (this.isIFrame(frame) && frame.contentWindow) {
+            frame.src = `https://${baseUrl}/diagram/${this.doc.docID}/${this.doc.docMode}/`;
+        }
+    }
+    /**
+     * this will check if given object is a iframe or not.base on that this will return a boolean.
+     * @param input Html Object
+     */
+    private isIFrame (input: HTMLElement | null):input is HTMLIFrameElement {
+        return input !== null && input.tagName === 'IFRAME';
+    }
  /**
   * this function will filter out the incoming postMessage base on the event.
   * @param msg
