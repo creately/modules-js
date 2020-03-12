@@ -2,14 +2,15 @@ import {PostMessageAPI} from './message-api';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { modify } from '@creately/mungo';
 
 interface Doctype {
-    iFrameId:string;
+    iframeParentId:string;
     token:string;
     docID:string;
     docMode:string;
 }
-
+const IFRAME_ID = 'createlyEditor';
 /**
  * Defines the types of postmesssage send events
  */
@@ -85,27 +86,23 @@ export class CreatelyEmbed {
     private postMessage:PostMessageAPI =  new PostMessageAPI();
     private documentReady = new BehaviorSubject(false);
     private documentLoad = new BehaviorSubject(false);
+    private docData:any = {};
 
     constructor(private doc:Doctype){
         const event = PostMessageSendEventType.userSetToken;
         const message =  {
             token:this.doc.token
         };
-        const iframe = document.createElement('iframe');
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.position = "absolute";
-        iframe.src = `https://app.creately.com/diagram/${this.doc.docID}/${this.doc.docMode}/`;
-        iframe.id = this.doc.iFrameId;
-        document.body.appendChild(iframe);
+        this.createIframe();
         this.documentLoad.pipe(
         ).subscribe( value => {
             if( value === true ) {
                 console.log('documentLoad', value);
-                this.postMessage.sendToWindow(event,message,this.doc.iFrameId);
+                this.postMessage.sendToWindow(event,message,IFRAME_ID);
             }
         });
     }
+
     /**
      * subscribe to this function will give the result the base on event that user requested
      */
@@ -115,7 +112,7 @@ export class CreatelyEmbed {
             this.documentReady.subscribe( value => {
                 if( value === true ){
                 console.log('documentReady', value);
-                this.postMessage.sendToWindow(event,message,this.doc.iFrameId);}
+                this.postMessage.sendToWindow(event,message,IFRAME_ID);}
             });
             return this.postMessage.recv().pipe(
                 switchMap( msg => this.handleIncomingMessages(msg))
@@ -134,7 +131,7 @@ export class CreatelyEmbed {
         const message =  {
             modifier: { $set: document }
         };
-        this.postMessage.sendToWindow(event,message,this.doc.iFrameId);
+        this.postMessage.sendToWindow(event,message,IFRAME_ID);
        return this.postMessage.recv().pipe(
          switchMap( msg => this.handleIncomingMessages(msg))
         );
@@ -144,7 +141,7 @@ export class CreatelyEmbed {
      * @param baseUrl base url ex app.creatly.com
      */
     public setAppBaseUrl (baseUrl:string) {
-        let frame = document.getElementById(this.doc.iFrameId);
+        let frame = document.getElementById(IFRAME_ID);
         if (this.isIFrame(frame) && frame.contentWindow) {
             frame.src = `https://${baseUrl}/diagram/${this.doc.docID}/${this.doc.docMode}/`;
         }
@@ -166,7 +163,13 @@ export class CreatelyEmbed {
         }
         const { event, data } = msg as any;
         if ( event === PostMessageRecvEventType.documentData) {
-            return of(data);
+            if(!!data.data){
+                 this.docData = data.data
+            }
+            const a = data?.modifier;
+            modify(this.docData, a);
+
+            return of(this.docData);
         }
         if ( event === PostMessageRecvEventType.shapeSelect ) {
             return of(data);
@@ -183,5 +186,20 @@ export class CreatelyEmbed {
             return of();
         }
         return of();
+    }
+
+    private createIframe(){
+        const iframe = document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.position = "absolute";
+        iframe.src = `http://localhost:4200/diagram/${this.doc.docID}/${this.doc.docMode}/`;
+        iframe.id = 'createlyEditor';
+        const iframeDiv = document.getElementById(this.doc.iframeParentId);
+        if(!!iframeDiv){
+            iframeDiv.appendChild(iframe);
+        } else {
+            throw "Specified document element not found";
+        }
     }
 }
