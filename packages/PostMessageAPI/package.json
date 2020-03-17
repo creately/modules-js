@@ -1,0 +1,24 @@
+{
+  "name": "@creately/postMessageAPI",
+  "version": "1.0.0",
+  "description": "Api for diagram editor",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@creately/mungo": "^1.3.0",
+    "rxjs": "^6.5.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.149",
+    "lodash": "^4.17.15"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -r dist && tsc",
+    "prepare": "npm run build"
+  },
+  "keywords": [],
+  "author": "creately"
+}
