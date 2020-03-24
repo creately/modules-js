@@ -7,7 +7,7 @@ import { modify } from '@creately/mungo';
 interface Doctype {
     iframeParentId:string;
     token:string;
-    docID:string;
+    docId:string;
     docMode:string;
 }
 const IFRAME_ID = 'createlyEditor';
@@ -143,7 +143,7 @@ export class CreatelyEmbed {
     public setAppBaseUrl (baseUrl:string) {
         let frame = document.getElementById(IFRAME_ID);
         if (this.isIFrame(frame) && frame.contentWindow) {
-            frame.src = `https://${baseUrl}/diagram/${this.doc.docID}/${this.doc.docMode}/`;
+            frame.src = `https://${baseUrl}/diagram/${this.doc.docId}/${this.doc.docMode}/`;
         }
     }
     /**
@@ -193,7 +193,7 @@ export class CreatelyEmbed {
         iframe.style.width = "100%";
         iframe.style.height = "100%";
         iframe.style.position = "absolute";
-        iframe.src = `http://localhost:4200/diagram/${this.doc.docID}/${this.doc.docMode}/`;
+        iframe.src = `http://localhost:4200/diagram/${this.doc.docId}/${this.doc.docMode}/`;
         iframe.id = 'createlyEditor';
         const iframeDiv = document.getElementById(this.doc.iframeParentId);
         if(!!iframeDiv){
