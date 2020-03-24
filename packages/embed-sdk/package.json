@@ -1,6 +1,6 @@
 {
-  "name": "@creately/postMessageAPI",
-  "version": "1.0.0",
+  "name": "@creately/embed-sdk",
+  "version": "1.0.1",
   "description": "Api for diagram editor",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
