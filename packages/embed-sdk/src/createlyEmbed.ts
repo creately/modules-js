@@ -193,7 +193,7 @@ export class CreatelyEmbed {
         iframe.style.width = "100%";
         iframe.style.height = "100%";
         iframe.style.position = "absolute";
-        iframe.src = `http://localhost:4200/diagram/${this.doc.docId}/${this.doc.docMode}/`;
+        iframe.src = `https://creately.com/diagram/${this.doc.docId}/${this.doc.docMode}/`;
         iframe.id = 'createlyEditor';
         const iframeDiv = document.getElementById(this.doc.iframeParentId);
         if(!!iframeDiv){
