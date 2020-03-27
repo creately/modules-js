@@ -26,7 +26,7 @@ document.body.appendChild(iframe);
 
 ### Authentication
 
-The document owner can authorize websites to interact with the document. When authorized, the embed API enables a number of additional features.
+The document owner can authorize websites to interact with the document. When authorized, the embed API enables a number of additional features. The document owner can also define whether a website has read-only access or write access.
 
 **2) Get document data as SVG**
 
@@ -96,7 +96,7 @@ embed.addListener('document:touch', data => {
 
 ### Modify the Document
 
-It is also possible to make changes to the document.
+It is also possible to make changes to the document. For this, the document owner must specify that the parent origin has write access to the document.
 
 **8) Using the applyChange method**
 
