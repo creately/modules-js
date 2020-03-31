@@ -156,8 +156,8 @@ export async function runSpecs(specs: spec[]) {
         let results = await action.execute(args, context);
         if (outs && results) {
           storeVariables(outs, results);
-          console.log(`✓ PASSED: ${spec.title}`.green);
         }
+        console.log(`✓ PASSED: ${spec.title}`.green);
       } catch (error) {
         console.error(`Error in ${spec.title}:`.red, error.red);
       }
