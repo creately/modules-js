@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/creately/modules-js/issues"
   },
-  "homepage": "https://github.com/creately/modules-js#readme"
+  "homepage": "https://github.com/creately/modules-js#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "sleep": "^6.1.0",
+    "url-parse": "^1.4.7"
+  }
 }
