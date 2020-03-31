@@ -1,21 +1,29 @@
 const fetch = require("node-fetch");
-const url1 = "https://registry.npmjs.org/-/v1/search?text=@creately&from=0";
-const url2 = "https://registry.npmjs.org/-/v1/search?text=@creately&from=20";
+arr = [];
+arr_package_names = [];
+
+function getUrl( from ) {
+    return `https://registry.npmjs.org/-/v1/search?text=@creately&from=${ from }`;
+  }
 
 const getData = async url => {
   try {
     const response = await fetch(url);
     const json = await response.json();
     //console.log(json.objects.package);
-    arr = [];
+
     arr = json.objects;
     for (var i = 0; i < arr.length; i++) {
-        console.log(arr[i].package.name)
+        arr_package_names.push((arr[i].package.name))
     }
+    // for (var i = 0; i < arr_package_names.length; i++) {
+    //     console.log(arr_package_names[i])
+    // }
   } catch (error) {
     console.log(error);
   }
 };
 
-getData(url1);
-getData(url2);
+getData(getUrl(0));
+getData(getUrl(20));
+// console.log(arr_package_names[2]);
