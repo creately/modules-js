@@ -1,6 +1,6 @@
 {
   "name": "@creately/pluto",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An end-to-end testing framework.",
   "main": "dist/main.js",
   "typings": "dist/main.d.ts",
