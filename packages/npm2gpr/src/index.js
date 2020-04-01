@@ -1,9 +1,17 @@
 const fetch = require("node-fetch");
 
+/**
+ * Get the correct url format 
+ */
 function getSearchUrl(org, from = 0) {
   return `https://registry.npmjs.org/-/v1/search?text=@${org}&from=${from}`;
 }
 
+/**
+ * getting the response and convert into json format and return results
+ * @param {string} org npm organization name 
+ * @param {int} from npm page count
+ */
 async function getSearchPage(org, from = 0) {
   const response = await fetch(getSearchUrl(org, from));
   const json = await response.json();
@@ -20,6 +28,10 @@ async function getSearchPage(org, from = 0) {
   };
 }
 
+/**
+ * github package utilization for page by page processed results 
+ * @param {String} org npm organization name
+ */ 
 async function getModuleNames(org) {
   const results = [];
   let from = 0;
