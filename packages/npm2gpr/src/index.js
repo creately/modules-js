@@ -14,19 +14,22 @@ async function getSearchPage( org, from=0 ) {
         results.push(name)
       }
     }
-    return results;
+    return {
+      results,
+      processed: json.objects.length
+    };
 }
 
 async function getModuleNames(org){
     const results = [];
-    let page = 0;
+    let from = 0;
     while (true){
-      const pageResutls = await getSearchPage(org, page*20);
-      if(pageResutls.length === 0){
+      const pageResults = await getSearchPage(org, from);
+      if(pageResults.results.length === 0){
         break;
       }
-      results.push(...pageResutls);
-      page++;
+      results.push(...pageResults.results);
+      from = from + pageResults.processed;
     }
     return results;
 }
