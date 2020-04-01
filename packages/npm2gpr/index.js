@@ -1,29 +1,36 @@
 const fetch = require("node-fetch");
-arr = [];
-arr_package_names = [];
 
-function getUrl( from ) {
-    return `https://registry.npmjs.org/-/v1/search?text=@creately&from=${ from }`;
-  }
+function getSearchUrl( org, from=0 ) {
+    return `https://registry.npmjs.org/-/v1/search?text=@${ org }&from=${ from }`;
+}
 
-const getData = async url => {
-  try {
-    const response = await fetch(url);
+async function getSearchPage( org, from=0 ) {
+    const response = await fetch(getSearchUrl(org,from));
     const json = await response.json();
-    //console.log(json.objects.package);
-
-    arr = json.objects;
-    for (var i = 0; i < arr.length; i++) {
-        arr_package_names.push((arr[i].package.name))
+    const results = [];
+    for (var i = 0; i < json.objects.length; i++) {
+      const name = json.objects[i].package.name;
+      if(name.startsWith( `@${ org }/` ) ){
+        results.push(name)
+      }
     }
-    // for (var i = 0; i < arr_package_names.length; i++) {
-    //     console.log(arr_package_names[i])
-    // }
-  } catch (error) {
-    console.log(error);
-  }
-};
+    return results;
+}
 
-getData(getUrl(0));
-getData(getUrl(20));
-// console.log(arr_package_names[2]);
+async function getModuleNames(org){
+    const results = [];
+    let page = 0;
+    while (true){
+      const pageResutls = await getSearchPage(org, page*20);
+      if(pageResutls.length === 0){
+        break;
+      }
+      results.push(...pageResutls);
+      page++;
+    }
+    return results;
+}
+
+module.exports = { 
+  getModuleNames 
+}

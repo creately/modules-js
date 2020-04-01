@@ -17,8 +17,6 @@
   },
   "homepage": "https://github.com/creately/modules-js#readme",
   "dependencies": {
-    "node-fetch": "^2.6.0",
-    "sleep": "^6.1.0",
-    "url-parse": "^1.4.7"
+    "node-fetch": "^2.6.0"
   }
 }
