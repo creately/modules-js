@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface ButtonProps {
-  label?: string;
+  // label?: string;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
