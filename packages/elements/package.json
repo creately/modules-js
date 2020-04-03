@@ -1,0 +1,33 @@
+{
+  "name": "@creately/elements",
+  "version": "1.0.0",
+  "description": "A module with reusable React components which follows the Creately UI style guide.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "lint": "prettier --write 'src/**/*.tsx'",
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "Thanish Nizam <mnmtanish@gmail.com> (https://thanish.me/)",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.5",
+    "@types/react": "^16.9.32",
+    "@types/react-test-renderer": "^16.9.2",
+    "jest": "^25.2.6",
+    "prettier": "^2.0.2",
+    "react-test-renderer": "^16.13.1",
+    "ts-jest": "^25.3.0",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "rootDir": "src"
+  }
+}
