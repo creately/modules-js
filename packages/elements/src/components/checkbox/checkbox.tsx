@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components"
+import tick from './tick.svg';
 
 export interface CheckboxProps {
   value: any;
@@ -39,7 +40,7 @@ const CheckboxContainer = styled.div`
     width:      0;
 
     &:checked ~ .checkbox-check-mark {
-      background:       url("./tick.svg") no-repeat;
+      background:       url(${tick}) no-repeat;
       background-size:  contain;
     }
 
