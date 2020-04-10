@@ -1,0 +1,10 @@
+.button {
+  padding: 8px 16px;
+  border: none;
+  color: #fff;
+  background: #616161;
+
+  &.primary {
+    background: #303f9f;
+  }
+}
