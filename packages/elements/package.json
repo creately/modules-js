@@ -29,6 +29,7 @@
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "5.0.1",
     "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "9.1.2",
     "jest": "^25.2.6",
     "prettier": "^2.0.2",
     "react-test-renderer": "^16.13.1",
