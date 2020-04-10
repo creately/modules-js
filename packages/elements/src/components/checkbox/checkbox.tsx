@@ -12,7 +12,14 @@ export interface CheckboxState {
   checked: boolean;
 }
 
+export const defaultTheme = {
+  primaryColor: '#5b5b5b',
+  primaryFontFamily: 'Arial, Helvetica, sans-serif',
+}
+
 const CheckboxContainer = styled.div`
+  font-family: ${props => props.theme.primaryFontFamily};
+
   .checkbox-label {
     display:        block;
     position:       relative;
@@ -55,9 +62,7 @@ const CheckboxContainer = styled.div`
 `;
 
 CheckboxContainer.defaultProps = {
-  theme: {
-    primaryColor: '#5b5b5b',
-  }
+  theme: defaultTheme
 }
 
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
