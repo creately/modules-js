@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "A module with reusable React components which follows the Creately UI style guide.",
   "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && rollup -c",
     "lint": "prettier --write 'src/**/*.tsx'",
     "test": "jest --coverage",
     "storybook": "start-storybook -p 6006"
@@ -12,10 +13,9 @@
   "keywords": [],
   "author": "Thanish Nizam <mnmtanish@gmail.com> (https://thanish.me/)",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "5.1.0"
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -33,6 +33,13 @@
     "jest": "^25.2.6",
     "prettier": "^2.0.2",
     "react-test-renderer": "^16.13.1",
+    "rollup": "2.4.0",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-image-files": "1.4.2",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-peer-deps-external": "2.2.2",
+    "rollup-plugin-typescript2": "0.27.0",
+    "styled-components": "5.1.0",
     "ts-jest": "^25.3.0",
     "typescript": "^3.8.3"
   },
