@@ -1,9 +1,8 @@
 import React from 'react';
 import { Checkbox } from './checkbox';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-
-import LatoWoff from './lt-regular-webfont.woff';
-import LatoWoff2 from './lt-regular-webfont.woff2';
+import { ThemeProvider } from 'styled-components';
+import SampleTheme from '../../shared/sample-theme';
+import GlobalFontStyle from '../../shared/global-font-style';
 
 export default {
   title: 'Checkbox',
@@ -12,30 +11,18 @@ export default {
 
 export const Default = () => <Checkbox value="" checked={ false } />;
 
-export const Checked = () => <Checkbox value="agree" checked={ true }>Agree</Checkbox>;
+export const WithText = () => <Checkbox value="agree" checked={ true }>I Agree</Checkbox>;
 
-const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Lato';
-    src: url("${LatoWoff2}") format('woff2'),
-         url("${LatoWoff}") format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: auto;
-  }
-`;
-
-const theme = {
-  primaryColor: 'green',
-  primaryFontFamily: 'Lato'
-};
-
-
+/**
+ * A theme can be passed to a ThemeProvider wrapping any components that need to be themed.
+ * If custom fonts are used, they will need to be defined in a Global Style Component.
+ * See {@link SampleTheme} and See {@link GlobalFontStyle} for more details.
+ */
 export const Themed = () => (
   <React.Fragment>
-    <ThemeProvider theme={theme}>
-      <Checkbox value="agree" checked={ true }>Am themed</Checkbox>
+    <ThemeProvider theme={SampleTheme}>
+      <Checkbox value="agree" checked={ true }>I am themed</Checkbox>
     </ThemeProvider>
-    <GlobalStyle />
+    <GlobalFontStyle />
   </React.Fragment>
 );

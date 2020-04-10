@@ -47,7 +47,7 @@ const CheckboxContainer = styled.div`
     width:      0;
 
     &:checked ~ .checkbox-check-mark {
-      background:       url(${tick}) no-repeat;
+      background:       url("${tick}") no-repeat;
       background-size:  contain;
     }
 
@@ -73,7 +73,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     };
   }
 
-  checkboxToggle = ( e: React.ChangeEvent ) => {
+  checkboxToggle = () => {
     this.setState( state => ({ checked: !state.checked }));
     this.props.onChange?.call( this.state.checked );
   }
