@@ -15,10 +15,12 @@ export interface CheckboxState {
 export const defaultTheme = {
   primaryColor: "#5b5b5b",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
+  fontSize: '15px',
 };
 
 const CheckboxContainer = styled.div`
   font-family: ${(props) => props.theme.primaryFontFamily};
+  font-size: ${(props) => props.theme.fontSize};
 
   .checkbox-label {
     display:        block;
@@ -33,8 +35,8 @@ const CheckboxContainer = styled.div`
     position:       absolute;
     top:            0;
     left:           0;
-    height:         20px;
-    width:          20px;
+    height:         18px;
+    width:          18px;
     border:         1px ${(props) => props.theme.primaryColor} solid;
     border-radius:  100%;
   }

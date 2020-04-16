@@ -3,7 +3,8 @@
  */
 const SampleTheme = {
   primaryColor: 'green',
-  primaryFontFamily: 'Lato'
+  primaryFontFamily: 'Lato',
+  fontSize: '13px',
 };
 
 export default SampleTheme;
