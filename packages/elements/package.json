@@ -54,7 +54,8 @@
   "jest": {
     "preset": "ts-jest",
     "setupFilesAfterEnv": [
-      "jest-enzyme"
+      "jest-enzyme",
+      "jest.setup.ts"
     ],
     "testEnvironment": "enzyme",
     "rootDir": "src"

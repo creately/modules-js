@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components"
-import tick from './tick.svg';
+import styled from "styled-components";
+import tick from "./tick.svg";
 
 export interface CheckboxProps {
   value: any;
@@ -13,12 +13,12 @@ export interface CheckboxState {
 }
 
 export const defaultTheme = {
-  primaryColor: '#5b5b5b',
-  primaryFontFamily: 'Arial, Helvetica, sans-serif',
-}
+  primaryColor: "#5b5b5b",
+  primaryFontFamily: "Arial, Helvetica, sans-serif",
+};
 
 const CheckboxContainer = styled.div`
-  font-family: ${props => props.theme.primaryFontFamily};
+  font-family: ${(props) => props.theme.primaryFontFamily};
 
   .checkbox-label {
     display:        block;
@@ -35,7 +35,7 @@ const CheckboxContainer = styled.div`
     left:           0;
     height:         20px;
     width:          20px;
-    border:         1px ${props => props.theme.primaryColor} solid;
+    border:         1px ${(props) => props.theme.primaryColor} solid;
     border-radius:  100%;
   }
 
@@ -62,8 +62,8 @@ const CheckboxContainer = styled.div`
 `;
 
 CheckboxContainer.defaultProps = {
-  theme: defaultTheme
-}
+  theme: defaultTheme,
+};
 
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   constructor(props: CheckboxProps) {
@@ -74,20 +74,24 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   checkboxToggle = () => {
-    this.setState( state => ({ checked: !state.checked }));
-    this.props.onChange?.call( this.state.checked );
-  }
+    this.setState((state) => ({ checked: !state.checked }));
+    this.props.onChange?.call(this.state.checked);
+  };
 
   render() {
-    return(
-        <CheckboxContainer>
-          <label className="checkbox-label">
-            <input type="checkbox" value={ this.props.value } checked={ this.state.checked } onChange={ this.checkboxToggle }></input>
-            <span className="checkbox-check-mark"></span>
-            { this.props.children }
-          </label>
-        </CheckboxContainer>
+    return (
+      <CheckboxContainer>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            value={this.props.value}
+            checked={this.state.checked}
+            onChange={this.checkboxToggle}
+          ></input>
+          <span className="checkbox-check-mark"></span>
+          {this.props.children}
+        </label>
+      </CheckboxContainer>
     );
   }
 }
-

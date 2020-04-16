@@ -1,17 +1,21 @@
-import React from 'react';
-import { Checkbox } from './checkbox';
-import { ThemeProvider } from 'styled-components';
-import SampleTheme from '../../shared/sample-theme';
-import GlobalFontStyle from '../../shared/global-font-style';
+import React from "react";
+import { Checkbox } from "./checkbox";
+import { ThemeProvider } from "styled-components";
+import SampleTheme from "../../shared/sample-theme";
+import GlobalFontStyle from "../../shared/global-font-style";
 
 export default {
-  title: 'Checkbox',
+  title: "Checkbox",
   component: Checkbox,
 };
 
-export const Default = () => <Checkbox value="" checked={ false } />;
+export const Default = () => <Checkbox value="" checked={false} />;
 
-export const WithText = () => <Checkbox value="agree" checked={ true }>I Agree</Checkbox>;
+export const WithText = () => (
+  <Checkbox value="agree" checked={true}>
+    I Agree
+  </Checkbox>
+);
 
 /**
  * A theme can be passed to a ThemeProvider wrapping any components that need to be themed.
@@ -21,7 +25,9 @@ export const WithText = () => <Checkbox value="agree" checked={ true }>I Agree</
 export const Themed = () => (
   <React.Fragment>
     <ThemeProvider theme={SampleTheme}>
-      <Checkbox value="agree" checked={ true }>I am themed</Checkbox>
+      <Checkbox value="agree" checked={true}>
+        I am themed
+      </Checkbox>
     </ThemeProvider>
     <GlobalFontStyle />
   </React.Fragment>
