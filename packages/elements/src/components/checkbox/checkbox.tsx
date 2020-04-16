@@ -4,7 +4,7 @@ import tick from './tick.svg';
 
 export interface CheckboxProps {
   value: any;
-  checked: boolean;
+  checked?: boolean;
   onChange?: Function;
 }
 
@@ -69,7 +69,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   constructor(props: CheckboxProps) {
     super(props);
     this.state = {
-      checked: props.checked,
+      checked: !!props.checked,
     };
   }
 

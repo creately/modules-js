@@ -31,6 +31,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "9.1.2",
     "jest": "^25.2.6",
+    "jest-transform-stub": "2.0.0",
     "prettier": "^2.0.2",
     "react-test-renderer": "^16.13.1",
     "rollup": "2.4.0",
