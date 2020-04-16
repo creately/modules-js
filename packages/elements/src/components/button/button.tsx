@@ -1,9 +1,10 @@
 import React from "react";
 
 export interface ButtonProps {
-  // label?: string;
+  primary?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
-  return <button>{props.children}</button>;
+  const className = props?.primary ? "button primary" : "button";
+  return <button className={className}>{props.children}</button>;
 };

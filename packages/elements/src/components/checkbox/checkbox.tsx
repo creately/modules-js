@@ -15,7 +15,7 @@ export interface CheckboxState {
 export const defaultTheme = {
   primaryColor: "#5b5b5b",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: '15px',
+  fontSize: "15px",
 };
 
 const CheckboxContainer = styled.div`
