@@ -8,5 +8,5 @@ module.exports = {
     },
     testMatch: ["**/*.spec.(ts|tsx)"],
     testEnvironment: "enzyme",
-    setupFilesAfterEnv: [ "<rootDir>/src/jest.setup.ts"],
+    setupFilesAfterEnv: ["jest-enzyme", "<rootDir>/src/jest.setup.ts"],
 };
