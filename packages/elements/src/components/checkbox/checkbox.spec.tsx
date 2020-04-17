@@ -32,4 +32,40 @@ describe("Checkbox", () => {
       expect(spy).toHaveBeenCalled();
     });
   });
+
+  describe("checkboxToggle", () => {
+    let checkbox: ShallowWrapper;
+    let onChangeCallback: any;
+    let instance: Checkbox;
+
+    beforeEach(() => {
+      onChangeCallback = jest.fn();
+  
+      act(() => {
+        checkbox = shallow(<Checkbox value="" checked={ true } onChange={ onChangeCallback } />);
+      });
+
+      instance = checkbox.instance() as Checkbox;
+    });
+
+    it("should invert the state of checked", done => {
+      const spy = spyOn( instance, 'setState' );
+      instance.forceUpdate();
+      instance.checkboxToggle();
+      expect(spy).toHaveBeenCalled();
+      setTimeout(() => {
+        try {
+          expect(instance.state.checked).toEqual( true );
+          done();
+        } catch (error) {
+          done(error);
+        }
+      }, 0);
+    });
+
+    it("should call the given onChange function", () => {
+      instance.checkboxToggle();
+      expect(onChangeCallback).toHaveBeenCalled();
+    });
+  });
 });
