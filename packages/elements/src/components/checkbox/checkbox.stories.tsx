@@ -2,7 +2,7 @@ import React from "react";
 import { Checkbox } from "./checkbox";
 import { ThemeProvider } from "styled-components";
 import SampleTheme from "../../shared/sample-theme";
-import GlobalFontStyle from "../../shared/global-font-style";
+import { GlobalFontStyle } from "../../shared/global-font-style";
 
 export default {
   title: "Checkbox",

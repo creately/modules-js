@@ -7,7 +7,7 @@ import LatoWoff2 from './lt-regular-webfont.woff2';
  * This is useful when for example, fonts, images or any other assets are referenced
  * by a custom theme. It can also be used to set other global styles.
  */
-const GlobalFontStyle = createGlobalStyle`
+export const GlobalFontStyle = createGlobalStyle`
   @font-face {
     font-family: 'Lato';
     src: url("${LatoWoff2}") format('woff2'),
@@ -17,5 +17,3 @@ const GlobalFontStyle = createGlobalStyle`
     font-display: auto;
   }
 `;
-
-export default GlobalFontStyle;
