@@ -54,13 +54,5 @@
     "styled-components": "5.1.0",
     "ts-jest": "^25.3.0",
     "typescript": "^3.8.3"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "setupFilesAfterEnv": [
-      "jest-enzyme"
-    ],
-    "testEnvironment": "enzyme",
-    "rootDir": "src"
   }
 }

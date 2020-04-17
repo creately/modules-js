@@ -7,4 +7,6 @@ module.exports = {
         ".+\\.(svg|ttf|woff|woff2)$": "jest-transform-stub"
     },
     testMatch: ["**/*.spec.(ts|tsx)"],
+    testEnvironment: "enzyme",
+    setupFilesAfterEnv: [ "<rootDir>/src/jest.setup.ts"],
 };

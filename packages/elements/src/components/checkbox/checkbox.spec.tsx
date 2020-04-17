@@ -1,10 +1,7 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 import { Checkbox } from "./checkbox";
-import Adapter from "enzyme-adapter-react-16";
-
-configure({ adapter: new Adapter() });
 
 describe("Checkbox", () => {
   let checkbox: ShallowWrapper;
