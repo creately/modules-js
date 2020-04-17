@@ -12,12 +12,6 @@ export interface CheckboxState {
   checked: boolean;
 }
 
-export const defaultTheme = {
-  primaryColor: "#5b5b5b",
-  primaryFontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "15px",
-};
-
 const CheckboxContainer = styled.div`
   font-family: ${(props) => props.theme.primaryFontFamily};
   font-size: ${(props) => props.theme.fontSize};
@@ -62,6 +56,12 @@ const CheckboxContainer = styled.div`
       border: 1px grey solid;
   }
 `;
+
+const defaultTheme = {
+  primaryColor: "#5b5b5b",
+  primaryFontFamily: "Arial, Helvetica, sans-serif",
+  fontSize: "15px",
+};
 
 CheckboxContainer.defaultProps = {
   theme: defaultTheme,
