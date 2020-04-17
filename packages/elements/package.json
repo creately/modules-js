@@ -13,6 +13,11 @@
   "keywords": [],
   "author": "Thanish Nizam <mnmtanish@gmail.com> (https://thanish.me/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/creately/modules-js.git",
+    "directory": "packages/elements"
+  },
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -40,7 +45,6 @@
     "jest-enzyme": "7.1.2",
     "jest-transform-stub": "2.0.0",
     "prettier": "^2.0.2",
-    "react-test-renderer": "^16.13.1",
     "rollup": "2.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-image-files": "1.4.2",
