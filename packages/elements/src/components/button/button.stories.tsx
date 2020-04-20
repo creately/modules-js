@@ -11,19 +11,27 @@ export default {
 
 export const Default = () => <Button>Default</Button>;
 
-export const Types = () => 
+export const Types = () => (
   <div>
     <Button type="primary">Primary</Button>&nbsp;
     <Button type="secondary">Secondary</Button>&nbsp;
     <Button type="danger">Danger</Button>&nbsp;
-  </div>;
+  </div>
+);
 
-export const Sizes = () => 
+export const Sizes = () => (
   <div>
     <Button size="small">Small</Button>&nbsp;
     <Button size="medium">Medium</Button>&nbsp;
     <Button size="large">Large</Button>&nbsp;
-  </div>;
+  </div>
+);
+
+export const Icons = () => (
+  <div>
+    <Button size="small" type="primary" icon="tick">Small Primary with Icon</Button>&nbsp;
+  </div>
+);
 
 export const Combinations = () => (
   <div>

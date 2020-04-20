@@ -1,10 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import symbols from "../../shared/symbol-defs.svg";
 
 export interface ButtonProps {
   primary?: boolean;
   type?: string;
   size?: string;
+  icon?: string;
 }
 
 function createSizeStyles() {
@@ -72,6 +74,9 @@ const ButtonContainer = styled.button`
     padding-left: 5px;
 
     .icon {
+      stroke-width: 0;
+      stroke: currentColor;
+      fill: currentColor;
       width: 25px;
       height: 25px;
       display: inline-block;
@@ -201,15 +206,27 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   getClasses(): string {
-    return [this.getTypeClass(), this.getSizeClass()].join(" ");
+    return [
+      this.getTypeClass(),
+      this.getSizeClass(),
+      !!this.props.icon ? 'button-icon-text' : '' 
+    ].join(" ");
   }
 
   render() {
     const classes = this.getClasses();
-
+    const url = (symbols as string) + "#nu-ic-share";
+    
     return (
       <ButtonContainer className={classes}>
-        {this.props.children}
+        {!!this.props.icon &&
+          <svg className="icon">
+            <use xlinkHref={url} />
+          </svg>
+        }
+        <span className="text">
+          {this.props.children}
+        </span>
       </ButtonContainer>
     );
   }
