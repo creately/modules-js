@@ -1,7 +1,9 @@
+import { shallow, ShallowWrapper } from "enzyme";
+import "jest-styled-components";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { shallow, ShallowWrapper } from "enzyme";
-import { Checkbox } from "./checkbox";
+import { shallowWithTheme } from "../../test-helpers";
+import { Checkbox, defaultTheme } from "./checkbox";
 
 describe("Checkbox", () => {
   let checkbox: ShallowWrapper;
@@ -40,22 +42,24 @@ describe("Checkbox", () => {
 
     beforeEach(() => {
       onChangeCallback = jest.fn();
-  
+
       act(() => {
-        checkbox = shallow(<Checkbox value="" checked={ true } onChange={ onChangeCallback } />);
+        checkbox = shallow(
+          <Checkbox value="" checked={true} onChange={onChangeCallback} />
+        );
       });
 
       instance = checkbox.instance() as Checkbox;
     });
 
-    it("should invert the state of checked", done => {
-      const spy = spyOn( instance, 'setState' );
+    it("should invert the state of checked", (done) => {
+      const spy = spyOn(instance, "setState");
       instance.forceUpdate();
       instance.checkboxToggle();
       expect(spy).toHaveBeenCalled();
       setTimeout(() => {
         try {
-          expect(instance.state.checked).toEqual( true );
+          expect(instance.state.checked).toEqual(true);
           done();
         } catch (error) {
           done(error);
@@ -66,6 +70,16 @@ describe("Checkbox", () => {
     it("should call the given onChange function", () => {
       instance.checkboxToggle();
       expect(onChangeCallback).toHaveBeenCalled();
+    });
+  });
+
+  describe("with theme", () => {
+    it("should have style rule for font size", () => {
+      checkbox = shallowWithTheme(
+        <Checkbox value="" checked={true} />,
+        defaultTheme
+      );
+      expect(checkbox).toHaveStyleRule("font-size", "15px");
     });
   });
 });
