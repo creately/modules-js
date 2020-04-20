@@ -14,7 +14,7 @@ export interface CheckboxState {
 
 const CheckboxContainer = styled.div`
   font-family: ${(props) => props.theme.primaryFontFamily};
-  font-size: ${(props) => props.theme.fontSize};
+  font-size: ${(props) => props.theme.baseFontSize};
 
   .checkbox-label {
     display:        block;
@@ -60,7 +60,7 @@ const CheckboxContainer = styled.div`
 const defaultTheme = {
   primaryColor: "#5b5b5b",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "15px",
+  baseFontSize: "15px",
 };
 
 CheckboxContainer.defaultProps = {
@@ -75,10 +75,10 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     };
   }
 
-  checkboxToggle = () => {
+  checkboxToggle(): void {
     this.setState((state) => ({ checked: !state.checked }));
     this.props.onChange?.call(this.state.checked);
-  };
+  }
 
   render() {
     return (

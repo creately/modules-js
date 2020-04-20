@@ -13,7 +13,7 @@ export const Default = () => <Checkbox value="" checked={false} />;
 
 export const WithText = () => (
   <Checkbox value="agree" checked={true}>
-    I Agree
+    Checkbox
   </Checkbox>
 );
 
@@ -26,7 +26,7 @@ export const Themed = () => (
   <React.Fragment>
     <ThemeProvider theme={SampleTheme}>
       <Checkbox value="agree" checked={true}>
-        I am themed
+        Themed Checkbox
       </Checkbox>
     </ThemeProvider>
     <GlobalFontStyle />
