@@ -1,10 +1,17 @@
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import Renderer from "react-test-renderer";
+import { act } from "react-dom/test-utils";
 import { Button } from "./button";
 
 describe("Button", () => {
-  it("should render a button element", () => {
-    const renderer = Renderer.create(<Button />);
-    expect(renderer.root.findAllByType("button").length).toEqual(1);
+  let button: ShallowWrapper;
+
+  describe("constructor", () => {
+    it("should render a button element", () => {
+      act(() => {
+        button = shallow(<Button />);
+      });
+      expect(button.find("button").length).toEqual(1);
+    });
   });
 });
