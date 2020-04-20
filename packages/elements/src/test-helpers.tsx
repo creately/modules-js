@@ -1,19 +1,11 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 
-export function mountWithTheme(child: React.ReactElement, theme: {}) {
-  return mount(child, {
-    wrappingComponent: ({ children }) => (
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    ),
-  });
-}
+export const mountWithTheme = (tree: any, theme: any) => {
+  const WrappingThemeProvider = (props: any) => (
+    <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
+  );
 
-export function shallowWithTheme(child: React.ReactElement, theme: {}) {
-  return shallow(child, {
-    wrappingComponent: ({ children }) => (
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    ),
-  });
-}
+  return mount(tree, { wrappingComponent: WrappingThemeProvider });
+};

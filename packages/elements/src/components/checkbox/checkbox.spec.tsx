@@ -1,12 +1,11 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import "jest-styled-components";
+import { shallow, ShallowWrapper, ReactWrapper } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { shallowWithTheme } from "../../test-helpers";
-import { Checkbox, defaultTheme } from "./checkbox";
+import { mountWithTheme } from "../../test-helpers";
+import { Checkbox } from "./checkbox";
 
 describe("Checkbox", () => {
-  let checkbox: ShallowWrapper;
+  let checkbox: ShallowWrapper | ReactWrapper;
 
   describe("constructor", () => {
     it("should render a checkbox element", () => {
@@ -74,12 +73,17 @@ describe("Checkbox", () => {
   });
 
   describe("with theme", () => {
-    it("should have style rule for font size", () => {
-      checkbox = shallowWithTheme(
-        <Checkbox value="" checked={true} />,
-        defaultTheme
-      );
-      expect(checkbox).toHaveStyleRule("font-size", "15px");
+    it("should set style rule for font size", () => {
+      const testTheme = {
+        fontSize: "12px",
+      };
+      act(() => {
+        checkbox = mountWithTheme(
+          <Checkbox value="" checked={true} />,
+          testTheme
+        );
+      });
+      expect(checkbox).toHaveStyleRule("font-size", "12px");
     });
   });
 });
