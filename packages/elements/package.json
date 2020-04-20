@@ -13,6 +13,11 @@
   "keywords": [],
   "author": "Thanish Nizam <mnmtanish@gmail.com> (https://thanish.me/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/creately/modules-js.git",
+    "directory": "packages/elements"
+  },
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -29,7 +34,6 @@
     "@types/jest": "^25.1.5",
     "@types/react": "^16.9.32",
     "@types/react-dom": "16.9.6",
-    "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "5.0.1",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "9.1.2",
@@ -40,7 +44,6 @@
     "jest-enzyme": "7.1.2",
     "jest-transform-stub": "2.0.0",
     "prettier": "^2.0.2",
-    "react-test-renderer": "^16.13.1",
     "rollup": "2.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-image-files": "1.4.2",
@@ -51,12 +54,5 @@
     "ts-jest": "^25.3.0",
     "typescript": "^3.8.3"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "setupFilesAfterEnv": [
-      "jest-enzyme"
-    ],
-    "testEnvironment": "enzyme",
-    "rootDir": "src"
-  }
+  "dependencies": {}
 }
