@@ -1,6 +1,6 @@
 {
   "include": [
-    "src"
+    "src", "typings.d.ts"
   ],
   "exclude": [
     "dist",
@@ -31,6 +31,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["react", "jest"]
   }
 }

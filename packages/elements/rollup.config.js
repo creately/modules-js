@@ -1,9 +1,10 @@
 import typescript from "rollup-plugin-typescript2";
-import sass from "rollup-plugin-sass";
 import commonjs from "rollup-plugin-commonjs";
 import external from "rollup-plugin-peer-deps-external";
 import resolve from "rollup-plugin-node-resolve";
+import images from 'rollup-plugin-image-files';
 import packageJson from "./package.json";
+import * as reactIs from 'react-is';
 
 export default {
   input: "src/index.tsx",
@@ -33,13 +34,14 @@ export default {
           "Children",
           "Component",
           "PropTypes",
-          "createElement"
+          "createElement",
         ],
-        "node_modules/react-dom/index.js": ["render"]
+        "node_modules/react-dom/index.js": [
+          "render"
+        ],
+        'react-is': Object.keys(reactIs),
       }
     }),
-    sass({
-      insert: true
-    })
-  ]
+    images(),
+  ],
 };

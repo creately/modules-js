@@ -6,13 +6,18 @@
   "module": "dist/index.es.js",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "lint": "prettier --write 'src/**/*.{tsx,scss}'",
+    "lint": "prettier --write 'src/**/*.tsx'",
     "test": "jest --coverage",
     "storybook": "start-storybook -p 6006"
   },
   "keywords": [],
   "author": "Thanish Nizam <mnmtanish@gmail.com> (https://thanish.me/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/creately/modules-js.git",
+    "directory": "packages/elements"
+  },
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -24,28 +29,30 @@
     "@storybook/addons": "^5.3.18",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^5.3.18",
+    "@types/enzyme": "3.10.5",
+    "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "^25.1.5",
     "@types/react": "^16.9.32",
-    "@types/react-test-renderer": "^16.9.2",
+    "@types/react-dom": "16.9.6",
+    "@types/styled-components": "5.0.1",
     "babel-loader": "^8.1.0",
-    "babel-preset-react-app": "^9.1.2",
-    "identity-obj-proxy": "^3.0.0",
+    "babel-preset-react-app": "9.1.2",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.2",
     "jest": "^25.2.6",
+    "jest-environment-enzyme": "7.1.2",
+    "jest-enzyme": "7.1.2",
+    "jest-transform-stub": "2.0.0",
     "prettier": "^2.0.2",
-    "react-test-renderer": "^16.13.1",
-    "rollup": "^2.3.3",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.2",
-    "rollup-plugin-sass": "^1.2.2",
-    "rollup-plugin-typescript2": "^0.27.0",
-    "sass-loader": "^8.0.2",
+    "rollup": "2.4.0",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-image-files": "1.4.2",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-peer-deps-external": "2.2.2",
+    "rollup-plugin-typescript2": "0.27.0",
+    "styled-components": "5.1.0",
     "ts-jest": "^25.3.0",
     "typescript": "^3.8.3"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "rootDir": "src"
-  }
+  "dependencies": {}
 }

@@ -25,5 +25,3 @@ export const WithLongText = () => (
     Proin id est leo. Ut congue neque lorem, eget dapibus neque maximus sed.{" "}
   </Button>
 );
-
-export const Primary = () => <Button primary>Hello</Button>;
