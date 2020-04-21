@@ -16,12 +16,17 @@ export interface IconProps {
    * Size can be xsmall, small, medium or large.
    */
   size?: string;
+
+  /**
+   * Color can be an html color value, else the icon will inherit color from it's parent.
+   */
+  color?: string;
 }
 
 const IconContainer = styled.svg`
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
@@ -46,6 +51,14 @@ const IconContainer = styled.svg`
     width: 45px;
     height: 45px;
   }
+
+  &.icon-white {
+    color: white;
+  }
+
+  &.icon-black {
+    color: black;
+  }
 `;
 
 /**
@@ -62,7 +75,17 @@ export class Icon extends React.Component<IconProps> {
     return `${icons as string}#nu-ic-${this.props.name}`;
   }
 
-  getClasses(): string {
+  getColorClass(): string {
+    switch (this.props.color) {
+      case "black":
+      case "white":
+        return this.props.color;
+      default:
+        return "";
+    }
+  };
+
+  getSizeClass(): string {
     switch (this.props.size) {
       case "xsmall":
       case "small":
@@ -72,6 +95,13 @@ export class Icon extends React.Component<IconProps> {
       default:
         return "icon";
     }
+  }
+
+  getClasses(): string {
+    return [
+      this.getColorClass(),
+      this.getSizeClass(),
+    ].join(" ").trim();
   }
 
   render() {
