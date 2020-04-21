@@ -51,7 +51,7 @@ const IconContainer = styled.svg`
 /**
  * Icons can be used within any component.
  * They render an inline svg, inherit color from their parent components,
- * and have no interactions with themes. 
+ * and have no interactions with themes.
  */
 export class Icon extends React.Component<IconProps> {
   constructor(props: IconProps) {
