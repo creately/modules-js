@@ -3,32 +3,32 @@
  */
 const SampleTheme = {
   // Colors
-  primaryColor:       "green",
-  secondaryColor:     "cadetblue",
-  dangerColor:        "crimson",
+  primaryColor: "green",
+  secondaryColor: "cadetblue",
+  dangerColor: "crimson",
 
   // Fonts
-  primaryFontFamily:  "Lato",
-  primaryFontColor:   "white",
-  xSmallFontSize:     "12px",
-  smallFontSize:      "13px",
-  baseFontSize:       "14px",
-  mediumFontSize:     "16px",
-  largeFontSize:      "18px",
-  mLargeFontSize:     "20px",
-  xLargeFontSize:     "30px",
+  primaryFontFamily: "Lato",
+  primaryFontColor: "white",
+  xSmallFontSize: "12px",
+  smallFontSize: "13px",
+  baseFontSize: "14px",
+  mediumFontSize: "16px",
+  largeFontSize: "18px",
+  mLargeFontSize: "20px",
+  xLargeFontSize: "30px",
 
   // Global
-  borderRadius:       "4px",
+  borderRadius: "4px",
 
   // Buttons
   button: {
-    primaryHoverBackground:     "darkgreen",
-    primaryActiveBackground:    "darkgreen",
-    secondaryHoverBackground:   "darkslateblue",
-    secondaryActiveBackground:  "darkslateblue",
-    dangerHoverBackground:      "darkred",
-    dangerActiveBackground:     "darkred",
+    primaryHoverBackground: "darkgreen",
+    primaryActiveBackground: "darkgreen",
+    secondaryHoverBackground: "darkslateblue",
+    secondaryActiveBackground: "darkslateblue",
+    dangerHoverBackground: "darkred",
+    dangerActiveBackground: "darkred",
   },
 };
 

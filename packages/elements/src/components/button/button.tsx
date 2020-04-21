@@ -1,12 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import symbols from "../../shared/symbol-defs.svg";
+import { Icon } from "../icon/icon";
 
 export interface ButtonProps {
   primary?: boolean;
   type?: string;
   size?: string;
   icon?: string;
+  iconColor?: string;
+  disabled?: boolean;
 }
 
 function createSizeStyles() {
@@ -63,7 +65,10 @@ const ButtonContainer = styled.button`
   }
 
   &.button-icon {
-    background: transparent;
+    background-color: transparent;
+    color: black;
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   &:active .button-icon {
@@ -74,12 +79,6 @@ const ButtonContainer = styled.button`
     padding-left: 5px;
 
     .icon {
-      stroke-width: 0;
-      stroke: currentColor;
-      fill: currentColor;
-      width: 25px;
-      height: 25px;
-      display: inline-block;
       vertical-align: middle;
       color: white;
     }
@@ -89,21 +88,6 @@ const ButtonContainer = styled.button`
       cursor: pointer;
       user-select: 0;
       vertical-align: middle;
-    }
-  }
-
-  &:disabled,
-  &[disabled] {
-    cursor: auto;
-    background-color: ${(props) => props.theme.buttonDisabledBackground};
-
-    &.button-icon {
-      background-color: transparent;
-
-      &:hover .icon,
-      .icon {
-        color: ${(props) => props.theme.buttonDisabledBackground};
-      }
     }
   }
 
@@ -147,6 +131,25 @@ const ButtonContainer = styled.button`
 
     &.button-danger {
       background-color: ${(props) => props.theme.button.dangerActiveBackground};
+    }
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: auto;
+    background-color: ${(props) => props.theme.buttonDisabledBackground};
+
+    &:hover {
+      background-color: ${(props) => props.theme.buttonDisabledBackground};
+    }
+
+    &.button-icon {
+      background-color: transparent;
+
+      &:hover .icon,
+      .icon {
+        color: ${(props) => props.theme.buttonDisabledBackground};
+      }
     }
   }
 
@@ -205,28 +208,32 @@ export class Button extends React.Component<ButtonProps> {
     }
   }
 
+  getIconClass(): string {
+    if (!!!this.props.icon) {
+      return "";
+    }
+    if (!!this.props.children) {
+      return "button-icon-text";
+    } else {
+      return "button-icon";
+    }
+  }
+
   getClasses(): string {
-    return [
-      this.getTypeClass(),
-      this.getSizeClass(),
-      !!this.props.icon ? 'button-icon-text' : '' 
-    ].join(" ");
+    return [this.getTypeClass(), this.getSizeClass(), this.getIconClass()]
+      .join(" ")
+      .trim();
   }
 
   render() {
     const classes = this.getClasses();
-    const url = (symbols as string) + "#nu-ic-share";
-    
+
     return (
-      <ButtonContainer className={classes}>
-        {!!this.props.icon &&
-          <svg className="icon">
-            <use xlinkHref={url} />
-          </svg>
-        }
-        <span className="text">
-          {this.props.children}
-        </span>
+      <ButtonContainer className={classes} disabled={this.props.disabled}>
+        {!!this.props.icon && (
+          <Icon name={this.props.icon} color={this.props?.iconColor} />
+        )}
+        <span className="text">{this.props.children}</span>
       </ButtonContainer>
     );
   }
