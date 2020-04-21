@@ -83,7 +83,7 @@ export class Icon extends React.Component<IconProps> {
       default:
         return "";
     }
-  };
+  }
 
   getSizeClass(): string {
     switch (this.props.size) {
@@ -98,10 +98,7 @@ export class Icon extends React.Component<IconProps> {
   }
 
   getClasses(): string {
-    return [
-      this.getColorClass(),
-      this.getSizeClass(),
-    ].join(" ").trim();
+    return [this.getColorClass(), this.getSizeClass()].join(" ").trim();
   }
 
   render() {
