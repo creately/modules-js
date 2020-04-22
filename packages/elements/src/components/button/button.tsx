@@ -12,29 +12,26 @@ export interface ButtonProps {
 }
 
 export class Button extends React.Component<ButtonProps> {
+  private availableTypes = ["primary", "secondary", "danger"];
+  private availableSizes = ["small", "medium", "large"];
+
   constructor(props: ButtonProps) {
     super(props);
   }
 
   getTypeClass(): string {
-    switch (this.props?.type) {
-      case "primary":
-      case "secondary":
-      case "danger":
-        return `button-${this.props.type}`;
-      default:
-        return "";
+    if (this.props.type && this.availableTypes.includes(this.props.type)) {
+      return `button-${this.props.type}`;
+    } else {
+      return "";
     }
   }
 
   getSizeClass(): string {
-    switch (this.props?.size) {
-      case "small":
-      case "medium":
-      case "large":
-        return `button-${this.props.size}`;
-      default:
-        return "";
+    if (this.props.size && this.availableSizes.includes(this.props.size)) {
+      return `button-${this.props.size}`;
+    } else {
+      return "";
     }
   }
 

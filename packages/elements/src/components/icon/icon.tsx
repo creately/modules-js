@@ -67,6 +67,10 @@ const IconContainer = styled.svg`
  * and have no interactions with themes.
  */
 export class Icon extends React.Component<IconProps> {
+  private availableColors = ["black", "white"];
+  private availableSizes = ["xsmall", "small", "medium", "large"];
+  private defaultClass = "icon";
+
   constructor(props: IconProps) {
     super(props);
   }
@@ -76,29 +80,25 @@ export class Icon extends React.Component<IconProps> {
   }
 
   getColorClass(): string {
-    switch (this.props.color) {
-      case "black":
-      case "white":
-        return this.props.color;
-      default:
-        return "";
+    if (this.props.color && this.availableColors.includes(this.props.color)) {
+      return `icon-${this.props.color}`;
+    } else {
+      return "";
     }
   }
 
   getSizeClass(): string {
-    switch (this.props.size) {
-      case "xsmall":
-      case "small":
-      case "medium":
-      case "large":
-        return `icon icon-${this.props.size}`;
-      default:
-        return "icon";
+    if (this.props.size && this.availableSizes.includes(this.props.size)) {
+      return `icon-${this.props.size}`;
+    } else {
+      return "";
     }
   }
 
   getClasses(): string {
-    return [this.getColorClass(), this.getSizeClass()].join(" ").trim();
+    return [this.defaultClass, this.getColorClass(), this.getSizeClass()]
+      .join(" ")
+      .trim();
   }
 
   render() {

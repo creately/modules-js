@@ -138,7 +138,7 @@ describe("Button", () => {
       wrapper.unmount();
     });
 
-    it("should all applicable classes separated by a space", () => {
+    it("should return all applicable classes separated by a space", () => {
       const result = (wrapper.instance() as Button).getClasses();
       expect(result).toEqual("test-type test-size test-icon");
     });
