@@ -75,7 +75,7 @@ describe("Checkbox", () => {
   describe("with theme", () => {
     it("should set style rule for font size", () => {
       const testTheme = {
-        fontSize: "12px",
+        baseFontSize: "12px",
       };
       act(() => {
         checkbox = mountWithTheme(
