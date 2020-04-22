@@ -1,44 +1,17 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const defaultTheme = {
-  primaryColor: "#5b5b5b",
+  primaryColor: "#007bff",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
+  primaryFontColor: "black",
+  borderRadius: "4px",
   baseFontSize: "15px",
 };
 
-function createSizeStyles() {
-  let styles = "";
-  [
-    {
-      name: "small",
-      height: "30px",
-      fontSize: "14px",
-    },
-    {
-      name: "medium",
-      height: "35px",
-      fontSize: "16px",
-    },
-    {
-      name: "large",
-      height: "45px",
-      fontSize: "18px",
-    },
-  ].forEach((entry) => {
-    styles += `
-      &.radio-button__${entry.name} {
-        height: ${entry.height};
-        font-size: ${entry.fontSize || "14px"}
-      }
-    `;
-  });
-
-  return css`
-    ${styles}
-  `;
-}
-
 const RadioButtonContainer = styled.label`
+  font-family: ${(props) => props.theme.primaryFontFamily};
+  color: ${(props) => props.theme.primaryFontColor};
+  font-size: ${(props) => props.theme.baseFontSize};
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -84,8 +57,6 @@ const RadioButtonContainer = styled.label`
   .radio-button__input:checked ~ .radio-button__selection:after {
     opacity: 1;
   }
-
-  ${createSizeStyles()};
 `;
 
 RadioButtonContainer.defaultProps = {
