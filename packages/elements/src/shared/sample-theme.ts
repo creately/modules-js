@@ -36,6 +36,11 @@ const SampleTheme = {
     borderColor: "grey",
     borderHoverColor: "darkgrey",
   },
+
+  radioButton: {
+    borderColor: "grey",
+    borderHoverColor: "darkgrey",
+  }
 };
 
 export default SampleTheme;

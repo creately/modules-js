@@ -3,14 +3,15 @@ import styled from "styled-components";
 const defaultTheme = {
   primaryColor: "#007bff",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
-  primaryFontColor: "black",
-  borderRadius: "4px",
   baseFontSize: "15px",
+  radioButton: {
+    borderColor: "grey",
+    borderHoverColor: "darkgrey",
+  },
 };
 
 const RadioButtonContainer = styled.label`
   font-family: ${(props) => props.theme.primaryFontFamily};
-  color: ${(props) => props.theme.primaryFontColor};
   font-size: ${(props) => props.theme.baseFontSize};
   display: flex;
   align-items: center;
@@ -34,12 +35,12 @@ const RadioButtonContainer = styled.label`
   .radio-button__selection {
     position: absolute;
     left: 0;
-    border: 1px ${(props) => props.theme.primaryColor} solid;
+    border: 1px ${(props) => props.theme.radioButton.borderColor} solid;
     width: 20px;
     height: 20px;
     border-radius: 100%;
 
-    &:after {
+    &::after {
       content: "";
       background-color: grey;
       border-radius: inherit;
@@ -56,6 +57,10 @@ const RadioButtonContainer = styled.label`
 
   .radio-button__input:checked ~ .radio-button__selection:after {
     opacity: 1;
+  }
+
+  .radio-button__input:hover ~ .radio-button__selection {
+    border-color: ${(props) => props.theme.radioButton.borderHoverColor};
   }
 `;
 
