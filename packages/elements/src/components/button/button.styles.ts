@@ -44,11 +44,11 @@ function createSizeStyles() {
     },
   ].forEach((entry) => {
     styles += `
-      &.button-${entry.name} {
+      &.button--${entry.name} {
         height: ${entry.height};
         font-size: ${entry.fontSize || "14px"}
 
-        &.button-square {
+        &.button--square {
           width: ${entry.height};
         }
       }
