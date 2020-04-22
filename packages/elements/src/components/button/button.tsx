@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "../icon/icon";
-import { ButtonContainer } from "./button.style";
+import { ButtonContainer } from "./button.styles";
 
 export interface ButtonProps {
   primary?: boolean;
