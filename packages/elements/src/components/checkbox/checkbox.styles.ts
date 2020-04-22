@@ -52,7 +52,7 @@ const CheckboxContainer = styled.div`
   }
 
   &:hover .checkbox__input ~ .checkbox__check-mark {
-      border: 1px ${(props) => props.theme.checkbox.borderHoverColor} solid;
+      border-color: ${(props) => props.theme.checkbox.borderHoverColor};
   }
 `;
 

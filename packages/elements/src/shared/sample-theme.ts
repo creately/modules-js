@@ -23,10 +23,13 @@ const SampleTheme = {
 
   // Buttons
   button: {
+    primaryFontColor: "white",
     primaryHoverBackground: "darkgreen",
     primaryActiveBackground: "darkgreen",
+    secondaryFontColor: "white",
     secondaryHoverBackground: "darkslateblue",
     secondaryActiveBackground: "darkslateblue",
+    dangerFontColor: "white",
     dangerHoverBackground: "darkred",
     dangerActiveBackground: "darkred",
   },
