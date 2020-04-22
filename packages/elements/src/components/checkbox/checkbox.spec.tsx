@@ -1,61 +1,62 @@
-import { shallow, ShallowWrapper, ReactWrapper } from "enzyme";
+import { ReactWrapper, mount, ShallowWrapper, shallow } from "enzyme";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { mountWithTheme } from "../../test-helpers";
 import { Checkbox } from "./checkbox";
+import { act } from "react-dom/test-utils";
 
 describe("Checkbox", () => {
-  let checkbox: ShallowWrapper | ReactWrapper;
-
   describe("constructor", () => {
+    let wrapper: ReactWrapper;
+    let checkboxToggleSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      checkboxToggleSpy = spyOn(Checkbox.prototype, "checkboxToggle");
+      act(() => {
+        wrapper = mount(<Checkbox value="" />);
+      });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
     it("should render a checkbox element", () => {
-      act(() => {
-        checkbox = shallow(<Checkbox value="" />);
-      });
-      expect(checkbox.find("input").length).toEqual(1);
+      expect(wrapper.find("input").length).toEqual(1);
     });
-
     it("should set checked to true when checked value is true", () => {
-      act(() => {
-        checkbox = shallow(<Checkbox value="" checked={true} />);
-      });
-      expect(checkbox.find("input").first().props().checked).toEqual(true);
+      wrapper.setState({ checked: true });
+      expect(wrapper.find("input").first().props().checked).toEqual(true);
     });
-
     it("should call checkboxToggle when checkbox is clicked", () => {
-      act(() => {
-        checkbox = shallow(<Checkbox value="" />);
-      });
-      const instance = checkbox.instance();
-      const spy = jest.spyOn(instance as Checkbox, "checkboxToggle");
-      instance.forceUpdate();
-      checkbox.find("input").simulate("change");
-      expect(spy).toHaveBeenCalled();
+      wrapper.find("input").simulate("change");
+      expect(checkboxToggleSpy).toHaveBeenCalled();
     });
   });
 
   describe("checkboxToggle", () => {
-    let checkbox: ShallowWrapper;
+    let wrapper: ShallowWrapper;
     let onChangeCallback: any;
     let instance: Checkbox;
+    let setStateSpy: jasmine.Spy;
 
     beforeEach(() => {
       onChangeCallback = jest.fn();
-
+      setStateSpy = spyOn(Checkbox.prototype, "setState");
       act(() => {
-        checkbox = shallow(
+        wrapper = shallow(
           <Checkbox value="" checked={true} onChange={onChangeCallback} />
         );
       });
+      instance = wrapper.instance() as Checkbox;
+    });
 
-      instance = checkbox.instance() as Checkbox;
+    afterEach(() => {
+      wrapper.unmount();
     });
 
     it("should invert the state of checked", (done) => {
-      const spy = spyOn(instance, "setState");
-      instance.forceUpdate();
       instance.checkboxToggle();
-      expect(spy).toHaveBeenCalled();
+      expect(setStateSpy).toHaveBeenCalled();
       setTimeout(() => {
         try {
           expect(instance.state.checked).toEqual(true);
@@ -65,7 +66,6 @@ describe("Checkbox", () => {
         }
       }, 0);
     });
-
     it("should call the given onChange function", () => {
       instance.checkboxToggle();
       expect(onChangeCallback).toHaveBeenCalled();
@@ -73,17 +73,19 @@ describe("Checkbox", () => {
   });
 
   describe("with theme", () => {
+    let wrapper: ReactWrapper;
+
     it("should set style rule for font size", () => {
       const testTheme = {
-        fontSize: "12px",
+        baseFontSize: "12px",
       };
       act(() => {
-        checkbox = mountWithTheme(
+        wrapper = mountWithTheme(
           <Checkbox value="" checked={true} />,
           testTheme
         );
       });
-      expect(checkbox).toHaveStyleRule("font-size", "12px");
+      expect(wrapper).toHaveStyleRule("font-size", "12px");
     });
   });
 });
