@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import LatoWoff from './lt-regular-webfont.woff';
-import LatoWoff2 from './lt-regular-webfont.woff2';
+import { createGlobalStyle } from "styled-components";
+import LatoWoff from "./lt-regular-webfont.woff";
+import LatoWoff2 from "./lt-regular-webfont.woff2";
 
 /**
  * A Global Style Component defines any styles that should be loaded globally.

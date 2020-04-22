@@ -1,27 +1,89 @@
 import React from "react";
 import { Button } from "./button";
+import { ThemeProvider } from "styled-components";
+import SampleTheme from "../../shared/sample-theme";
+import { GlobalFontStyle } from "../../shared/global-font-style";
 
 export default {
   title: "Button",
   component: Button,
 };
 
-export const Default = () => <Button />;
+export const Types = () => (
+  <div>
+    <Button>Default</Button>&nbsp;
+    <Button type="primary">Primary</Button>&nbsp;
+    <Button type="secondary">Secondary</Button>&nbsp;
+    <Button type="danger">Danger</Button>&nbsp;
+  </div>
+);
 
-export const WithText = () => <Button>Hello</Button>;
-
-export const WithLongText = () => (
-  <Button>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-    venenatis, orci ut semper rhoncus, nisi erat euismod metus, eget posuere
-    purus augue vulputate augue. Fusce in enim mauris. Nam interdum nisl nec
-    augue commodo, ac lacinia risus egestas. Cras ullamcorper ultrices mi eu
-    ultricies. Donec finibus in dui id lobortis. Morbi hendrerit condimentum
-    purus, eget euismod velit posuere nec. Nam vestibulum suscipit ante ut
-    feugiat. Phasellus vel metus in metus cursus cursus ut a purus. Nam a
-    elementum est. Aliquam ante enim, fermentum et fringilla faucibus, convallis
-    et augue. Mauris venenatis sollicitudin purus nec porttitor. Nulla eget
-    lacus vel odio tincidunt rhoncus. Nulla ac odio at purus consectetur mollis.
-    Proin id est leo. Ut congue neque lorem, eget dapibus neque maximus sed.{" "}
+export const Disabled = () => (
+  <Button type="primary" size="small" disabled>
+    Disabled Primary Small
   </Button>
+);
+
+export const Sizes = () => (
+  <div>
+    <Button size="small">Small</Button>&nbsp;
+    <Button size="medium">Medium</Button>&nbsp;
+    <Button size="large">Large</Button>&nbsp;
+  </div>
+);
+
+export const Icon = () => <Button size="small" icon="tick" iconColor="black" />;
+
+export const IconWithText = () => (
+  <div>
+    <Button size="small" type="primary" icon="tick">
+      Small Primary with Icon
+    </Button>
+    &nbsp;
+    <Button size="medium" type="secondary" icon="tick" disabled>
+      Disabled Medium Secondary with Icon and Text
+    </Button>
+    &nbsp;
+  </div>
+);
+
+export const Combinations = () => (
+  <div>
+    <Button type="primary" size="small">
+      Small Primary
+    </Button>
+    &nbsp;
+    <Button type="secondary" size="medium">
+      Medium Secondary
+    </Button>
+    &nbsp;
+    <Button type="danger" size="large">
+      Danger Large
+    </Button>
+    &nbsp;
+    <br />
+    <br />
+    <Button type="primary" size="small" icon="tick">
+      Small with Icon
+    </Button>
+    &nbsp;
+    <Button type="primary" size="medium" icon="tick">
+      Medium with Icon
+    </Button>
+    &nbsp;
+    <Button type="primary" size="large" icon="tick">
+      Large with Icon
+    </Button>
+  </div>
+);
+
+export const Themed = () => (
+  <React.Fragment>
+    <ThemeProvider theme={SampleTheme}>
+      <Button type="primary" size="small" icon="tick">
+        Themed Small Primary with Icon and Text
+      </Button>
+    </ThemeProvider>
+    <GlobalFontStyle />
+  </React.Fragment>
 );
