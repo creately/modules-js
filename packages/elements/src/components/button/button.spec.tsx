@@ -36,7 +36,7 @@ describe("Button", () => {
       wrapper.unmount();
     });
 
-    it("should return empty when no type is given", () => {
+    it("should return an empty string when no type is given", () => {
       result = (wrapper.instance() as Button).getTypeClass();
       expect(result).toEqual("");
     });
@@ -71,7 +71,7 @@ describe("Button", () => {
       wrapper.unmount();
     });
 
-    it("should return empty when no size is given", () => {
+    it("should return an empty string when no size is given", () => {
       result = (wrapper.instance() as Button).getSizeClass();
       expect(result).toEqual("");
     });
@@ -106,7 +106,7 @@ describe("Button", () => {
       wrapper.unmount();
     });
 
-    it("should return empty when no icon is given", () => {
+    it("should return an empty string when no icon is given", () => {
       result = (wrapper.instance() as Button).getIconClass();
       expect(result).toEqual("");
     });

@@ -88,7 +88,7 @@ describe("Icon", () => {
       wrapper.unmount();
     });
 
-    it("should return empty string when no size is given", () => {
+    it("should return an empty string when no size is given", () => {
       result = (wrapper.instance() as Icon).getSizeClass();
       expect(result).toEqual("");
     });
@@ -131,7 +131,7 @@ describe("Icon", () => {
 
     it("should return all applicable classes separated by a space", () => {
       const result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("icon test-color test-size");
+      expect(result).toEqual("test-color test-size");
     });
   });
 

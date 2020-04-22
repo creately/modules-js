@@ -69,7 +69,6 @@ const IconContainer = styled.svg`
 export class Icon extends React.Component<IconProps> {
   private availableColors = ["black", "white"];
   private availableSizes = ["xsmall", "small", "medium", "large"];
-  private defaultClass = "icon";
 
   constructor(props: IconProps) {
     super(props);
@@ -96,9 +95,7 @@ export class Icon extends React.Component<IconProps> {
   }
 
   getClasses(): string {
-    return [this.defaultClass, this.getColorClass(), this.getSizeClass()]
-      .join(" ")
-      .trim();
+    return [this.getColorClass(), this.getSizeClass()].join(" ").trim();
   }
 
   render() {
