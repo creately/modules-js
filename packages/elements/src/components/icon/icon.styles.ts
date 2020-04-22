@@ -9,31 +9,31 @@ const IconContainer = styled.svg`
   fill: currentColor;
   color: inherit;
 
-  &.icon-xsmall {
+  &.icon--xsmall {
     width: 15px;
     height: 15px;
   }
 
-  &.icon-small {
+  &.icon--small {
     width: 20px;
     height: 20px;
   }
 
-  &.icon-medium {
+  &.icon--medium {
     width: 25px;
     height: 25px;
   }
 
-  &.icon-large {
+  &.icon--large {
     width: 45px;
     height: 45px;
   }
 
-  &.icon-white {
+  &.icon--white {
     color: white;
   }
 
-  &.icon-black {
+  &.icon--black {
     color: black;
   }
 `;
