@@ -19,7 +19,7 @@ const SampleTheme = {
   xLargeFontSize: "30px",
 
   // Global
-  borderRadius: "4px",
+  globalborderRadius: "4px",
 
   // Buttons
   button: {
