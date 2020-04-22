@@ -13,15 +13,15 @@ describe("Icon", () => {
       });
     });
 
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
     it("should render an svg element at root", () => {
       expect(wrapper.getDOMNode().tagName).toBe("svg");
     });
     it("should render a use element as first child", () => {
       expect(wrapper.find("use").length).toEqual(1);
-    });
-
-    afterEach(() => {
-      wrapper.unmount();
     });
   });
 
@@ -34,13 +34,14 @@ describe("Icon", () => {
       });
     });
 
-    it("should return the url path for the given icon", () => {
-      const result = (wrapper.instance() as Icon).getIconUrl();
-      expect(result).toEqual("#nu-ic-tick");
-    });
 
     afterEach(() => {
       wrapper.unmount();
+    });
+
+    it("should return the url path for the given icon", () => {
+      const result = (wrapper.instance() as Icon).getIconUrl();
+      expect(result).toEqual("#nu-ic-tick");
     });
   });
 
@@ -52,6 +53,10 @@ describe("Icon", () => {
       act(() => {
         wrapper = shallow(<Icon name="tick" />);
       });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
     });
 
     it("should return default class when no size is given", () => {
@@ -77,10 +82,6 @@ describe("Icon", () => {
       wrapper.setProps({ size: "large" });
       result = (wrapper.instance() as Icon).getClasses();
       expect(result).toEqual("icon icon-large");
-    });
-
-    afterEach(() => {
-      wrapper.unmount();
     });
   });
 
