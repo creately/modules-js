@@ -27,15 +27,16 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   render() {
     return (
       <CheckboxContainer>
-        <label className="checkbox-label">
+        <label className="checkbox__label">
           <input
+            className="checkbox__input"
             type="checkbox"
             value={this.props.value}
             checked={this.state.checked}
-            onChange={this.checkboxToggle}
+            onChange={() => this.checkboxToggle()}
           ></input>
-          <span className="checkbox-check-mark"></span>
-          {this.props.children}
+          <span className="checkbox__check-mark"></span>
+          <span className="checkbox__text">{this.props.children}</span>
         </label>
       </CheckboxContainer>
     );

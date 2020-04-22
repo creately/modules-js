@@ -81,7 +81,9 @@ export class Icon extends React.Component<IconProps> {
    * Returns a string of all applicable classes.
    */
   getClasses(): string {
-    return [this.defaultClass, this.getColorClass(), this.getSizeClass()].join(" ").trim();
+    return [this.defaultClass, this.getColorClass(), this.getSizeClass()]
+      .join(" ")
+      .trim();
   }
 
   render() {

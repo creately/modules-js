@@ -11,7 +11,7 @@ const CheckboxContainer = styled.div`
   font-family: ${(props) => props.theme.primaryFontFamily};
   font-size: ${(props) => props.theme.baseFontSize};
 
-  .checkbox-label {
+  .checkbox__label {
     display:        block;
     position:       relative;
     padding-left:   25px;
@@ -20,7 +20,7 @@ const CheckboxContainer = styled.div`
     user-select:    none;
   }
 
-  .checkbox-check-mark {
+  .checkbox__check-mark {
     position:       absolute;
     top:            0;
     left:           0;
@@ -30,24 +30,24 @@ const CheckboxContainer = styled.div`
     border-radius:  100%;
   }
 
-  input {
+  .checkbox__input {
     position:   absolute;
     opacity:    0;
     cursor:     pointer;
     height:     0;
     width:      0;
 
-    &:checked ~ .checkbox-check-mark {
+    &:checked ~ .checkbox__check-mark {
       background:       url("${tick}") no-repeat;
       background-size:  contain;
     }
 
-    &:checked ~ .checkbox-check-mark:after {
+    &:checked ~ .checkbox__check-mark:after {
       display: block;
     }
   }
 
-  &:hover input ~ .checkbox-check-mark {
+  &:hover .checkbox__input ~ .checkbox__check-mark {
       border: 1px grey solid;
   }
 `;

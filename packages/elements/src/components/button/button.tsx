@@ -95,7 +95,12 @@ export class Button extends React.Component<ButtonProps> {
    * Returns a string of all applicable classes.
    */
   getClasses(): string {
-    return [this.defaultClass, this.getTypeClass(), this.getSizeClass(), this.getIconClass()]
+    return [
+      this.defaultClass,
+      this.getTypeClass(),
+      this.getSizeClass(),
+      this.getIconClass(),
+    ]
       .join(" ")
       .trim();
   }
