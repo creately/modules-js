@@ -34,7 +34,6 @@ describe("Icon", () => {
       });
     });
 
-
     afterEach(() => {
       wrapper.unmount();
     });

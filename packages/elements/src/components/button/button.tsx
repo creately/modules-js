@@ -21,7 +21,7 @@ export class Button extends React.Component<ButtonProps> {
       case "primary":
       case "secondary":
       case "danger":
-        return `button-${this.props?.type}`;
+        return `button-${this.props.type}`;
       default:
         return "";
     }
@@ -32,7 +32,7 @@ export class Button extends React.Component<ButtonProps> {
       case "small":
       case "medium":
       case "large":
-        return `button-${this.props?.size}`;
+        return `button-${this.props.size}`;
       default:
         return "";
     }
@@ -56,10 +56,11 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   render() {
-    const classes = this.getClasses();
-
     return (
-      <ButtonContainer className={classes} disabled={this.props.disabled}>
+      <ButtonContainer
+        className={this.getClasses()}
+        disabled={this.props.disabled}
+      >
         {!!this.props.icon && (
           <Icon name={this.props.icon} color={this.props?.iconColor} />
         )}
