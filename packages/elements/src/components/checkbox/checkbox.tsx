@@ -19,10 +19,10 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     };
   }
 
-  checkboxToggle = () => {
+  checkboxToggle(): void {
     this.setState((state) => ({ checked: !state.checked }));
     this.props.onChange?.call(this.state.checked);
-  };
+  }
 
   render() {
     return (
