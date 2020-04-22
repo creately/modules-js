@@ -30,6 +30,12 @@ const SampleTheme = {
     dangerHoverBackground: "darkred",
     dangerActiveBackground: "darkred",
   },
+
+  // Checkbox
+  checkbox: {
+    borderColor: "grey",
+    borderHoverColor: "darkgrey",
+  },
 };
 
 export default SampleTheme;

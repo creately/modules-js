@@ -5,6 +5,10 @@ const defaultTheme = {
   primaryColor: "#5b5b5b",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
   baseFontSize: "15px",
+  checkbox: {
+    borderColor: "grey",
+    borderHoverColor: "darkgrey",
+  },
 };
 
 const CheckboxContainer = styled.div`
@@ -26,7 +30,7 @@ const CheckboxContainer = styled.div`
     left: 0;
     height: 18px;
     width: 18px;
-    border: 1px ${(props) => props.theme.primaryColor} solid;
+    border: 1px ${(props) => props.theme.checkbox.borderColor} solid;
     border-radius: 100%;
   }
 
@@ -48,7 +52,7 @@ const CheckboxContainer = styled.div`
   }
 
   &:hover .checkbox__input ~ .checkbox__check-mark {
-      border: 1px grey solid;
+      border: 1px ${(props) => props.theme.checkbox.borderHoverColor} solid;
   }
 `;
 
