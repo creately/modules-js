@@ -5,7 +5,6 @@ const defaultTheme = {
   secondaryColor: "#cc66c4",
   dangerColor: "#dc3545",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
-  primaryFontColor: "white",
   globalborderRadius: "4px",
   baseFontSize: "15px",
   button: {
@@ -62,8 +61,8 @@ function createSizeStyles() {
 
 const ButtonContainer = styled.button`
   font-family: ${(props) => props.theme.primaryFontFamily};
-  color: ${(props) => props.theme.primaryFontColor};
   font-size: ${(props) => props.theme.baseFontSize};
+  color: white;
   border-radius: ${(props) => props.theme.globalborderRadius};
   padding-left: 10px;
   padding-right: 10px;

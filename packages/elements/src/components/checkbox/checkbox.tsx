@@ -32,6 +32,11 @@ export interface CheckboxState {
 }
 
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+  /**
+   * Default class.
+   */
+  private defaultClass = "checkbox";
+
   constructor(props: CheckboxProps) {
     super(props);
     this.state = {
@@ -49,7 +54,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
   render() {
     return (
-      <CheckboxContainer>
+      <CheckboxContainer className={this.defaultClass}>
         <label className="checkbox__label">
           <input
             className="checkbox__input"
