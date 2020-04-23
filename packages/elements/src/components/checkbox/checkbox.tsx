@@ -1,73 +1,47 @@
 import React from "react";
-import styled from "styled-components";
-import tick from "./tick.svg";
+import { CheckboxContainer } from "./checkbox.styles";
 
+/**
+ * Checkbox props.
+ */
 export interface CheckboxProps {
+  /**
+   * The value for the checkbox.
+   */
   value: any;
+
+  /**
+   * Indicates whether the checkbox is checked.
+   */
   checked?: boolean;
+
+  /**
+   * Set the checkbox disabled state.
+   */
+  disabled?: boolean;
+
+  /**
+   * A callback function for the checkbox onChange event.
+   */
   onChange?: Function;
 }
 
+/**
+ * Checkbox state.
+ */
 export interface CheckboxState {
+  /**
+   * Holds the current checked status of the checkbox.
+   */
   checked: boolean;
 }
 
-export const defaultTheme = {
-  primaryColor: "#5b5b5b",
-  primaryFontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "15px",
-};
-
-const CheckboxContainer = styled.div`
-  font-family: ${(props) => props.theme.primaryFontFamily};
-  font-size: ${(props) => props.theme.fontSize};
-
-  .checkbox-label {
-    display:        block;
-    position:       relative;
-    padding-left:   25px;
-    margin-bottom:  12px;
-    cursor:         pointer;
-    user-select:    none;
-  }
-
-  .checkbox-check-mark {
-    position:       absolute;
-    top:            0;
-    left:           0;
-    height:         18px;
-    width:          18px;
-    border:         1px ${(props) => props.theme.primaryColor} solid;
-    border-radius:  100%;
-  }
-
-  input {
-    position:   absolute;
-    opacity:    0;
-    cursor:     pointer;
-    height:     0;
-    width:      0;
-
-    &:checked ~ .checkbox-check-mark {
-      background:       url("${tick}") no-repeat;
-      background-size:  contain;
-    }
-
-    &:checked ~ .checkbox-check-mark:after {
-      display: block;
-    }
-  }
-
-  &:hover input ~ .checkbox-check-mark {
-      border: 1px grey solid;
-  }
-`;
-
-CheckboxContainer.defaultProps = {
-  theme: defaultTheme,
-};
-
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+  /**
+   * Default class.
+   */
+  private defaultClass = "checkbox";
+
   constructor(props: CheckboxProps) {
     super(props);
     this.state = {
@@ -75,23 +49,28 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     };
   }
 
-  checkboxToggle = () => {
+  /**
+   * Toggles the checkbox checked state.
+   */
+  toggle(): void {
     this.setState((state) => ({ checked: !state.checked }));
-    this.props.onChange?.call(this.state.checked);
-  };
+    this.props?.onChange?.call(this.state.checked, this.props.value);
+  }
 
   render() {
     return (
-      <CheckboxContainer>
-        <label className="checkbox-label">
+      <CheckboxContainer className={this.defaultClass}>
+        <label className="checkbox__label">
           <input
+            className="checkbox__input"
             type="checkbox"
             value={this.props.value}
             checked={this.state.checked}
-            onChange={this.checkboxToggle}
+            disabled={this.props?.disabled}
+            onChange={() => this.toggle()}
           ></input>
-          <span className="checkbox-check-mark"></span>
-          {this.props.children}
+          <span className="checkbox__check-mark"></span>
+          <span className="checkbox__title">{this.props.children}</span>
         </label>
       </CheckboxContainer>
     );

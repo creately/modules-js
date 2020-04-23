@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import { IconContainer } from "./icon.styles";
 import icons from "./icons.svg";
 
 /**
@@ -16,37 +16,12 @@ export interface IconProps {
    * Size can be xsmall, small, medium or large.
    */
   size?: string;
+
+  /**
+   * Color can be an html color value, else the icon will inherit color from it's parent.
+   */
+  color?: string;
 }
-
-const IconContainer = styled.svg`
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-  color: inherit;
-
-  &.icon-xsmall {
-    width: 15px;
-    height: 15px;
-  }
-
-  &.icon-small {
-    width: 20px;
-    height: 20px;
-  }
-
-  &.icon-medium {
-    width: 25px;
-    height: 25px;
-  }
-
-  &.icon-large {
-    width: 45px;
-    height: 45px;
-  }
-`;
 
 /**
  * Icons can be used within any component.
@@ -54,24 +29,61 @@ const IconContainer = styled.svg`
  * and have no interactions with themes.
  */
 export class Icon extends React.Component<IconProps> {
+  /**
+   * Available icon colors.
+   */
+  private availableColors = ["black", "white"];
+
+  /**
+   * Available icon sizes.
+   */
+  private availableSizes = ["xsmall", "small", "medium", "large"];
+
+  /**
+   * Default class.
+   */
+  private defaultClass = "icon";
+
   constructor(props: IconProps) {
     super(props);
   }
 
+  /**
+   * Returns the url to the current icon name.
+   */
   getIconUrl(): string {
     return `${icons as string}#nu-ic-${this.props.name}`;
   }
 
-  getClasses(): string {
-    switch (this.props.size) {
-      case "xsmall":
-      case "small":
-      case "medium":
-      case "large":
-        return `icon icon-${this.props.size}`;
-      default:
-        return "icon";
+  /**
+   * Returns a string of applicable color classes.
+   */
+  getColorClass(): string {
+    if (this.props.color && this.availableColors.includes(this.props.color)) {
+      return `icon--${this.props.color}`;
+    } else {
+      return "";
     }
+  }
+
+  /**
+   * Returns a string of applicable size classes.
+   */
+  getSizeClass(): string {
+    if (this.props.size && this.availableSizes.includes(this.props.size)) {
+      return `icon--${this.props.size}`;
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * Returns a string of all applicable classes.
+   */
+  getClasses(): string {
+    return [this.defaultClass, this.getColorClass(), this.getSizeClass()]
+      .join(" ")
+      .trim();
   }
 
   render() {

@@ -34,7 +34,6 @@ describe("Icon", () => {
       });
     });
 
-
     afterEach(() => {
       wrapper.unmount();
     });
@@ -45,7 +44,7 @@ describe("Icon", () => {
     });
   });
 
-  describe("getClasses", () => {
+  describe("getColorClass", () => {
     let wrapper: ShallowWrapper;
     let result: string;
 
@@ -59,29 +58,80 @@ describe("Icon", () => {
       wrapper.unmount();
     });
 
-    it("should return default class when no size is given", () => {
-      result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("icon");
+    it("should return empty string class when no color is given", () => {
+      result = (wrapper.instance() as Icon).getColorClass();
+      expect(result).toEqual("");
+    });
+    it("should return the classes for white when the color is white", () => {
+      wrapper.setProps({ color: "white" });
+      result = (wrapper.instance() as Icon).getColorClass();
+      expect(result).toEqual("icon--white");
+    });
+    it("should return the classes for small when the color is black", () => {
+      wrapper.setProps({ color: "black" });
+      result = (wrapper.instance() as Icon).getColorClass();
+      expect(result).toEqual("icon--black");
+    });
+  });
+
+  describe("getSizeClass", () => {
+    let wrapper: ShallowWrapper;
+    let result: string;
+
+    beforeEach(() => {
+      act(() => {
+        wrapper = shallow(<Icon name="tick" />);
+      });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("should return an empty string when no size is given", () => {
+      result = (wrapper.instance() as Icon).getSizeClass();
+      expect(result).toEqual("");
     });
     it("should return the classes for xsmall when the size is xsmall", () => {
       wrapper.setProps({ size: "xsmall" });
-      result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("icon icon-xsmall");
+      result = (wrapper.instance() as Icon).getSizeClass();
+      expect(result).toEqual("icon--xsmall");
     });
     it("should return the classes for small when the size is small", () => {
       wrapper.setProps({ size: "small" });
-      result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("icon icon-small");
+      result = (wrapper.instance() as Icon).getSizeClass();
+      expect(result).toEqual("icon--small");
     });
     it("should return the classes for medium when the size is medium", () => {
       wrapper.setProps({ size: "medium" });
-      result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("icon icon-medium");
+      result = (wrapper.instance() as Icon).getSizeClass();
+      expect(result).toEqual("icon--medium");
     });
     it("should return the classes for large when the size is large", () => {
       wrapper.setProps({ size: "large" });
-      result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("icon icon-large");
+      result = (wrapper.instance() as Icon).getSizeClass();
+      expect(result).toEqual("icon--large");
+    });
+  });
+
+  describe("getClasses", () => {
+    let wrapper: ShallowWrapper;
+
+    beforeEach(() => {
+      spyOn(Icon.prototype, "getColorClass").and.returnValue("test-color");
+      spyOn(Icon.prototype, "getSizeClass").and.returnValue("test-size");
+      act(() => {
+        wrapper = shallow(<Icon name="tick" />);
+      });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("should return all applicable classes separated by a space", () => {
+      const result = (wrapper.instance() as Icon).getClasses();
+      expect(result).toEqual("icon test-color test-size");
     });
   });
 

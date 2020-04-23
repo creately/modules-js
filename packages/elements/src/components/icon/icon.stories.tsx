@@ -16,3 +16,16 @@ export const Sizes = () => (
     <Icon name="tick" size="large" />
   </div>
 );
+
+export const Colors = () => (
+  <div>
+    <div>
+      Black&nbsp;
+      <Icon name="tick" color="black" />
+    </div>
+    <div style={{ color: "white", backgroundColor: "black" }}>
+      White&nbsp;
+      <Icon name="tick" color="white" />
+    </div>
+  </div>
+);

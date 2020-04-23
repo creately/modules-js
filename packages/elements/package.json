@@ -6,7 +6,7 @@
   "module": "dist/index.es.js",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "lint": "prettier --write 'src/**/*.tsx'",
+    "lint": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "jest --coverage",
     "storybook": "start-storybook -p 6006"
   },
