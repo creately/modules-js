@@ -7,6 +7,7 @@ const defaultTheme = {
   radioButton: {
     borderColor: "grey",
     borderHoverColor: "darkgrey",
+    checkColor: "grey",
   },
 };
 
@@ -21,12 +22,15 @@ const RadioButtonContainer = styled.label`
   cursor: pointer;
   padding-left: 30px;
 
-  input {
-    width: 20px;
-    height: 20px;
+  .radio-button__title,
+  .radio-button__description {
+    display: block;
+    line-height: 1.6;
   }
 
   .radio-button__input {
+    width: 20px;
+    height: 20px;
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -42,7 +46,7 @@ const RadioButtonContainer = styled.label`
 
     &::after {
       content: "";
-      background-color: grey;
+      background-color: ${(props) => props.theme.radioButton.checkColor};
       border-radius: inherit;
       opacity: 0;
       transform: translate(-50%, -50%);

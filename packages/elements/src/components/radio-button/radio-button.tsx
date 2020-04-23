@@ -49,9 +49,11 @@ export class RadioButton extends React.Component<RadioButtonProps> {
     return (
       <RadioButtonContainer>
         <div className="radio-button__label">
-          <p className="radio-button__title">{this.props.children}</p>
+          <span className="radio-button__title">{this.props.children}</span>
           {!!this.props.description && (
-            <p className="radio-button_description">{this.props.description}</p>
+            <span className="radio-button__description">
+              {this.props.description}
+            </span>
           )}
         </div>
         <input
