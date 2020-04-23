@@ -22,10 +22,10 @@ export const Default = () => (
 
 export const WithDescription = () => (
   <div>
-    <RadioButton name="demo" value="demo_1" description="Radio 1 description" onChange={callback}>
+    <RadioButton name="demo" value="demo_1" description="Radio 1 description">
       Radio 1
     </RadioButton>
-    <RadioButton name="demo" value="demo_2" description="Radio 2 description" onChange={callback}>
+    <RadioButton name="demo" value="demo_2" description="Radio 2 description">
       Radio 2
     </RadioButton>
   </div>
@@ -36,7 +36,12 @@ export const WithDisabledOptions = () => (
     <RadioButton name="demo" value="demo_1" description="Radio 1 description">
       Radio 1
     </RadioButton>
-    <RadioButton name="demo" value="demo_2" description="Radio 2 description" disabled>
+    <RadioButton
+      name="demo"
+      value="demo_2"
+      description="Radio 2 description"
+      disabled
+    >
       Radio 2 (Disabled)
     </RadioButton>
   </div>
@@ -48,10 +53,20 @@ export const Themed = () => (
       <RadioButton name="demo" value="demo_1">
         Radio 1
       </RadioButton>
-      <RadioButton name="demo" value="demo_2" description="Radio 2 description" disabled>
+      <RadioButton
+        name="demo"
+        value="demo_2"
+        description="Radio 2 description"
+        disabled
+      >
         Radio 2
       </RadioButton>
-      <RadioButton name="demo" value="demo_3" description="Radio 3 description" checked>
+      <RadioButton
+        name="demo"
+        value="demo_3"
+        description="Radio 3 description"
+        checked
+      >
         Radio 2
       </RadioButton>
     </ThemeProvider>

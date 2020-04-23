@@ -8,7 +8,7 @@ const defaultTheme = {
     borderColor: "grey",
     borderHoverColor: "darkgrey",
     checkColor: "grey",
-    disabedColor: "grey",
+    disabledColor: "grey",
   },
 };
 
@@ -57,7 +57,7 @@ const RadioButtonContainer = styled.label`
       &:checked ~ .radio-button__selection::after {
         background-color: ${(props) => props.theme.radioButton.disabledColor};
       }
-    } 
+    }
 
     &:hover ~ .radio-button__selection {
       border-color: ${(props) => props.theme.radioButton.borderHoverColor};

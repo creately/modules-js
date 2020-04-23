@@ -55,7 +55,10 @@ export interface RadioButtonState {
  * RadioButton component
  * This lets a user select one of a limited number of choices.
  */
-export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
+export class RadioButton extends React.Component<
+  RadioButtonProps,
+  RadioButtonState
+> {
   constructor(props: RadioButtonProps) {
     super(props);
     this.state = {
@@ -87,7 +90,7 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
           type="radio"
           name={this.props.name}
           value={this.props.value}
-          checked={this.props?.checked}
+          checked={this.state.checked}
           disabled={this.props?.disabled}
           onChange={() => this.toggle()}
         />
