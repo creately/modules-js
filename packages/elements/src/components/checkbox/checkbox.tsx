@@ -16,6 +16,11 @@ export interface CheckboxProps {
   checked?: boolean;
 
   /**
+   * Set the checkbox disabled state.
+   */
+  disabled?: boolean;
+
+  /**
    * A callback function for when the checkbox onChange event.
    */
   onChange?: Function;
@@ -47,9 +52,9 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   /**
    * Toggles the checkbox checked state.
    */
-  checkboxToggle(): void {
+  toggle(): void {
     this.setState((state) => ({ checked: !state.checked }));
-    this.props.onChange?.call(this.state.checked);
+    this.props.onChange?.call(this.state.checked, this.props.value);
   }
 
   render() {
@@ -61,10 +66,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             type="checkbox"
             value={this.props.value}
             checked={this.state.checked}
-            onChange={() => this.checkboxToggle()}
+            disabled={this.props?.disabled}
+            onChange={() => this.toggle()}
           ></input>
           <span className="checkbox__check-mark"></span>
-          <span className="checkbox__text">{this.props.children}</span>
+          <span className="checkbox__title">{this.props.children}</span>
         </label>
       </CheckboxContainer>
     );
