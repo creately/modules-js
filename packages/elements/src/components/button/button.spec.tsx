@@ -174,12 +174,12 @@ describe("Button", () => {
       expect(wrapper.find(".button__text").first().text()).toBe("test-text");
     });
     it("should call the given onClick function on button click", () => {
-      wrapper.simulate("click")
+      wrapper.simulate("click");
       expect(onClickCallback).toHaveBeenCalled();
     });
     it("should not call the given onChange function when there is no onChange function", () => {
       wrapper.setProps({ onClick: null });
-      wrapper.simulate("click")
+      wrapper.simulate("click");
       expect(onClickCallback).not.toHaveBeenCalled();
     });
 
