@@ -34,15 +34,41 @@ export interface RadioButtonProps {
    * Description to be shown.
    */
   description?: string;
+
+  /**
+   * A callback function for when the radio button onChange event.
+   */
+  onChange?: Function;
+}
+
+/**
+ * Radio button state.
+ */
+export interface RadioButtonState {
+  /**
+   * Holds the current checked status of the radio button.
+   */
+  checked: boolean;
 }
 
 /**
  * RadioButton component
  * This lets a user select one of a limited number of choices.
  */
-export class RadioButton extends React.Component<RadioButtonProps> {
+export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
   constructor(props: RadioButtonProps) {
     super(props);
+    this.state = {
+      checked: !!props.checked,
+    };
+  }
+
+  /**
+   * Toggles the radio button selected state.
+   */
+  toggle(): void {
+    this.setState((state) => ({ checked: !state.checked }));
+    this.props.onChange?.call(this.state.checked, this.props.value);
   }
 
   render() {
@@ -63,6 +89,7 @@ export class RadioButton extends React.Component<RadioButtonProps> {
           value={this.props.value}
           checked={this.props?.checked}
           disabled={this.props?.disabled}
+          onChange={() => this.toggle()}
         />
         <span className="radio-button__selection"></span>
       </RadioButtonContainer>

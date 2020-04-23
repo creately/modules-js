@@ -22,10 +22,10 @@ export const Default = () => (
 
 export const WithDescription = () => (
   <div>
-    <RadioButton name="demo" value="demo_1" description="Radio 1 description">
+    <RadioButton name="demo" value="demo_1" description="Radio 1 description" onChange={callback}>
       Radio 1
     </RadioButton>
-    <RadioButton name="demo" value="demo_2" description="Radio 2 description">
+    <RadioButton name="demo" value="demo_2" description="Radio 2 description" onChange={callback}>
       Radio 2
     </RadioButton>
   </div>
