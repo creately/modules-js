@@ -11,11 +11,33 @@ export default {
 
 export const Default = () => (
   <div>
-    <RadioButton name="gender" value="male">
-      Male
+    <RadioButton name="demo" value="demo_1">
+      Radio 1
     </RadioButton>
-    <RadioButton name="gender" value="female">
-      Female
+    <RadioButton name="demo" value="demo_2">
+      Radio 2
+    </RadioButton>
+  </div>
+);
+
+export const WithDescription = () => (
+  <div>
+    <RadioButton name="demo" value="demo_1" description="Radio 1 description">
+      Radio 1
+    </RadioButton>
+    <RadioButton name="demo" value="demo_2" description="Radio 2 description">
+      Radio 2
+    </RadioButton>
+  </div>
+);
+
+export const WithDisabledOptions = () => (
+  <div>
+    <RadioButton name="demo" value="demo_1" description="Radio 1 description">
+      Radio 1
+    </RadioButton>
+    <RadioButton name="demo" value="demo_2" description="Radio 2 description" disabled>
+      Radio 2 (Disabled)
     </RadioButton>
   </div>
 );
@@ -23,11 +45,14 @@ export const Default = () => (
 export const Themed = () => (
   <React.Fragment>
     <ThemeProvider theme={SampleTheme}>
-      <RadioButton name="gender" value="male">
-        Male
+      <RadioButton name="demo" value="demo_1">
+        Radio 1
       </RadioButton>
-      <RadioButton name="gender" value="female">
-        Female
+      <RadioButton name="demo" value="demo_2" description="Radio 2 description" disabled>
+        Radio 2
+      </RadioButton>
+      <RadioButton name="demo" value="demo_3" description="Radio 3 description" checked>
+        Radio 2
       </RadioButton>
     </ThemeProvider>
     <GlobalFontStyle />

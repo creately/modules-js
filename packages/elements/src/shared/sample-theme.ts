@@ -7,6 +7,7 @@ const colors = {
   dangerAccent: "darkred",
   disabled: "grey",
   white: "white",
+  grey: "grey",
   black: "black",
 };
 
@@ -53,9 +54,11 @@ const SampleTheme = {
   },
 
   radioButton: {
-    borderColor: "grey",
-    borderHoverColor: "darkgrey",
-  }
+    borderColor: colors.primary,
+    borderHoverColor: colors.primaryAccent,
+    disabledColor: colors.grey,
+    checkColor: colors.primary,
+  },
 };
 
 export default SampleTheme;

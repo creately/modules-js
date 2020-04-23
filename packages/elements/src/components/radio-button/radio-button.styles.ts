@@ -8,6 +8,7 @@ const defaultTheme = {
     borderColor: "grey",
     borderHoverColor: "darkgrey",
     checkColor: "grey",
+    disabedColor: "grey",
   },
 };
 
@@ -28,12 +29,39 @@ const RadioButtonContainer = styled.label`
     line-height: 1.6;
   }
 
+  .radio-button__description {
+    color: grey;
+  }
+
   .radio-button__input {
     width: 20px;
     height: 20px;
     position: absolute;
     opacity: 0;
     cursor: pointer;
+
+    &:checked ~ .radio-button__selection::after {
+      opacity: 1;
+    }
+
+    &:disabled,
+    &[disabled] {
+      ~ .radio-button__selection {
+        border-color: ${(props) => props.theme.radioButton.disabledColor};
+      }
+
+      &:hover ~ .radio-button__selection {
+        border-color: ${(props) => props.theme.radioButton.disabledColor};
+      }
+
+      &:checked ~ .radio-button__selection::after {
+        background-color: ${(props) => props.theme.radioButton.disabledColor};
+      }
+    } 
+
+    &:hover ~ .radio-button__selection {
+      border-color: ${(props) => props.theme.radioButton.borderHoverColor};
+    }
   }
 
   .radio-button__selection {
@@ -57,14 +85,6 @@ const RadioButtonContainer = styled.label`
       width: 10px;
       height: 10px;
     }
-  }
-
-  .radio-button__input:checked ~ .radio-button__selection:after {
-    opacity: 1;
-  }
-
-  .radio-button__input:hover ~ .radio-button__selection {
-    border-color: ${(props) => props.theme.radioButton.borderHoverColor};
   }
 `;
 
