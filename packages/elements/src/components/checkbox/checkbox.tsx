@@ -21,7 +21,7 @@ export interface CheckboxProps {
   disabled?: boolean;
 
   /**
-   * A callback function for when the checkbox onChange event.
+   * A callback function for the checkbox onChange event.
    */
   onChange?: Function;
 }
@@ -54,7 +54,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
    */
   toggle(): void {
     this.setState((state) => ({ checked: !state.checked }));
-    this.props.onChange?.call(this.state.checked, this.props.value);
+    this.props?.onChange?.call(this.state.checked, this.props.value);
   }
 
   render() {

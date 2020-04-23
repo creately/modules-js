@@ -20,7 +20,7 @@ describe("Checkbox", () => {
     });
     it("should set checked to true when checked value is true", () => {
       act(() => {
-        wrapper = mount(<Checkbox value="" checked/>);
+        wrapper = mount(<Checkbox value="" checked />);
       });
       expect(wrapper.state("checked")).toBeTruthy();
     });
@@ -77,9 +77,7 @@ describe("Checkbox", () => {
     beforeEach(() => {
       toggleSpy = spyOn(Checkbox.prototype, "toggle");
       act(() => {
-        wrapper = shallow(
-          <Checkbox value="test"></Checkbox>
-        );
+        wrapper = shallow(<Checkbox value="test"></Checkbox>);
       });
     });
 
@@ -104,16 +102,13 @@ describe("Checkbox", () => {
     });
     it("should set disabled if disabled is true", () => {
       wrapper.setProps({ disabled: true });
-      expect(
-        wrapper.find(".checkbox__input").prop("disabled")
-      ).toBeTruthy();
+      expect(wrapper.find(".checkbox__input").prop("disabled")).toBeTruthy();
     });
     it("should call the toggle when an onChange event occurs", () => {
       wrapper.find(".checkbox__input").simulate("change");
       expect(toggleSpy).toHaveBeenCalled();
     });
   });
-
 
   describe("with theme", () => {
     let wrapper: ReactWrapper;
