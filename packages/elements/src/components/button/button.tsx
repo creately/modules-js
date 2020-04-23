@@ -30,6 +30,11 @@ export interface ButtonProps {
    * Set the button disabled state.
    */
   disabled?: boolean;
+
+  /**
+   * A callback function for the button onClick event.
+   */
+  onClick?: Function;
 }
 
 /**
@@ -110,6 +115,7 @@ export class Button extends React.Component<ButtonProps> {
       <ButtonContainer
         className={this.getClasses()}
         disabled={this.props.disabled}
+        onClick={() => this.props?.onClick?.call(null)}
       >
         {!!this.props.icon && (
           <Icon name={this.props.icon} color={this.props?.iconColor} />

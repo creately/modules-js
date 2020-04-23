@@ -65,12 +65,12 @@ describe("Icon", () => {
     it("should return the classes for white when the color is white", () => {
       wrapper.setProps({ color: "white" });
       result = (wrapper.instance() as Icon).getColorClass();
-      expect(result).toEqual("icon-white");
+      expect(result).toEqual("icon--white");
     });
     it("should return the classes for small when the color is black", () => {
       wrapper.setProps({ color: "black" });
       result = (wrapper.instance() as Icon).getColorClass();
-      expect(result).toEqual("icon-black");
+      expect(result).toEqual("icon--black");
     });
   });
 
@@ -95,22 +95,22 @@ describe("Icon", () => {
     it("should return the classes for xsmall when the size is xsmall", () => {
       wrapper.setProps({ size: "xsmall" });
       result = (wrapper.instance() as Icon).getSizeClass();
-      expect(result).toEqual("icon-xsmall");
+      expect(result).toEqual("icon--xsmall");
     });
     it("should return the classes for small when the size is small", () => {
       wrapper.setProps({ size: "small" });
       result = (wrapper.instance() as Icon).getSizeClass();
-      expect(result).toEqual("icon-small");
+      expect(result).toEqual("icon--small");
     });
     it("should return the classes for medium when the size is medium", () => {
       wrapper.setProps({ size: "medium" });
       result = (wrapper.instance() as Icon).getSizeClass();
-      expect(result).toEqual("icon-medium");
+      expect(result).toEqual("icon--medium");
     });
     it("should return the classes for large when the size is large", () => {
       wrapper.setProps({ size: "large" });
       result = (wrapper.instance() as Icon).getSizeClass();
-      expect(result).toEqual("icon-large");
+      expect(result).toEqual("icon--large");
     });
   });
 
@@ -131,7 +131,7 @@ describe("Icon", () => {
 
     it("should return all applicable classes separated by a space", () => {
       const result = (wrapper.instance() as Icon).getClasses();
-      expect(result).toEqual("test-color test-size");
+      expect(result).toEqual("icon test-color test-size");
     });
   });
 
