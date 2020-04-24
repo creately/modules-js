@@ -15,7 +15,8 @@ export const Default = () => (
     <p>
       Some text, some of which{" "}
       <Tooltip
-        title="This is some more info about that first thing that you should find every interesting."
+        title="Title"
+        description="This is some more info about that first thing that you should find every interesting."
         position="bottom"
       >
         requires explanation.
@@ -23,9 +24,9 @@ export const Default = () => (
       (Scroll down for more.)
     </p>
 
-    <div style={{ margin: "80px 150px" }}>
+    <div style={{ marginRight: "0px", textAlign: "right" }}>
       <Tooltip title="Title" description="Some description" position="top">
-        <button>This button needs to explain itself</button>
+        <button>This button</button>
       </Tooltip>
     </div>
 

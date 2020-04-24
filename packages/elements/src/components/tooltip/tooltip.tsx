@@ -2,25 +2,34 @@ import React, { RefObject } from "react";
 import ReactDOM from "react-dom";
 import { TooltipContainer } from "./tooltip.styles";
 
+/**
+ * A component that creates a tooltip portal container within which
+ * tooltip components can be rendered. The tooltip portal is appended and removed
+ * to/from the bottom of the document as needed.
+ */
 export class TooltipPortal extends React.PureComponent {
-  private el: HTMLDivElement;
+
+  /**
+   * The element to append to the document.
+   */
+  private element: HTMLDivElement;
 
   constructor(props: any) {
     super(props);
-    this.el = document.createElement("div");
-    this.el.classList.add("tooltip-portal");
+    this.element = document.createElement("div");
+    this.element.classList.add("tooltip-portal");
   }
 
-  componentDidMount() {
-    document.body.appendChild(this.el);
+  componentDidMount(): void {
+    document.body.appendChild(this.element);
   }
 
-  componentWillUnmount() {
-    document.body.removeChild(this.el);
+  componentWillUnmount(): void {
+    document.body.removeChild(this.element);
   }
 
   render() {
-    return ReactDOM.createPortal(this.props.children, this.el);
+    return ReactDOM.createPortal(this.props.children, this.element);
   }
 }
 
@@ -28,10 +37,21 @@ export class TooltipPortal extends React.PureComponent {
  * Tooltip props.
  */
 export interface TooltipProps {
-  title: string;
+  /**
+   * The title for the tooltip.
+   */
+  title?: string;
+
+  /**
+   * The description for the tooltip.
+   */
   description?: string;
+
+  /**
+   * The tooltip position, which can be to the top, bottom, left or right
+   * of the target element.
+   */
   position?: string;
-  children: any;
 }
 
 /**
@@ -41,7 +61,7 @@ export interface TooltipState {
   visible: boolean;
 }
 
-export class Tooltip extends React.Component<TooltipProps, TooltipState> {
+export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   private gap: number;
   private targetElement: HTMLSpanElement | null;
   private tooltipElement: RefObject<HTMLDivElement>;
@@ -87,11 +107,18 @@ export class Tooltip extends React.Component<TooltipProps, TooltipState> {
   }
 
   componentDidUpdate(): void {
-    console.log("componentDidUpdate");
-    this.updateTooltipPositionAndShow();
+    this.updateTooltipPosition();
+    this.displayTooltip();
   }
 
-  updateTooltipPositionAndShow(): void {
+  displayTooltip(): void {
+    if (!!!this.tooltipElement.current) {
+      return;
+    }
+    this.tooltipElement.current.style.visibility = "visible";
+  }
+
+  updateTooltipPosition(): void {
     if (!!!this.targetElement || !!!this.tooltipElement.current) {
       return;
     }
@@ -99,91 +126,67 @@ export class Tooltip extends React.Component<TooltipProps, TooltipState> {
     const targetDimensions = this.targetElement.getBoundingClientRect();
     const tooltipDimensions = this.tooltipElement.current?.getBoundingClientRect();
 
-    let left = 0;
-    let top = 0;
-    let bottom = 0;
-
     switch (this.props.position) {
       case "top":
-        bottom = window.innerHeight - targetDimensions.top + this.gap;
-        this.tooltipElement.current.style.bottom = bottom + "px";
-
-        left =
-          targetDimensions.left +
-          targetDimensions.width / 2 -
-          tooltipDimensions.width / 2;
-        left = Math.max(this.gap, left);
-        left = Math.min(
-          left,
-          document.body.clientWidth - tooltipDimensions.width - this.gap
+        this.tooltipElement.current.style.bottom =
+          window.innerHeight - targetDimensions.top + this.gap + "px";
+        this.tooltipElement.current.style.left = this.getVerticalLeft(
+          targetDimensions.left,
+          targetDimensions.width,
+          tooltipDimensions.width
         );
-        this.tooltipElement.current.style.left = left + "px";
-
-        this.tooltipElement.current.style.visibility = "visible";
-        break;
-
-      case "bottom":
-        top = targetDimensions.top + targetDimensions.height + this.gap;
-        this.tooltipElement.current.style.top = top + "px";
-
-        left =
-          targetDimensions.left +
-          targetDimensions.width / 2 -
-          tooltipDimensions.width / 2;
-        left = Math.max(this.gap, left);
-        left = Math.min(
-          left,
-          document.body.clientWidth - tooltipDimensions.width - this.gap
-        );
-        this.tooltipElement.current.style.left = left + "px";
-
-        this.tooltipElement.current.style.visibility = "visible";
         break;
 
       case "right":
-        top =
-          targetDimensions.top +
-          targetDimensions.height / 2 -
-          tooltipDimensions.height / 2;
-        this.tooltipElement.current.style.top = top + "px";
-
-        left = targetDimensions.left + targetDimensions.width + this.gap;
-        this.tooltipElement.current.style.left = left + "px";
-
-        this.tooltipElement.current.style.visibility = "visible";
+        this.tooltipElement.current.style.top = this.getHorizontalTop(
+          targetDimensions.top,
+          targetDimensions.height,
+          tooltipDimensions.height
+        );
+        this.tooltipElement.current.style.left =
+          targetDimensions.left + targetDimensions.width + this.gap + "px";
         break;
 
       case "left":
-        top =
-          targetDimensions.top +
-          targetDimensions.height / 2 -
-          tooltipDimensions.height / 2;
-        this.tooltipElement.current.style.top = top + "px";
-
-        left = targetDimensions.left - tooltipDimensions.width - this.gap * 2;
-        this.tooltipElement.current.style.left = left + "px";
-
-        this.tooltipElement.current.style.visibility = "visible";
+        this.tooltipElement.current.style.top = this.getHorizontalTop(
+          targetDimensions.top,
+          targetDimensions.height,
+          tooltipDimensions.height
+        );
+        this.tooltipElement.current.style.left =
+          targetDimensions.left - tooltipDimensions.width - this.gap * 2 + "px";
         break;
 
+      case "bottom":
       default:
-        top = targetDimensions.top + targetDimensions.height + this.gap;
-        this.tooltipElement.current.style.top = top + "px";
-
-        left =
-          targetDimensions.left +
-          targetDimensions.width / 2 -
-          tooltipDimensions.width / 2;
-        left = Math.max(this.gap, left);
-        left = Math.min(
-          left,
-          document.body.clientWidth - tooltipDimensions.width - this.gap
+        this.tooltipElement.current.style.top =
+          targetDimensions.top + targetDimensions.height + this.gap + "px";
+        this.tooltipElement.current.style.left = this.getVerticalLeft(
+          targetDimensions.left,
+          targetDimensions.width,
+          tooltipDimensions.width
         );
-        this.tooltipElement.current.style.left = left + "px";
-
-        this.tooltipElement.current.style.visibility = "visible";
         break;
     }
+  }
+
+  getVerticalLeft(
+    targetLeft: number,
+    targetWidth: number,
+    tooltipWidth: number
+  ): string {
+    let left = targetLeft + targetWidth / 2 - tooltipWidth / 2;
+    left = Math.max(this.gap, left);
+    left = Math.min(left, document.body.clientWidth - tooltipWidth + this.gap);
+    return left + "px";
+  }
+
+  getHorizontalTop(
+    targetTop: number,
+    targetHeight: number,
+    tooltipHeight: number
+  ): string {
+    return targetTop + targetHeight / 2 - tooltipHeight / 2 + "px";
   }
 
   render() {
@@ -201,7 +204,9 @@ export class Tooltip extends React.Component<TooltipProps, TooltipState> {
               className={this.getClasses()}
               ref={this.tooltipElement}
             >
-              <span className="tooltip__title">{this.props.title}</span>
+              {this.props.title && (
+                <span className="tooltip__title">{this.props.title}</span>
+              )}
               {this.props.description && (
                 <span className="tooltip__description">
                   {this.props.description}
