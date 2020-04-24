@@ -6,26 +6,44 @@ export default {
   component: Tooltip,
 };
 
+const storyRoot = document.createElement("div");
+storyRoot.id = "tooltip-root";
+document.body.prepend(storyRoot);
+
 export const Default = () => (
   <div>
-    <div style={{ margin: "60px" }}>
-      <Tooltip title="Tooltip on top" position="top">
-        <button>Tooltip on top</button>
+    <p>
+      Some text, some of which{" "}
+      <Tooltip
+        title="This is some more info about that first thing that you should find every interesting."
+        position="bottom"
+      >
+        requires explanation.
+      </Tooltip>{" "}
+      (Scroll down for more.)
+    </p>
+
+    <div style={{ margin: "80px" }}>
+      <Tooltip title="Title" description="Some description" position="bottom">
+        <button>This button needs to explain itself</button>
       </Tooltip>
     </div>
-    <div style={{ margin: "60px" }}>
-      <Tooltip title="Tooltip on bottom" position="bottom">
-        <button>Tooltip on Bottom</button>
+
+    <div style={{ margin: "80px" }}>
+      <Tooltip title="Title" description="Some description" position="top">
+        <button>This button needs to explain itself</button>
       </Tooltip>
     </div>
-    <div style={{ margin: "60px" }}>
-      <Tooltip title="Tooltip on left" position="left">
-        <button>Tooltip on left</button>
+
+    <div style={{ margin: "80px" }}>
+      <Tooltip title="Title" description="Some description" position="right">
+        <button>This button needs to explain itself</button>
       </Tooltip>
     </div>
-    <div style={{ margin: "60px" }}>
-      <Tooltip title="Tooltip on right" position="right">
-        <button>Tooltip on right</button>
+
+    <div style={{ margin: "80px" }}>
+      <Tooltip title="Title" description="Some description" position="left">
+        <button>This button needs to explain itself</button>
       </Tooltip>
     </div>
   </div>
