@@ -23,25 +23,25 @@ export const Default = () => (
       (Scroll down for more.)
     </p>
 
-    <div style={{ margin: "80px" }}>
-      <Tooltip title="Title" description="Some description" position="bottom">
-        <button>This button needs to explain itself</button>
-      </Tooltip>
-    </div>
-
-    <div style={{ margin: "80px" }}>
+    <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="top">
         <button>This button needs to explain itself</button>
       </Tooltip>
     </div>
 
-    <div style={{ margin: "80px" }}>
+    <div style={{ margin: "80px 150px" }}>
+      <Tooltip title="Title" description="Some description" position="bottom">
+        <button>This button needs to explain itself</button>
+      </Tooltip>
+    </div>
+
+    <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="right">
         <button>This button needs to explain itself</button>
       </Tooltip>
     </div>
 
-    <div style={{ margin: "80px" }}>
+    <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="left">
         <button>This button needs to explain itself</button>
       </Tooltip>

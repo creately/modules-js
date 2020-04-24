@@ -23,7 +23,7 @@ const TooltipContainer = styled.div`
   z-index: ${(props) => props.theme.tooltip.zIndex};
   position: fixed;
   padding: 8px;
-  display: none;
+  visibility: hidden;
 
   .tooltip__title,
   .tooltip__description {
@@ -41,7 +41,6 @@ const TooltipContainer = styled.div`
   }
 
   &.tooltip--top {
-    bottom: 100%;
     margin-bottom: 5px;
 
     .tooltip__arrow {
@@ -82,7 +81,6 @@ const TooltipContainer = styled.div`
 
   &.tooltip--right {
     margin-left: 5px;
-    transform: translateY(-50%);
 
     .tooltip__arrow {
       left: -5px;
