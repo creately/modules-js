@@ -15,12 +15,12 @@ export interface CheckboxState {
 export const defaultTheme = {
   primaryColor: "#5b5b5b",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "15px",
+  baseFontSize: "15px",
 };
 
 const CheckboxContainer = styled.div`
   font-family: ${(props) => props.theme.primaryFontFamily};
-  font-size: ${(props) => props.theme.fontSize};
+  font-size: ${(props) => props.theme.baseFontSize};
 
   .checkbox-label {
     display:        block;
