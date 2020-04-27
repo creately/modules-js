@@ -3,6 +3,5 @@
   "private": true,
   "scripts": {
     "publish-all": "node ./.scripts/publish-all"
-  },
-  "dependencies": {}
+  }
 }
