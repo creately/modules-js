@@ -13,6 +13,10 @@ const defaultTheme = {
   },
 };
 
+const TooltipTrigger = styled.span`
+  display: inline-block;
+`;
+
 const TooltipContainer = styled.div`
   font-family: ${(props) => props.theme.primaryFontFamily};
   font-size: ${(props) => props.theme.tooltip.fontSize};
@@ -97,4 +101,4 @@ TooltipContainer.defaultProps = {
   theme: defaultTheme,
 };
 
-export { TooltipContainer };
+export { TooltipTrigger, TooltipContainer };

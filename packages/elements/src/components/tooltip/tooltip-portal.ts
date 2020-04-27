@@ -7,7 +7,6 @@ import ReactDOM from "react-dom";
  * to/from the bottom of the document as needed.
  */
 export class TooltipPortal extends React.PureComponent {
-
   /**
    * The element to append to the document.
    */

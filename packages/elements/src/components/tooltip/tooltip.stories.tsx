@@ -26,7 +26,7 @@ export const Default = () => (
 
     <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="top">
-        <button>This button</button>
+        <button style={{ height: "100px" }}>This button</button>
       </Tooltip>
     </div>
 

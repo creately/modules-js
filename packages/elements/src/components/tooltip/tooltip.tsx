@@ -1,5 +1,5 @@
 import React, { RefObject } from "react";
-import { TooltipContainer } from "./tooltip.styles";
+import { TooltipTrigger, TooltipContainer } from "./tooltip.styles";
 import { TooltipPortal } from "./tooltip-portal";
 
 /**
@@ -34,12 +34,12 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   /**
    * The gap to maintain between the tooltip, screen edges and the target element, in pixels.
    */
-  private gap: number = 8
+  private gap: number = 8;
 
   /**
    * The target element to attach the tooltip to.
    */
-  private targetElement: HTMLSpanElement | null;
+  private targetElement: RefObject<HTMLSpanElement>;
 
   /**
    * The tooltip element.
@@ -63,10 +63,11 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   constructor(props: TooltipProps) {
     super(props);
-    this.targetElement = null;
+    this.targetElement = React.createRef<HTMLSpanElement>();
     this.tooltipElement = React.createRef<HTMLDivElement>();
     this.state = {
       visible: false,
+      style: {},
     };
   }
 
@@ -106,6 +107,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   /**
+   * Listen to window scroll and resize events and update tooltip position.
+   */
+  componentDidMount(): void {
+    window.addEventListener("scroll", this.handleWindowChange);
+    window.addEventListener("resize", this.handleWindowChange);
+  }
+
+  /**
    * Wait for the tooltip to be added to the DOM and update it's position,
    * and then display it.
    */
@@ -115,19 +124,28 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   /**
+   * Stop listening to window scroll and resize events.
+   */
+  componentWillUnmount(): void {
+    window.removeEventListener("scroll", this.handleWindowChange);
+    window.removeEventListener("resize", this.handleWindowChange);
+  }
+
+  /**
    * Update the position of the tooltip on the screen based on the current
    * position prop, tooltip dimensions and the position and dimensions
    * of the target element.
    */
-
   updateTooltipPosition(): void {
-    if (!!!this.targetElement || !!!this.tooltipElement.current) {
+    if (!!!this.targetElement.current || !!!this.tooltipElement.current) {
       return;
     }
 
-    const targetDimensions = this.targetElement.getBoundingClientRect();
+    const targetDimensions = this.targetElement.current?.getBoundingClientRect();
     const tooltipDimensions = this.tooltipElement.current?.getBoundingClientRect();
 
+    // Style is being set directly on the element as setting it via state
+    // would trigger another update cycle causing a loop.
     this.tooltipElement.current.style.left = this.getLeft(
       targetDimensions.left,
       targetDimensions.width,
@@ -179,7 +197,10 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       default:
         left = targetLeft + targetWidth / 2 - tooltipWidth / 2;
         left = Math.max(this.gap, left);
-        left = Math.min(left, document.body.clientWidth - tooltipWidth + this.gap);
+        left = Math.min(
+          left,
+          document.body.clientWidth - tooltipWidth + this.gap
+        );
         break;
     }
 
@@ -219,13 +240,17 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return top + "px";
   }
 
+  handleWindowChange = (): void => {
+    this.updateTooltipPosition();
+  };
+
   render() {
     return (
-      <span
+      <TooltipTrigger
         onMouseOver={() => this.showTooltip()}
         onMouseOut={() => this.hideTooltip()}
         className="tooltip__trigger"
-        ref={(element) => (this.targetElement = element)}
+        ref={this.targetElement}
       >
         {this.props.children}
         {this.state.visible && (
@@ -246,7 +271,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
             </TooltipContainer>
           </TooltipPortal>
         )}
-      </span>
+      </TooltipTrigger>
     );
   }
 }
