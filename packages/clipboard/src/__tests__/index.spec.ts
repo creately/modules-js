@@ -11,7 +11,7 @@ describe('Clipboard', () => {
     it('should copy data to local clipboard', () => {
       spyOn(clipboardpoly, 'writeText').and.returnValue(Promise.reject('test error'));
       spyOn(clipboard, 'storeToLocalClipboard');
-      clipboard.copy('success').subscribe(() => {
+      clipboard.copy('success').then(() => {
         expect(clipboardpoly.writeText).toHaveBeenCalledWith('success');
         expect(clipboard.storeToLocalClipboard).toHaveBeenCalledWith('success');
       });
@@ -19,7 +19,7 @@ describe('Clipboard', () => {
     it('should copy data to system clipboard', () => {
       spyOn(clipboardpoly, 'writeText').and.returnValue(Promise.resolve('test success'));
       spyOn(clipboard, 'storeToLocalClipboard');
-      clipboard.copy('success').subscribe(() => {
+      clipboard.copy('success').then(() => {
         expect(clipboardpoly.writeText).toHaveBeenCalledWith('success');
         expect(clipboard.storeToLocalClipboard).not.toHaveBeenCalled();
       });
@@ -30,7 +30,7 @@ describe('Clipboard', () => {
     it('should return data from system clipboard', () => {
       spyOn(clipboardpoly, 'readText').and.returnValue(Promise.resolve('test success'));
       spyOn(clipboard, 'retriveLocalClipboardData');
-      clipboard.paste().subscribe((val: any) => {
+      clipboard.paste().then((val: any) => {
         expect(val).toEqual('test success');
         expect(clipboardpoly.readText).toHaveBeenCalled();
         expect(clipboard.retriveLocalClipboardData).not.toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe('Clipboard', () => {
     it('should return data from local clipboard', () => {
       spyOn(clipboardpoly, 'readText').and.returnValue(Promise.resolve(''));
       spyOn(clipboard, 'retriveLocalClipboardData');
-      clipboard.paste().subscribe(() => {
+      clipboard.paste().then(() => {
         expect(clipboardpoly.readText).toHaveBeenCalled();
         expect(clipboard.retriveLocalClipboardData).toHaveBeenCalled();
       });
@@ -47,7 +47,7 @@ describe('Clipboard', () => {
     it('should return data from local clipboard on system clipboard error', () => {
       spyOn(clipboardpoly, 'readText').and.returnValue(Promise.reject('system error'));
       spyOn(clipboard, 'retriveLocalClipboardData');
-      clipboard.paste().subscribe(() => {
+      clipboard.paste().then(() => {
         expect(clipboardpoly.readText).toHaveBeenCalled();
         expect(clipboard.retriveLocalClipboardData).toHaveBeenCalled();
       });

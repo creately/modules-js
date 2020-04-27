@@ -1,4 +1,3 @@
-import { Observable, from, of } from 'rxjs';
 import * as clipboardpoly from 'clipboard-polyfill';
 
 /**
@@ -17,12 +16,10 @@ export class Clipboard {
    * it copies to local storage.
    * @param data data that needs to be copied to the clipboard
    */
-  public copy(data: any): Observable<any> {
-    return from(
-      clipboardpoly.writeText(data).catch(() => {
-        this.storeToLocalClipboard(data);
-      })
-    );
+  public copy(data: any): Promise<any> {
+    return clipboardpoly.writeText(data).catch(() => {
+      this.storeToLocalClipboard(data);
+    });
   }
 
   /**
@@ -30,18 +27,16 @@ export class Clipboard {
    * to paste whereever we need in the application. Pulls the system
    * clipboard data when there is no local storage data.
    */
-  public paste(): Observable<any> {
-    return from(
-      clipboardpoly
-        .readText()
-        .then(text => {
-          if (!text) {
-            return of(this.retriveLocalClipboardData());
-          }
-          return text;
-        })
-        .catch(() => of(this.retriveLocalClipboardData()))
-    );
+  public paste(): Promise<any> {
+    return clipboardpoly
+      .readText()
+      .then(text => {
+        if (!text) {
+          return this.retriveLocalClipboardData();
+        }
+        return text;
+      })
+      .catch(() => this.retriveLocalClipboardData());
   }
 
   /**
