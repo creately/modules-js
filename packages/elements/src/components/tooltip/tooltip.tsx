@@ -27,7 +27,25 @@ export interface TooltipProps {
  * Tooltip state.
  */
 export interface TooltipState {
-  visible: boolean;
+  /**
+   * Tracks of the tooltip should be shown or hidden.
+   */
+  show: boolean;
+
+  /**
+   * The left style value for the tooltip, in pixels.
+   */
+  left: string;
+
+  /**
+   * The top style value for the tooltip, in pixels.
+   */
+  top: string;
+
+  /**
+   * The visibility style value for the tooltip.
+   */
+  visibility: VisibilityState;
 }
 
 export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
@@ -66,8 +84,10 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     this.targetElement = React.createRef<HTMLSpanElement>();
     this.tooltipElement = React.createRef<HTMLDivElement>();
     this.state = {
-      visible: false,
-      style: {},
+      show: false,
+      left: "auto",
+      top: "auto",
+      visibility: "hidden",
     };
   }
 
@@ -75,14 +95,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
    * Shows the tooltip.
    */
   showTooltip() {
-    this.setState({ visible: true });
+    this.setState({ show: true });
   }
 
   /**
    * Hides the tooltip.
    */
   hideTooltip() {
-    this.setState({ visible: false });
+    this.setState({ show: false });
   }
 
   /**
@@ -118,9 +138,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
    * Wait for the tooltip to be added to the DOM and update it's position,
    * and then display it.
    */
-  componentDidUpdate(): void {
-    this.updateTooltipPosition();
-    this.displayTooltip();
+  componentDidUpdate(
+    _previousProps: TooltipProps,
+    previousState: TooltipState
+  ): void {
+    if (previousState.show !== this.state.show) {
+      this.updateTooltipPosition();
+      this.displayTooltip();
+    }
   }
 
   /**
@@ -144,19 +169,19 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     const targetDimensions = this.targetElement.current?.getBoundingClientRect();
     const tooltipDimensions = this.tooltipElement.current?.getBoundingClientRect();
 
-    // Style is being set directly on the element as setting it via state
-    // would trigger another update cycle causing a loop.
-    this.tooltipElement.current.style.left = this.getLeft(
+    const left = this.getLeft(
       targetDimensions.left,
       targetDimensions.width,
       tooltipDimensions.width
     );
 
-    this.tooltipElement.current.style.top = this.getTop(
+    const top = this.getTop(
       targetDimensions.top,
       targetDimensions.height,
       tooltipDimensions.height
     );
+
+    this.setState({ left: left, top: top });
   }
 
   /**
@@ -166,7 +191,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     if (!!!this.tooltipElement.current) {
       return;
     }
-    this.tooltipElement.current.style.visibility = "visible";
+    this.setState({ visibility: "visible" });
   }
 
   /**
@@ -240,6 +265,10 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return top + "px";
   }
 
+  /**
+   * A function to be bound to window change events such as scroll and resize,
+   * which updates the tooltip position.
+   */
   handleWindowChange = (): void => {
     this.updateTooltipPosition();
   };
@@ -253,11 +282,16 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         ref={this.targetElement}
       >
         {this.props.children}
-        {this.state.visible && (
+        {this.state.show && (
           <TooltipPortal>
             <TooltipContainer
               className={this.getClasses()}
               ref={this.tooltipElement}
+              style={{
+                left: this.state.left,
+                top: this.state.top,
+                visibility: this.state.visibility,
+              }}
             >
               {this.props.title && (
                 <span className="tooltip__title">{this.props.title}</span>

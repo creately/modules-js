@@ -27,7 +27,6 @@ const TooltipContainer = styled.div`
   z-index: ${(props) => props.theme.tooltip.zIndex};
   position: fixed;
   padding: 8px;
-  visibility: hidden;
 
   .tooltip__title,
   .tooltip__description {
