@@ -1,0 +1,27 @@
+{
+  "name": "@creately/clipboard",
+  "version": "1.0.0",
+  "description": "Clipboard Service which uses system clipboard as primary and local storage as fallback.",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "prettier --print-width 120 --single-quote --trailing-comma es5 --write \"src/**/*.ts\"",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "author": "Vinoch Selvarathinam",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2"
+  },
+  "dependencies": {
+    "clipboard-polyfill": "^2.8.6"
+  }
+}
