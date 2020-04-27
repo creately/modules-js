@@ -1,13 +1,69 @@
-import { add } from '../';
+import { Clipboard } from '../';
+import * as clipboardpoly from 'clipboard-polyfill';
 
-describe('add', () => {
-  it('should add 1 and 2', () => {
-    expect(add(1, 2)).toBe(1 + 2);
+describe( 'Clipboard', () => {
+  let clipboard: any;
+  beforeEach(() => {
+    clipboard = new Clipboard();
   });
-  it('should add 1 and 3', () => {
-    expect(add(1, 3)).toBe(1 + 3);
+
+  describe('copy', () => {
+    it('should copy data to local clipboard', () => {
+      spyOn( clipboardpoly, 'writeText' ).and.returnValue( Promise.reject("test error"));
+      spyOn( clipboard, 'storeToLocalClipboard' );
+      clipboard.copy( 'success' ).subscribe(() => {
+        expect( clipboardpoly.writeText ).toHaveBeenCalledWith( 'success' );
+        expect( clipboard.storeToLocalClipboard ).toHaveBeenCalledWith( 'success' );
+      });
+    });
+    it('should copy data to system clipboard', () => {
+      spyOn( clipboardpoly, 'writeText' ).and.returnValue( Promise.resolve("test success"));
+      spyOn( clipboard, 'storeToLocalClipboard' );
+      clipboard.copy( 'success' ).subscribe(() => {
+        expect( clipboardpoly.writeText ).toHaveBeenCalledWith( 'success' );
+        expect( clipboard.storeToLocalClipboard ).not.toHaveBeenCalled();
+      });
+    });
   });
-  it('should add 1 and 4', () => {
-    expect(add(1, 4)).toBe(1 + 4);
+
+  describe('paste', () => {
+    it('should return data from system clipboard', () => {
+      spyOn( clipboardpoly, 'readText' ).and.returnValue( Promise.resolve("test success"));
+      spyOn( clipboard, 'retriveLocalClipboardData' );
+      clipboard.paste().subscribe(( val: any ) => {
+        expect( val ).toEqual( 'test success' );
+        expect( clipboardpoly.readText ).toHaveBeenCalled();
+        expect( clipboard.retriveLocalClipboardData ).not.toHaveBeenCalled();
+      });
+    });
+    it('should return data from local clipboard', () => {
+      spyOn( clipboardpoly, 'readText' ).and.returnValue( Promise.resolve( '' ));
+      spyOn( clipboard, 'retriveLocalClipboardData' );
+      clipboard.paste().subscribe(() => {
+        expect( clipboardpoly.readText ).toHaveBeenCalled();
+        expect( clipboard.retriveLocalClipboardData ).toHaveBeenCalled();
+      });
+    });
+    it('should return data from local clipboard on system clipboard error', () => {
+      spyOn( clipboardpoly, 'readText' ).and.returnValue( Promise.reject( 'system error' ));
+      spyOn( clipboard, 'retriveLocalClipboardData' );
+      clipboard.paste().subscribe(() => {
+        expect( clipboardpoly.readText ).toHaveBeenCalled();
+        expect( clipboard.retriveLocalClipboardData ).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('storeToLocalClipboard', () => {
+    it('should clear data from local storage if there are any', () => {
+      spyOn( clipboard, 'retriveLocalClipboardData' ).and.returnValue( undefined );
+      spyOn( clipboard, 'removeLocalClipboardData' );
+      localStorage.clear();
+      console.log( localStorage.clear() );
+      // spyOn( localStorage, 'setItem' );
+      // clipboard.storeToLocalClipboard( 'success' );
+      // expect( clipboard.removeLocalClipboardData ).toHaveBeenCalled();
+      // expect( localStorage.setItem ).toHaveBeenCalledWith( 'clipboardData', 'success' );
+    });
   });
 });

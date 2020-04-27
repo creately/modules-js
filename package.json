@@ -3,5 +3,9 @@
   "private": true,
   "scripts": {
     "publish-all": "node ./.scripts/publish-all"
+  },
+  "dependencies": {
+    "clipboard-polyfill": "^2.8.6",
+    "rxjs": "^6.5.5"
   }
 }
