@@ -17,9 +17,9 @@ export class Clipboard {
    * @param data data that needs to be copied to the clipboard
    */
   public copy(data: any): Promise<any> {
-    return clipboardpoly.writeText(data).catch(() => {
-      this.storeToLocalClipboard(data);
-    });
+    return clipboardpoly.readText()
+      .then(() =>  clipboardpoly.writeText(data))
+      .catch(() => this.storeToLocalClipboard(data));
   }
 
   /**

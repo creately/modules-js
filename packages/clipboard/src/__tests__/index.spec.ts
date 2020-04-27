@@ -9,7 +9,7 @@ describe('Clipboard', () => {
 
   describe('copy', () => {
     it('should copy data to local clipboard', () => {
-      spyOn(clipboardpoly, 'writeText').and.returnValue(Promise.reject('test error'));
+      spyOn(clipboardpoly, 'readText').and.returnValue(Promise.reject('test error'));
       spyOn(clipboard, 'storeToLocalClipboard');
       clipboard.copy('success').then(() => {
         expect(clipboardpoly.writeText).toHaveBeenCalledWith('success');
@@ -17,7 +17,7 @@ describe('Clipboard', () => {
       });
     });
     it('should copy data to system clipboard', () => {
-      spyOn(clipboardpoly, 'writeText').and.returnValue(Promise.resolve('test success'));
+      spyOn(clipboardpoly, 'readText').and.returnValue(Promise.resolve('test success'));
       spyOn(clipboard, 'storeToLocalClipboard');
       clipboard.copy('success').then(() => {
         expect(clipboardpoly.writeText).toHaveBeenCalledWith('success');
