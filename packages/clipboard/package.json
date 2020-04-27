@@ -21,5 +21,8 @@
     "typescript": "^3.7.2",
     "webpack": "^4.41.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "clipboard-polyfill": "^2.8.6",
+    "rxjs": "^6.5.5"
+  }
 }
