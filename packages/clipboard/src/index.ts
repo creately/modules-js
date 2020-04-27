@@ -47,7 +47,7 @@ export class Clipboard {
   /**
    * Store data into the local storage
    */
-  protected storeToLocalClipboard(data: any) {
+  private storeToLocalClipboard(data: any) {
     if (this.retriveLocalClipboardData() !== undefined) {
       this.removeLocalClipboardData();
     }
@@ -57,14 +57,14 @@ export class Clipboard {
   /**
    * Retrieve data from the local storage
    */
-  protected retriveLocalClipboardData(): any {
+  private retriveLocalClipboardData(): any {
     return localStorage.getItem('clipboardData');
   }
 
   /**
    * Remove data from the local storage
    */
-  protected removeLocalClipboardData(): any {
+  private removeLocalClipboardData(): any {
     if (this.retriveLocalClipboardData() !== undefined) {
       localStorage.removeItem('clipboardData');
     }
