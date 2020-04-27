@@ -24,7 +24,7 @@ export const Default = () => (
       (Scroll down for more.)
     </p>
 
-    <div style={{ marginRight: "0px", textAlign: "right" }}>
+    <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="top">
         <button>This button</button>
       </Tooltip>
