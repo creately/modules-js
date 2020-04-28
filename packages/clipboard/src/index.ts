@@ -30,12 +30,12 @@ export class Clipboard {
    */
   public async paste(): Promise<any> {
     if (window.self !== window.top) {
-      this.retriveLocalClipboardData();
+      return this.retriveLocalClipboardData();
     }
     try {
-      await clipboardpoly.readText();
+      return await clipboardpoly.readText();
     } catch {
-      this.retriveLocalClipboardData();
+      return this.retriveLocalClipboardData();
     }
   }
 
