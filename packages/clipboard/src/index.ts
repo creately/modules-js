@@ -12,31 +12,31 @@ import * as clipboardpoly from 'clipboard-polyfill';
  */
 export class Clipboard {
   /**
-   * This copies the given data to the system clipboard and as fallback,
-   * it copies to local storage.
+   * This copies the given data to the system clipboard and local storage.
    * @param data data that needs to be copied to the clipboard
    */
-  public copy(data: any): Promise<any> {
-    return clipboardpoly.readText()
-      .then(() =>  clipboardpoly.writeText(data))
-      .catch(() => this.storeToLocalClipboard(data));
+  public async copy(data: any): Promise<any> {
+    try {
+      await clipboardpoly.writeText(data);
+    } finally {
+      this.storeToLocalClipboard(data);
+    }
   }
 
   /**
    * This pulls the current available data from the local clipboard
-   * to paste whereever we need in the application. Pulls the system
-   * clipboard data when there is no local storage data.
+   * if it is embedded or it will pull data from system as fallback
+   * pulls from local storage.
    */
-  public paste(): Promise<any> {
-    return clipboardpoly
-      .readText()
-      .then(text => {
-        if (!text) {
-          return this.retriveLocalClipboardData();
-        }
-        return text;
-      })
-      .catch(() => this.retriveLocalClipboardData());
+  public async paste(): Promise<any> {
+    if (window.self !== window.top) {
+      return this.retriveLocalClipboardData();
+    }
+    try {
+      return await clipboardpoly.readText();
+    } catch {
+      return this.retriveLocalClipboardData();
+    }
   }
 
   /**
