@@ -8,20 +8,20 @@ describe('Clipboard', () => {
   });
 
   describe('copy', () => {
-    it('should copy data to local clipboard', () => {
-      spyOn(clipboardpoly, 'readText').and.returnValue(Promise.reject('test error'));
+    it('should copy data to system and local clipboard', () => {
+      spyOn(clipboardpoly, 'writeText').and.returnValue(Promise.resolve('test error'));
       spyOn(clipboard, 'storeToLocalClipboard');
       clipboard.copy('success').then(() => {
         expect(clipboardpoly.writeText).toHaveBeenCalledWith('success');
         expect(clipboard.storeToLocalClipboard).toHaveBeenCalledWith('success');
       });
     });
-    it('should copy data to system clipboard', () => {
-      spyOn(clipboardpoly, 'readText').and.returnValue(Promise.resolve('test success'));
+    it('should copy data to local clipboard', () => {
+      spyOn(clipboardpoly, 'writeText').and.returnValue(Promise.reject('test error'));
       spyOn(clipboard, 'storeToLocalClipboard');
       clipboard.copy('success').then(() => {
         expect(clipboardpoly.writeText).toHaveBeenCalledWith('success');
-        expect(clipboard.storeToLocalClipboard).not.toHaveBeenCalled();
+        expect(clipboard.storeToLocalClipboard).toHaveBeenCalledWith('success');
       });
     });
   });
@@ -36,19 +36,26 @@ describe('Clipboard', () => {
         expect(clipboard.retriveLocalClipboardData).not.toHaveBeenCalled();
       });
     });
-    it('should return data from local clipboard', () => {
-      spyOn(clipboardpoly, 'readText').and.returnValue(Promise.resolve(''));
+    it('should return data from local clipboard on system clipboard error', () => {
+      spyOn(clipboardpoly, 'readText').and.returnValue(Promise.reject('system error'));
       spyOn(clipboard, 'retriveLocalClipboardData');
       clipboard.paste().then(() => {
         expect(clipboardpoly.readText).toHaveBeenCalled();
         expect(clipboard.retriveLocalClipboardData).toHaveBeenCalled();
       });
     });
-    it('should return data from local clipboard on system clipboard error', () => {
+    it('should return data from local clipboard on embedded mode', () => {
+      window = Object.create(window);
+      Object.defineProperty(window, 'top', {
+        value: false
+      });
+      Object.defineProperty(window, 'self', {
+        value: true
+      });
       spyOn(clipboardpoly, 'readText').and.returnValue(Promise.reject('system error'));
       spyOn(clipboard, 'retriveLocalClipboardData');
       clipboard.paste().then(() => {
-        expect(clipboardpoly.readText).toHaveBeenCalled();
+        expect(clipboardpoly.readText).not.toHaveBeenCalled();
         expect(clipboard.retriveLocalClipboardData).toHaveBeenCalled();
       });
     });
