@@ -5,14 +5,16 @@ const defaultTheme = {
   secondaryColor: "#cc66c4",
   dangerColor: "#dc3545",
   primaryFontFamily: "Arial, Helvetica, sans-serif",
-  primaryFontColor: "white",
-  borderRadius: "4px",
+  globalborderRadius: "4px",
   baseFontSize: "15px",
   button: {
+    primaryFontColor: "white",
     primaryHoverBackground: "#0065d2",
     primaryActiveBackground: "#0065d2",
+    secondaryFontColor: "white",
     secondaryHoverBackground: "#a755a0",
     secondaryActiveBackground: "#a755a0",
+    dangerFontColor: "white",
     dangerHoverBackground: "#c32e3d",
     dangerActiveBackground: "#c32e3d",
   },
@@ -41,11 +43,11 @@ function createSizeStyles() {
     },
   ].forEach((entry) => {
     styles += `
-      &.button-${entry.name} {
+      &.button--${entry.name} {
         height: ${entry.height};
         font-size: ${entry.fontSize || "14px"}
 
-        &.button-square {
+        &.button--square {
           width: ${entry.height};
         }
       }
@@ -59,9 +61,9 @@ function createSizeStyles() {
 
 const ButtonContainer = styled.button`
   font-family: ${(props) => props.theme.primaryFontFamily};
-  color: ${(props) => props.theme.primaryFontColor};
   font-size: ${(props) => props.theme.baseFontSize};
-  border-radius: ${(props) => props.theme.borderRadius};
+  color: white;
+  border-radius: ${(props) => props.theme.globalborderRadius};
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
@@ -73,18 +75,18 @@ const ButtonContainer = styled.button`
     outline: none;
   }
 
-  &.button-icon {
+  &.button--icon {
     background-color: transparent;
     color: black;
     padding-left: 2px;
     padding-right: 2px;
   }
 
-  &:active .button-icon {
+  &:active .button--icon {
     color: ${(props) => props.theme.button.primaryActiveBackground};
   }
 
-  &.button-icon-text {
+  &.button--icon-text {
     padding-left: 5px;
 
     .icon {
@@ -92,7 +94,7 @@ const ButtonContainer = styled.button`
       color: white;
     }
 
-    .text {
+    .button__text {
       margin-left: 5px;
       cursor: pointer;
       user-select: 0;
@@ -100,45 +102,48 @@ const ButtonContainer = styled.button`
     }
   }
 
-  &.button-primary {
+  &.button--primary {
+    color: ${(props) => props.theme.button.primaryFontColor};
     background-color: ${(props) => props.theme.primaryColor};
   }
 
-  &.button-secondary {
+  &.button--secondary {
+    color: ${(props) => props.theme.button.secondaryFontColor};
     background-color: ${(props) => props.theme.secondaryColor};
   }
 
-  &.button-danger {
+  &.button--danger {
+    color: ${(props) => props.theme.button.dangerFontColor};
     background-color: ${(props) => props.theme.dangerColor};
   }
 
   &:hover {
-    &.button-primary {
+    &.button--primary {
       background-color: ${(props) => props.theme.button.primaryHoverBackground};
     }
 
-    &.button-secondary {
+    &.button--secondary {
       background-color: ${(props) =>
         props.theme.button.secondaryHoverBackground};
     }
 
-    &.button-danger {
+    &.button--danger {
       background-color: ${(props) => props.theme.button.dangerHoverBackground};
     }
   }
 
   &:active {
-    .button-primary {
+    .button--primary {
       background-color: ${(props) =>
         props.theme.button.primaryActiveBackground};
     }
 
-    &.button-secondary {
+    &.button--secondary {
       background-color: ${(props) =>
         props.theme.button.secondaryActiveBackground};
     }
 
-    &.button-danger {
+    &.button--danger {
       background-color: ${(props) => props.theme.button.dangerActiveBackground};
     }
   }
@@ -152,10 +157,10 @@ const ButtonContainer = styled.button`
       background-color: ${(props) => props.theme.buttonDisabledBackground};
     }
 
-    &.button-icon {
+    &.button--icon {
       background-color: transparent;
 
-      &:hover .icon,
+      &:hover .button--icon,
       .icon {
         color: ${(props) => props.theme.buttonDisabledBackground};
       }
