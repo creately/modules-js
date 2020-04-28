@@ -1,6 +1,21 @@
 import * as clipboardpoly from 'clipboard-polyfill';
 
 /**
+ * This enum indicates available Clipboard type in the application.
+ * This can be System clipboard or local storage of the browser.
+ *
+ * System Clipboard - Strore/Retrieve data to/from system clipboard
+ * Local Clipboard - Strore/Retrieve data to/from local storage
+ * Both Clipboard - Strore/Retrieve data to/from system clipboard as
+ * fallback uses local storage
+ */
+export enum ClipboardType {
+  System,
+  Local,
+  Both,
+}
+
+/**
  * Clipboard
  * This service is used to store/retrive a data from the system clipboard and
  * if the system clipboard cannot be accessible, it will use the local storage
@@ -12,31 +27,51 @@ import * as clipboardpoly from 'clipboard-polyfill';
  */
 export class Clipboard {
   /**
-   * This copies the given data to the system clipboard and as fallback,
-   * it copies to local storage.
-   * @param data data that needs to be copied to the clipboard
+   * CliboardType System - This copies the given data to the system clipboard.
+   * ClipboardType Local - This copies the given data to the local storage.
+   * ClipboardType Both - This copies the given data to the system clipboard
+   * and as fallback, it copies to local storage.
+   * @param data data that needs to be copied to the clipboard.
+   * @param clipboardtype type of clipboard to be used.
    */
-  public copy(data: any): Promise<any> {
-    return clipboardpoly.readText()
-      .then(() =>  clipboardpoly.writeText(data))
-      .catch(() => this.storeToLocalClipboard(data));
+  public copy(data: any, clipboardtype: ClipboardType = ClipboardType.System) {
+    if (clipboardtype === ClipboardType.System || clipboardtype === ClipboardType.Both) {
+      clipboardpoly.writeText(data).catch(() => {
+        if (clipboardtype === ClipboardType.Both) {
+          this.storeToLocalClipboard(data);
+        }
+      });
+    } else {
+      this.storeToLocalClipboard(data);
+    }
   }
 
   /**
-   * This pulls the current available data from the local clipboard
-   * to paste whereever we need in the application. Pulls the system
-   * clipboard data when there is no local storage data.
+   * CliboardType System - This pull data from the system clipboard.
+   * ClipboardType Local - This pull data from the local storage.
+   * ClipboardType Both - This pulls the current available data from
+   * the system clipboard, pulls the local storage data when there is
+   * no system storage data.
+   * @param clipboardtype type of clipboard to be used.
    */
-  public paste(): Promise<any> {
-    return clipboardpoly
-      .readText()
-      .then(text => {
-        if (!text) {
-          return this.retriveLocalClipboardData();
-        }
-        return text;
-      })
-      .catch(() => this.retriveLocalClipboardData());
+  public paste(clipboardtype: ClipboardType = ClipboardType.System): Promise<any> {
+    if (clipboardtype === ClipboardType.System || clipboardtype === ClipboardType.Both) {
+      return clipboardpoly
+        .readText()
+        .then(text => {
+          if (!text && clipboardtype === ClipboardType.Both) {
+            return this.retriveLocalClipboardData();
+          }
+          return text;
+        })
+        .catch(() => {
+          if (clipboardtype === ClipboardType.Both) {
+            this.retriveLocalClipboardData();
+          }
+        });
+    } else {
+      return this.retriveLocalClipboardData();
+    }
   }
 
   /**
