@@ -13,38 +13,37 @@ document.body.prepend(storyRoot);
 export const Default = () => (
   <div>
     <p>
-      Some text, some of which{" "}
+      Some text, some of which<em>{" "}
       <Tooltip
         title="Title"
         description="This is some more info about that first thing that you should find every interesting."
         position="bottom"
       >
         requires explanation.
-      </Tooltip>{" "}
-      (Scroll down for more.)
+      </Tooltip>{" "}</em>
     </p>
 
     <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="top">
-        <button style={{ height: "100px" }}>This button</button>
+        <button style={{ height: "100px" }}>Tooltip on top</button>
       </Tooltip>
     </div>
 
     <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="bottom">
-        <button>This button needs to explain itself</button>
+        <button>Tooltip on bottom</button>
       </Tooltip>
     </div>
 
     <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="right">
-        <button>This button needs to explain itself</button>
+        <button>Tooltip on right</button>
       </Tooltip>
     </div>
 
     <div style={{ margin: "80px 150px" }}>
       <Tooltip title="Title" description="Some description" position="left">
-        <button>This button needs to explain itself</button>
+        <button>Tooltip on left</button>
       </Tooltip>
     </div>
   </div>
