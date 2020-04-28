@@ -47,10 +47,10 @@ describe('Clipboard', () => {
     it('should return data from local clipboard on embedded mode', () => {
       window = Object.create(window);
       Object.defineProperty(window, 'top', {
-        value: false
+        value: false,
       });
       Object.defineProperty(window, 'self', {
-        value: true
+        value: true,
       });
       spyOn(clipboardpoly, 'readText').and.returnValue(Promise.reject('system error'));
       spyOn(clipboard, 'retriveLocalClipboardData');

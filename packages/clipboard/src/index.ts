@@ -19,7 +19,7 @@ export class Clipboard {
     try {
       await clipboardpoly.writeText(data);
     } finally {
-      return Promise.resolve( this.storeToLocalClipboard(data));
+      this.storeToLocalClipboard(data);
     }
   }
 
@@ -28,11 +28,15 @@ export class Clipboard {
    * if it is embedded or it will pull data from system as fallback
    * pulls from local storage.
    */
-  public paste(): Promise<any> {
+  public async paste(): Promise<any> {
     if (window.self !== window.top) {
-      return Promise.resolve( this.retriveLocalClipboardData());
+      return this.retriveLocalClipboardData();
     }
-    return clipboardpoly.readText().catch(() => this.retriveLocalClipboardData());
+    try {
+      await clipboardpoly.readText();
+    } catch {
+      this.retriveLocalClipboardData();
+    }
   }
 
   /**
