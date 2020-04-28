@@ -12,10 +12,15 @@ export class TooltipPortal extends React.PureComponent {
    */
   private element: HTMLDivElement;
 
+  /**
+   * The default class for the tooltip portal.
+   */
+  private defaultClass: string = "tooltip-portal";
+
   constructor(props: any) {
     super(props);
     this.element = document.createElement("div");
-    this.element.classList.add("tooltip-portal");
+    this.element.classList.add(this.defaultClass);
   }
 
   componentDidMount(): void {
