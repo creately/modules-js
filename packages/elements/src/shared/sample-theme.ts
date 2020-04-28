@@ -7,6 +7,7 @@ const colors = {
   dangerAccent: "darkred",
   disabled: "grey",
   white: "white",
+  grey: "grey",
   black: "black",
 };
 
@@ -50,6 +51,13 @@ const SampleTheme = {
   checkbox: {
     borderColor: colors.primary,
     borderHoverColor: colors.primaryAccent,
+  },
+
+  radioButton: {
+    borderColor: colors.primary,
+    borderHoverColor: colors.primaryAccent,
+    disabledColor: colors.grey,
+    checkColor: colors.primary,
   },
 };
 
