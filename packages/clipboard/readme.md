@@ -34,11 +34,13 @@ class MyClass {
   constructor( private clipboard: Clipboard ) {}
   // ...
 
-  // Access it without creating multiple instance.
-  this.clipboard.copy('your data');
+  public doCopy( data ) {
+    this.clipboard.copy( data );  
+  }
 
-  console.log(await this.clipboard.paste());
-  //=> 'your data'
+  public async doPaste() {
+    return await this.clipboard.paste();
+  }
 }
 ```
 
