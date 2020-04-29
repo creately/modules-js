@@ -17,22 +17,25 @@ import { Clipboard } from '@creately/clipboard';
 
 new Clipboard().copy('your data');
 
-new Clipboard().paste();
+console.log(await new Clipboard().paste());
 //=> 'your data'
 ```
 
-If required you can use the provider to use the same instance.
+Usage with Angular
 ```js
 // Add this in your module.
 { provide: Clipboard, useFactory: () => new Clipboard() },
 
-// Add this in constructor.
-constructor( protected clipboard: Clipboard ) {}
+// Add clipboard in constructor.
+class MyClass {
+  constructor( private clipboard: Clipboard ) {}
+  // ...
+}
 
 // Access it without creating multiple instance.
 this.clipboard.copy('your data');
 
-this.clipboard.paste();
+console.log(await this.clipboard.paste());
 //=> 'your data'
 ```
 
