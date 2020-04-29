@@ -23,6 +23,9 @@ console.log(await new Clipboard().paste());
 
 Usage with Angular
 ```js
+// Import it in module
+import { Clipboard } from '@creately/clipboard';
+
 // Add this in your module.
 { provide: Clipboard, useFactory: () => new Clipboard() },
 
@@ -30,13 +33,13 @@ Usage with Angular
 class MyClass {
   constructor( private clipboard: Clipboard ) {}
   // ...
+
+  // Access it without creating multiple instance.
+  this.clipboard.copy('your data');
+
+  console.log(await this.clipboard.paste());
+  //=> 'your data'
 }
-
-// Access it without creating multiple instance.
-this.clipboard.copy('your data');
-
-console.log(await this.clipboard.paste());
-//=> 'your data'
 ```
 
 
