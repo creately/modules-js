@@ -1,6 +1,6 @@
 {
   "name": "@creately/clipboard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Clipboard Service which uses system clipboard as primary and local storage as fallback.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

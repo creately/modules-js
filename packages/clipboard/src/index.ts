@@ -18,6 +18,8 @@ export class Clipboard {
   public async copy(data: any): Promise<any> {
     try {
       await clipboardpoly.writeText(data);
+    } catch {
+      console.log('System clipboard is not supported.');
     } finally {
       this.storeToLocalClipboard(data);
     }
