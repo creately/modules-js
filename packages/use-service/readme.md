@@ -64,3 +64,16 @@ export class Authentication {
 ```
 
 All resources will be singletons in a particular context.
+
+### Resolve Resources
+
+The `useService` function can be used to resolve provided resources.
+
+```ts
+import { useService } from '@creately/use-service';
+
+export const MyComponent = () => {
+  const auth = useService<Authentication>(TOKEN_AUTHENTICATION);
+  // ...
+}
+```
