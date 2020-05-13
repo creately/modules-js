@@ -1,0 +1,30 @@
+{
+  "name": "@creately/use-service",
+  "version": "1.0.0",
+  "description": "An idiomatic dependency injection system for React",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "prettier --print-width 120 --single-quote --trailing-comma es5 --write \"src/**/*.ts\"",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "author": "Anonymous",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/lodash.once": "^4.1.6",
+    "jest": "^25.5.4",
+    "prettier": "^2.0.1",
+    "reflect-metadata": "^0.1.13",
+    "ts-jest": "^25.5.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0"
+  },
+  "dependencies": {
+    "lodash.once": "^4.1.1",
+    "tsyringe": "^4.2.0"
+  }
+}
