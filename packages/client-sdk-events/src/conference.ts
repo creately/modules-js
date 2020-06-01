@@ -23,6 +23,7 @@ export enum ConferenceEvents {
    * When another user joins or leaves the conference
    */
   conferenceUserListChanged = 'creately:conference:userListChanged',
+
 }
 
 export enum ConferenceCommands {

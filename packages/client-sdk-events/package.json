@@ -1,6 +1,6 @@
 {
   "name": "@creately/client-sdk-events",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "All events and command definitions for the client sdk",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
