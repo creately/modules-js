@@ -157,20 +157,22 @@ export async function runSpecs(specs: spec[]) {
         if (outs && results) {
           storeVariables(outs, results);
         }
-        console.log(`✓ PASSED: ${spec.title}`.green);
+        console.log(`✓ SUCCESS Action: ${spec.title}`.green);
       } catch (error) {
-        console.error(`Error in ${spec.title}:`.red, error.red);
+        console.error(`✗ ERROR in Action: ${spec.title}`.red);
       }
     } else if (spec.assert && ASSERTS.includes(spec.assert)) {
       const assert = new spec.assert();
       const args = getVariables(spec.args);
       try {
         const result: boolean = await assert.execute(args);
-        if (!result) {
-          console.error(`✗ FAILED: ${spec.title}, values: ${args}`.red);
+        if (result) {
+          console.log(`✓ SUCCESS Assert: ${spec.title}, values: ${args}`.green);
+        } else {
+          console.error(`✗ FAILED Assert: ${spec.title}, values: ${args}`.red);
         }
       } catch (error) {
-        console.error(`Error in ${spec.title}:`.red, error.red);
+        console.error(`ERROR in Assert: ${spec.title}`.red);
       }
     } else {
       continue;
