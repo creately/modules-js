@@ -81,7 +81,7 @@ export default class GoTo {
 
 Test files have the extension `*.test.ts` and contain a series of specs for that particular test.
 
-A single spec is defined by a title, an `action` or `assert` to be run, and an array of `args` and/or `outs`. Any output expected from an action should be assigned to meaningful keys in the `outs` array, so that that thay may be used in future actions or asserts. This way, specs can be chained to form a test, as they will be run sequentially.
+A single spec is defined by a title, an `action` or `assert` to be run, and an array of `args` and/or `outs`. Any output expected from an action should be assigned to meaningful keys in the `outs` array, so that that they may be used in future actions or asserts. This way, specs can be chained to form a test, as they will be run sequentially.
 
 See the [Spec Type](src/spec.type.ts) for more information.
 
