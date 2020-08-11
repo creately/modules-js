@@ -15,14 +15,14 @@ $ npm install -g @creately/pluto
 
 Note: When installing the package globally, your $NODE_PATH environment variable should be set to the global package directory.
 
-- Linux / Mac
+**Linux / Mac**
 
-If it isn't set already, add the following to .bashrc or .zshrc :
+If it isn't set already, add the following to `.bashrc` or `.zshrc` :
 ```shell
 $ export NODE_PATH=$(npm root --quiet -g)
 ```
 
-- Windows
+**Windows**
 
 Add an environment variable named `NODE_PATH` and set it to `%USERPROFILE%\Application Data\npm\node_modules` (Windows XP) or `%AppData%\npm\node_modules` (Windows 7/8/10), or whichever path NPM uses to install modules in your environment.
 
