@@ -47,7 +47,7 @@ See the [Action Interface](src/action.i.ts) for more information.
 
 You may install TypeScript definitions for Selenium Webdriver in your project to write actions using Selenium.
 ```shell
-npm install @types/selenium-webdriver
+$ npm install @types/selenium-webdriver
 ```
 
 **Example Action**
