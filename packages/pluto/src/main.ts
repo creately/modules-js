@@ -9,6 +9,8 @@ import Equals from './asserts/equals';
 import GreaterThan from './asserts/greater-than';
 import LessThan from './asserts/less-than';
 import Includes from './asserts/includes';
+const fs = require('fs');
+const path = require('path');
 
 export { spec, test, Action, Assert, Equals, GreaterThan, LessThan, Includes };
 
@@ -29,13 +31,31 @@ const TESTS: test[] = [];
  * @param extensions a string array of extensions to look for
  * @returns a promise with an array of paths to found files
  */
-export async function findFiles(path: string, extensions: string[] = ['.test.js']): Promise<string[]> {
-  const fileTypes = extensions.map(ext => '**/*' + ext);
-  const paths = await globby(fileTypes, {
-    cwd: path,
-  });
+export async function findFiles(filePath: string, extensions: string[] = ['.test.js']): Promise<string[]> {
+  if (!path.isAbsolute(filePath)) {
+    filePath = `${process.cwd()}/${filePath}`;
+  }
+  if (isFile(filePath)) {
+    return [filePath];
+  } else if (isDirectory(filePath)) {
+    const fileTypes = extensions.map(ext => '**/*' + ext);
+    const paths = await globby(fileTypes, {
+      cwd: filePath,
+    });
+    return paths;
+  }
+  console.error('Error: Invalid path specified'.red);
+  return [];
+}
 
-  return paths;
+// Checks if a given path is a file
+function isFile(path: string) {
+  return fs.existsSync(path) && fs.statSync(path).isFile();
+}
+
+// Checks if a given path is a directory
+function isDirectory(path: string) {
+  return fs.existsSync(path) && fs.statSync(path).isDirectory();
 }
 
 /**

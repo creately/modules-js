@@ -7,10 +7,11 @@ import { findFiles, load, runTests } from './main';
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import * as firefox from 'selenium-webdriver/firefox';
+const path = require('path');
 
 register();
 
-let path: string = process.cwd();
+let testPath: string = process.cwd();
 
 const argv = yargs
   .command('path', 'The path to look for test files in', {
@@ -49,16 +50,19 @@ const argv = yargs
   .alias('help', 'h').argv;
 
 if (argv.path) {
-  path = String(argv.path);
+  testPath = String(argv.path);
+  if (!path.isAbsolute(testPath)) {
+    testPath = `${process.cwd()}/${testPath}`;
+  }
 }
 
-if (!path.endsWith('/')) {
-  path += '/';
+if (!testPath.endsWith('/')) {
+  testPath += '/';
 }
 
 (async () => {
-  console.log('Searching for files in: '.yellow + path);
-  const files: string[] = await findFiles(path, ['.test.js', '.test.ts']);
+  console.log('Searching for files in: '.blue + testPath);
+  const files: string[] = await findFiles(testPath, ['.test.js', '.test.ts']);
 
   if (!files || files.length == 0) {
     console.warn('No files found'.yellow);
@@ -69,7 +73,7 @@ if (!path.endsWith('/')) {
 
   files.forEach((file: string) => {
     console.log('Loading file: '.green + file);
-    require(path + file);
+    require(testPath + file);
   });
 
   let d = await new webdriver.Builder();
@@ -97,12 +101,12 @@ if (!path.endsWith('/')) {
       .maximize();
   }
 
-  console.log('Loading driver into context'.yellow);
+  console.log('Loading driver into context'.blue);
   load('context', () => {
     return { driver: driver };
   });
 
-  console.log('Executing test cases'.yellow);
+  console.log('Executing test cases'.blue);
   await runTests();
 
   if (!argv['keep-open']) {
@@ -110,5 +114,5 @@ if (!path.endsWith('/')) {
     process.exit();
   }
 
-  console.log('\nCompleted');
+  console.log('\nCompleted'.blue);
 })().catch(err => console.error('Error: '.red, err));
