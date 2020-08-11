@@ -61,7 +61,7 @@ if (argv.path) {
     process.exit();
   }
 
-  console.log('Found files: '.green + files);
+  console.log('Found file(s): '.green + files);
 
   files.forEach((file: string) => {
     console.log('Loading file: '.green + file);
