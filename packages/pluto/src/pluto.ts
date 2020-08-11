@@ -7,7 +7,6 @@ import { findFiles, load, runTests } from './main';
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import * as firefox from 'selenium-webdriver/firefox';
-const path = require('path');
 
 register();
 
@@ -51,13 +50,6 @@ const argv = yargs
 
 if (argv.path) {
   testPath = String(argv.path);
-  if (!path.isAbsolute(testPath)) {
-    testPath = `${process.cwd()}/${testPath}`;
-  }
-}
-
-if (!testPath.endsWith('/')) {
-  testPath += '/';
 }
 
 (async () => {
@@ -73,7 +65,7 @@ if (!testPath.endsWith('/')) {
 
   files.forEach((file: string) => {
     console.log('Loading file: '.green + file);
-    require(testPath + file);
+    require(file);
   });
 
   let d = await new webdriver.Builder();

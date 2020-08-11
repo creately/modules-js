@@ -38,22 +38,32 @@ export async function findFiles(filePath: string, extensions: string[] = ['.test
   if (isFile(filePath)) {
     return [filePath];
   } else if (isDirectory(filePath)) {
+    if (!filePath.endsWith('/')) {
+      filePath += '/';
+    }
     const fileTypes = extensions.map(ext => '**/*' + ext);
-    const paths = await globby(fileTypes, {
+    let paths = await globby(fileTypes, {
       cwd: filePath,
     });
+    paths = paths.map(path => filePath + path);
     return paths;
   }
   console.error('Error: Invalid path specified'.red);
   return [];
 }
 
-// Checks if a given path is a file
+/**
+ * Checks if a given path is a file
+ * @param path the path to check
+ */
 function isFile(path: string) {
   return fs.existsSync(path) && fs.statSync(path).isFile();
 }
 
-// Checks if a given path is a directory
+/**
+ * Checks if a given path is a directory
+ * @param path the path to check
+ */
 function isDirectory(path: string) {
   return fs.existsSync(path) && fs.statSync(path).isDirectory();
 }
