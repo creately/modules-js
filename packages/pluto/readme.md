@@ -8,16 +8,23 @@ Pluto is an e2e testing framework that uses Selenium to execute test cases. It i
 
 ## Installation
 
-### Install Pluto as a global npm package.
+### Install Pluto as a global npm package (or locally to your project by omitting `-g`)
 ```shell
-npm install -g @creately/pluto
+$ npm install -g @creately/pluto
 ```
 
-Note: When installing the package globally, your $NODE_PATH environment variable should be set to the global package directory. If it isn't set already, add the following to .bashrc or .zshrc :
+Note: When installing the package globally, your $NODE_PATH environment variable should be set to the global package directory.
 
+**Linux / Mac**
+
+If it isn't set already, add the following to `.bashrc` or `.zshrc` :
 ```shell
-export NODE_PATH=$(npm root --quiet -g)
+$ export NODE_PATH=$(npm root --quiet -g)
 ```
+
+**Windows**
+
+Add an environment variable named `NODE_PATH` and set it to `%USERPROFILE%\Application Data\npm\node_modules` (Windows XP) or `%AppData%\npm\node_modules` (Windows 7/8/10), or whichever path NPM uses to install modules in your environment.
 
 See [Loading from the global folders](https://nodejs.org/api/modules.html#modules_loading_from_the_global_folders) for more configuration information.
 
@@ -25,12 +32,6 @@ See [Loading from the global folders](https://nodejs.org/api/modules.html#module
 
 Webdrivers should be downloaded and installed for the browser versions available in the environment. Webdrivers and installation instructions can be found on the [Official Selenium Docs](https://selenium.dev/documentation/en/webdriver/driver_requirements).
 
-### Using Selenium in actions
-
-You may install TypeScript definitions for Selenium Webdriver in your project to write actions using Selenium.
-```shell
-npm install @types/selenium-webdriver
-```
 
 ## Usage
 
@@ -38,9 +39,16 @@ npm install @types/selenium-webdriver
 
 An action will be a class with a single method named `execute` which performs one specific action. The framework executes the action instance's `execute` method when the action is run.
 
-A Selenium WebDriver instance will be loaded into the context, initialised with the arguments provided to it (if any) when running the package.
+A Selenium WebDriver instance will be loaded into the `context` object which is passed as the second argument to the `execute` method, having been initialised with the arguments provided to Pluto (if any) when running the package.
 
 See the [Action Interface](src/action.i.ts) for more information.
+
+**Using Selenium in actions**
+
+You may install TypeScript definitions for Selenium Webdriver in your project to write actions using Selenium.
+```shell
+$ npm install @types/selenium-webdriver
+```
 
 **Example Action**
 
@@ -72,9 +80,9 @@ export default class GoTo {
 
 ### Tests & Specs
 
-Test files have the extension `*.test.ts` and contain a series of specs for that particular test.
+Tests can be written in JavaScript or TypeScript (which will be compiled by Pluto at runtime), and have the extension `*.test.js` or `*.test.ts` respectively. They should contain a series of specs for that particular test.
 
-A single spec is defined by a title, an `action` or `assert` to be run, and an array of `args` and/or `outs`. Any output expected from an action should be assigned to meaningful keys in the `outs` array, so that that thay may be used in future actions or asserts. This way, specs can be chained to form a test, as they will be run sequentially.
+A single spec is defined by a title, an `action` or `assert` to be run, and an array of `args` and/or `outs`. Any output expected from an action should be assigned to meaningful keys in the `outs` array, so that that they may be used in future actions or asserts. This way, specs can be chained to form a test, as they will be run sequentially.
 
 See the [Spec Type](src/spec.type.ts) for more information.
 
@@ -110,7 +118,7 @@ pluto.addTest('simple test', [
 
 ## Running tests
 
-Run `pluto` in the folder containing test files or pass the absolute path with the `--path` argument. Below is a list of other arguments that can be set. By default, tests run on Chrome in headless mode with the default window size set by Selenium.
+Run `pluto` in the directory containing test files or pass the relative or absolute path to the directory or file with the `--path` argument. Below is a list of other arguments that can be passed. By default, tests run on Chrome in headless mode using the Chromium webdriver, with the default window size set by Selenium.
 
 | Argument             | Description                                            |
 | ---------------------|:-------------------------------------------------------| 
@@ -118,8 +126,8 @@ Run `pluto` in the folder containing test files or pass the absolute path with t
 | `--help, -h`         | Show help                                              | 
 | `--show, -s`         | Show browser instead of running in headless mode       | 
 | `--keep-open, -o`    | Keep browser open after tests are complete             | 
-| `--devtools, -d`     | Show devtools                                          | 
-| `--firefox, -f`      | Use Mozilla Firefox instead of Chrome                  | 
+| `--devtools, -d`     | Show devtools on open                                  | 
+| `--firefox, -f`      | Use Firefox instead of Chrome                          | 
 | `--maximise, -m`     | Maximise browser window on open                        | 
 
 ## Attributions

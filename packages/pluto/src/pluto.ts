@@ -10,7 +10,7 @@ import * as firefox from 'selenium-webdriver/firefox';
 
 register();
 
-let path: string = process.cwd();
+let testPath: string = process.cwd();
 
 const argv = yargs
   .command('path', 'The path to look for test files in', {
@@ -49,27 +49,23 @@ const argv = yargs
   .alias('help', 'h').argv;
 
 if (argv.path) {
-  path = String(argv.path);
-}
-
-if (!path.endsWith('/')) {
-  path += '/';
+  testPath = String(argv.path);
 }
 
 (async () => {
-  console.log('Searching for files in: '.yellow + path);
-  const files: string[] = await findFiles(path, ['.test.js', '.test.ts']);
+  console.log('Searching for files in: '.blue + testPath);
+  const files: string[] = await findFiles(testPath, ['.test.js', '.test.ts']);
 
   if (!files || files.length == 0) {
     console.warn('No files found'.yellow);
     process.exit();
   }
 
-  console.log('Found files: '.green + files);
+  console.log('Found file(s): '.green + files);
 
   files.forEach((file: string) => {
     console.log('Loading file: '.green + file);
-    require(path + file);
+    require(file);
   });
 
   let d = await new webdriver.Builder();
@@ -97,12 +93,12 @@ if (!path.endsWith('/')) {
       .maximize();
   }
 
-  console.log('Loading driver into context'.yellow);
+  console.log('Loading driver into context'.blue);
   load('context', () => {
     return { driver: driver };
   });
 
-  console.log('Executing test cases'.yellow);
+  console.log('Executing test cases'.blue);
   await runTests();
 
   if (!argv['keep-open']) {
@@ -110,5 +106,5 @@ if (!path.endsWith('/')) {
     process.exit();
   }
 
-  console.log('\nCompleted');
+  console.log('\nCompleted'.blue);
 })().catch(err => console.error('Error: '.red, err));

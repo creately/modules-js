@@ -9,6 +9,8 @@ import Equals from './asserts/equals';
 import GreaterThan from './asserts/greater-than';
 import LessThan from './asserts/less-than';
 import Includes from './asserts/includes';
+const fs = require('fs');
+const path = require('path');
 
 export { spec, test, Action, Assert, Equals, GreaterThan, LessThan, Includes };
 
@@ -29,13 +31,41 @@ const TESTS: test[] = [];
  * @param extensions a string array of extensions to look for
  * @returns a promise with an array of paths to found files
  */
-export async function findFiles(path: string, extensions: string[] = ['.test.js']): Promise<string[]> {
-  const fileTypes = extensions.map(ext => '**/*' + ext);
-  const paths = await globby(fileTypes, {
-    cwd: path,
-  });
+export async function findFiles(filePath: string, extensions: string[] = ['.test.js']): Promise<string[]> {
+  if (!path.isAbsolute(filePath)) {
+    filePath = `${process.cwd()}/${filePath}`;
+  }
+  if (isFile(filePath)) {
+    return [filePath];
+  } else if (isDirectory(filePath)) {
+    if (!filePath.endsWith('/')) {
+      filePath += '/';
+    }
+    const fileTypes = extensions.map(ext => '**/*' + ext);
+    let paths = await globby(fileTypes, {
+      cwd: filePath,
+    });
+    paths = paths.map(path => filePath + path);
+    return paths;
+  }
+  console.error('Error: Invalid path specified'.red);
+  return [];
+}
 
-  return paths;
+/**
+ * Checks if a given path is a file
+ * @param path the path to check
+ */
+function isFile(path: string) {
+  return fs.existsSync(path) && fs.statSync(path).isFile();
+}
+
+/**
+ * Checks if a given path is a directory
+ * @param path the path to check
+ */
+function isDirectory(path: string) {
+  return fs.existsSync(path) && fs.statSync(path).isDirectory();
 }
 
 /**
@@ -157,20 +187,22 @@ export async function runSpecs(specs: spec[]) {
         if (outs && results) {
           storeVariables(outs, results);
         }
-        console.log(`✓ PASSED: ${spec.title}`.green);
+        console.log(`✓ SUCCESS Action: ${spec.title}`.green);
       } catch (error) {
-        console.error(`Error in ${spec.title}:`.red, error.red);
+        console.error(`✗ ERROR in Action: ${spec.title}`.red);
       }
     } else if (spec.assert && ASSERTS.includes(spec.assert)) {
       const assert = new spec.assert();
       const args = getVariables(spec.args);
       try {
         const result: boolean = await assert.execute(args);
-        if (!result) {
-          console.error(`✗ FAILED: ${spec.title}, values: ${args}`.red);
+        if (result) {
+          console.log(`✓ SUCCESS Assert: ${spec.title}, values: ${args}`.green);
+        } else {
+          console.error(`✗ FAILED Assert: ${spec.title}, values: ${args}`.red);
         }
       } catch (error) {
-        console.error(`Error in ${spec.title}:`.red, error.red);
+        console.error(`ERROR in Assert: ${spec.title}`.red);
       }
     } else {
       continue;
