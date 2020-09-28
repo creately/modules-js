@@ -20,6 +20,13 @@ const argv = yargs
       type: 'string',
     },
   })
+  .command('env', 'Tests are running on the given environment', {
+    env: {
+      description: 'the environment to test files',
+      alias: 'e',
+      type: 'string',
+    },
+  })
   .option('keep-open', {
     alias: 'o',
     type: 'boolean',
