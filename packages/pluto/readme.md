@@ -123,6 +123,7 @@ Run `pluto` in the directory containing test files or pass the relative or absol
 | Argument             | Description                                            |
 | ---------------------|:-------------------------------------------------------| 
 | `--path=\Users\...`  | The path to look for test files in                     |
+| `--env, e`           | The environment to run the test files                  |
 | `--help, -h`         | Show help                                              | 
 | `--show, -s`         | Show browser instead of running in headless mode       | 
 | `--keep-open, -o`    | Keep browser open after tests are complete             | 

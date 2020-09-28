@@ -22,7 +22,7 @@ const argv = yargs
   })
   .command('env', 'Tests are running on the given environment', {
     env: {
-      description: 'the environment to test files',
+      description: 'the environment to run the test files',
       alias: 'e',
       type: 'string',
     },
