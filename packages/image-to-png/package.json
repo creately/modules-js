@@ -1,6 +1,6 @@
 {
   "name": "@creately/image-to-png",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "This will convert Interlace PNG, SVG, GIF, ICON, BMP format to PNG image.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

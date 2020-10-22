@@ -30,10 +30,7 @@ export class ImageToPng {
         convertedImage = await this.convertSVGtoPNG(image);
       } else if (image.includes('/bmp')) {
         convertedImage = await this.convertBMPtoPNG(image);
-      } else if (image.includes('icon')) {
-        // NOTE: Checking for includes above.
-        // Because different file types available in icon.
-        // Example: image/vnd.microsoft.icon, image/x-icon
+      } else if (image.includes('/vnd.microsoft.icon') || image.includes('/x-icon')) {
         convertedImage = await this.convertICOtoPNG(image);
       }
 
