@@ -137,13 +137,18 @@ export class ImageToPng {
    * @returns - PNG base64
    */
   private convertInterlaceToPNG(image: string) {
-    const base64 = image.split(',')[1];
-    let buffer = Buffer.from(base64, 'base64');
-    const png = PNG.sync.read(buffer);
-    if (png.interlace) {
-      buffer = PNG.sync.write(png, { interlace: false });
-      return 'data:image/png;base64,' + Buffer.from(buffer).toString('base64');
+    try {
+      const base64 = image.split(',')[1];
+      let buffer = Buffer.from(base64, 'base64');
+      const png = PNG.sync.read(buffer);
+      if (png.interlace) {
+        buffer = PNG.sync.write(png, { interlace: false });
+        return 'data:image/png;base64,' + Buffer.from(buffer).toString('base64');
+      } else {
+        return image;
+      }
+    } catch {
+      return image;
     }
-    return image;
   }
 }
