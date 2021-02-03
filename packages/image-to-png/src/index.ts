@@ -68,7 +68,7 @@ export class ImageToPng {
     const buffer = Buffer.from(base64, 'base64');
     const bitmap = bmp.decode(buffer, true);
     const svg = Buffer.from(bitmap.data);
-    const value = await sharp(svg, {
+    let value = await sharp(svg, {
       raw: {
         width: bitmap.width,
         height: bitmap.height,
@@ -77,6 +77,10 @@ export class ImageToPng {
     })
       .png()
       .toBuffer();
+    const png = PNG.sync.read(value);
+    if ( png.colorType != 2 ) {
+      value = PNG.sync.write(png, { colorType: 2 });
+    }
     return 'data:image/png;base64,' + Buffer.from(value).toString('base64');
   }
 
@@ -124,7 +128,14 @@ export class ImageToPng {
       });
       // TODO: Catch errors
       stream.on('end', () => {
-        resolve(pngBase64);
+        let buffer = Buffer.from(pngBase64, 'base64');
+        const png = PNG.sync.read(buffer);
+        if ( png.colorType != 2 ) {
+          buffer = PNG.sync.write(png, { colorType: 2 });
+          resolve(Buffer.from(buffer).toString('base64'));
+        } else {
+          resolve(pngBase64);
+        }
       });
     });
   }
@@ -141,8 +152,15 @@ export class ImageToPng {
       const base64 = image.split(',')[1];
       let buffer = Buffer.from(base64, 'base64');
       const png = PNG.sync.read(buffer);
-      if (png.interlace) {
-        buffer = PNG.sync.write(png, { interlace: false });
+      if (png.interlace || png.colorType != 2) {
+        let options: any = {};
+        if ( png.interlace ) {
+            options.interlace = false;
+        }
+        if ( png.colorType != 2 ) {
+            options.colorType = 2;
+        }
+        buffer = PNG.sync.write(png, options);
         return 'data:image/png;base64,' + Buffer.from(buffer).toString('base64');
       } else {
         return image;
