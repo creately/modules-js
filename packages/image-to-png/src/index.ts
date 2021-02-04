@@ -141,8 +141,9 @@ export class ImageToPng {
   }
 
   /**
-   * This function converts PNG Interlaced files to PNG.
-   * If the PNG is not interlaced, it will return the
+   * This function converts PNG Interlaced files to PNG
+   * and change colorType to 2. If the PNG is not interlaced 
+   * and colorType is also 2, it will return the
    * original PNG image as it is.
    * @param image - PNG base64
    * @returns - PNG base64
