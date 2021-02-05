@@ -77,11 +77,7 @@ export class ImageToPng {
     })
       .png()
       .toBuffer();
-    const png = PNG.sync.read(value);
-    if ( png.colorType != 2 ) {
-      value = PNG.sync.write(png, { colorType: 2 });
-    }
-    return 'data:image/png;base64,' + Buffer.from(value).toString('base64');
+    return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(value)).toString('base64');
   }
 
   /**
@@ -129,21 +125,15 @@ export class ImageToPng {
       // TODO: Catch errors
       stream.on('end', () => {
         let buffer = Buffer.from(pngBase64, 'base64');
-        const png = PNG.sync.read(buffer);
-        if ( png.colorType != 2 ) {
-          buffer = PNG.sync.write(png, { colorType: 2 });
-          resolve(Buffer.from(buffer).toString('base64'));
-        } else {
-          resolve(pngBase64);
-        }
+        resolve(Buffer.from(this.changePNGcolorType(buffer)).toString('base64'));
       });
     });
   }
 
   /**
    * This function converts PNG Interlaced files to PNG
-   * and change colorType to 2. If the PNG is not interlaced 
-   * and colorType is also 2, it will return the
+   * If the PNG is not interlaced 
+   * it will return the
    * original PNG image as it is.
    * @param image - PNG base64
    * @returns - PNG base64
@@ -153,21 +143,29 @@ export class ImageToPng {
       const base64 = image.split(',')[1];
       let buffer = Buffer.from(base64, 'base64');
       const png = PNG.sync.read(buffer);
-      if (png.interlace || png.colorType != 2) {
-        let options: any = {};
-        if ( png.interlace ) {
-            options.interlace = false;
-        }
-        if ( png.colorType != 2 ) {
-            options.colorType = 2;
-        }
-        buffer = PNG.sync.write(png, options);
-        return 'data:image/png;base64,' + Buffer.from(buffer).toString('base64');
-      } else {
-        return image;
+      if ( png.interlace ) {
+        buffer = PNG.sync.write(png, { interlace: false });
       }
+      return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(buffer)).toString('base64');
     } catch {
       return image;
+    }
+  }
+
+  /**
+   * This function buffer to png and check png color type
+   * If color type is not type 2, it will convert to type 2
+   * @param buffer image buffer
+   */
+  private changePNGcolorType(buffer: Buffer) {
+    try {
+      const png = PNG.sync.read(buffer);
+      if ( png.colorType != 2 ) {
+        buffer = PNG.sync.write(png, { colorType: 2 });
+      }
+      return buffer;
+    } catch {
+      return buffer;
     }
   }
 }
