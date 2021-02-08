@@ -68,7 +68,7 @@ export class ImageToPng {
     const buffer = Buffer.from(base64, 'base64');
     const bitmap = bmp.decode(buffer, true);
     const svg = Buffer.from(bitmap.data);
-    const value = await sharp(svg, {
+    let value = await sharp(svg, {
       raw: {
         width: bitmap.width,
         height: bitmap.height,
@@ -77,7 +77,7 @@ export class ImageToPng {
     })
       .png()
       .toBuffer();
-    return 'data:image/png;base64,' + Buffer.from(value).toString('base64');
+    return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(value)).toString('base64');
   }
 
   /**
@@ -124,14 +124,16 @@ export class ImageToPng {
       });
       // TODO: Catch errors
       stream.on('end', () => {
-        resolve(pngBase64);
+        let buffer = Buffer.from(pngBase64, 'base64');
+        resolve(Buffer.from(this.changePNGcolorType(buffer)).toString('base64'));
       });
     });
   }
 
   /**
-   * This function converts PNG Interlaced files to PNG.
-   * If the PNG is not interlaced, it will return the
+   * This function converts PNG Interlaced files to PNG
+   * If the PNG is not interlaced 
+   * it will return the
    * original PNG image as it is.
    * @param image - PNG base64
    * @returns - PNG base64
@@ -141,14 +143,29 @@ export class ImageToPng {
       const base64 = image.split(',')[1];
       let buffer = Buffer.from(base64, 'base64');
       const png = PNG.sync.read(buffer);
-      if (png.interlace) {
+      if ( png.interlace ) {
         buffer = PNG.sync.write(png, { interlace: false });
-        return 'data:image/png;base64,' + Buffer.from(buffer).toString('base64');
-      } else {
-        return image;
       }
+      return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(buffer)).toString('base64');
     } catch {
       return image;
+    }
+  }
+
+  /**
+   * This function buffer to png and check png color type
+   * If color type is not type 2, it will convert to type 2
+   * @param buffer image buffer
+   */
+  private changePNGcolorType(buffer: Buffer) {
+    try {
+      const png = PNG.sync.read(buffer);
+      if ( png.colorType != 2 ) {
+        buffer = PNG.sync.write(png, { colorType: 2 });
+      }
+      return buffer;
+    } catch {
+      return buffer;
     }
   }
 }
