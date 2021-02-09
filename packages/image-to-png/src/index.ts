@@ -55,7 +55,7 @@ export class ImageToPng {
     const data = await sharp(buffer)
       .png()
       .toBuffer();
-    return 'data:image/png;base64,' + Buffer.from(data).toString('base64');
+    return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(data)).toString('base64');
   }
 
   /**
