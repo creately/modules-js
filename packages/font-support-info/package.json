@@ -1,0 +1,18 @@
+{
+  "name": "@creately/font-support-info",
+  "version": "1.0.0",
+  "description": "This will check font support languages.",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "prettier --print-width 120 --single-quote --trailing-comma es5 --write \"src/**/*.ts\"",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "author": "Sajeeva Hasith",
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1"
+  }
+}
