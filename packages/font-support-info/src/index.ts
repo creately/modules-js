@@ -1068,7 +1068,6 @@ const FONTS_INFO_LIST = {
 };
 
 export class FontLanguageInfo {
-  
   protected fonts: { [font: string]: IFontInfoData };
 
   constructor() {
@@ -1076,7 +1075,7 @@ export class FontLanguageInfo {
   }
 
   /**
-   * Check provided font family supported with 
+   * Check provided font family supported with
    * given language code and if support returns true
    * else returns false
    * @param fontFamily font family
@@ -1086,6 +1085,6 @@ export class FontLanguageInfo {
     if (!this.fonts[fontFamily]) {
       return false;
     }
-    return this.fonts[fontFamily].support_languages.some( l => l === languageCode );
+    return this.fonts[fontFamily].support_languages.some(l => l === languageCode);
   }
 }
