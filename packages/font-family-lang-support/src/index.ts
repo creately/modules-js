@@ -5,7 +5,7 @@ export interface IFontInfoData {
 
 const FONTS_INFO_LIST = {
   abhaya_libreregular: {
-    name: 'Abhaya Libreregular',
+    name: 'Abhaya Libre Regular',
     support_languages: [
       'afr',
       'eus',
@@ -1081,7 +1081,7 @@ export class FontLanguageInfo {
    * @param fontFamily font family
    * @param languageCode language code
    */
-  public isFontSupport(fontFamily: string, languageCode: string): boolean {
+  public isFontSupported(fontFamily: string, languageCode: string): boolean {
     if (!this.fonts[fontFamily]) {
       return false;
     }

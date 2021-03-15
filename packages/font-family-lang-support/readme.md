@@ -1,18 +1,18 @@
 
-# @creately/font-support-info
+# @creately/font-family-lang-support
 
-> This will check fonts support languages.
+> This package will be useful to check whether the given language is supported by the given font family. Returns true if it is supported.
 
 ## Install
 
 ```
-$ npm install @creately/font-support-info
+$ npm install @creately/font-family-lang-support
 ```
 
 ## Usage
 
 ```js
-import { FontLanguageInfo } from '@creately/font-support-info';
+import { FontLanguageInfo } from '@creately/font-family-lang-support';
 
 const fontLanguageInfo = new FontLanguageInfo()
                                 .isFontSupport(fontFamily: string, languageCode: string)
@@ -436,4 +436,4 @@ This supports the following languages codes :
 
 #### .isFontSupport(fontFamily: string, languageCode: string)
 
-This return a boolean value.
+This returns a boolean value. True indicates that the font is supported for the given language.

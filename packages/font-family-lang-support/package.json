@@ -1,7 +1,7 @@
 {
-  "name": "@creately/font-support-info",
+  "name": "@creately/font-family-lang-support",
   "version": "1.0.0",
-  "description": "This will check font support languages.",
+  "description": "This package will be useful to check whether the given language is supported by the given font family. Returns true if it is supported.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
