@@ -1,12 +1,12 @@
 export interface IFontInfoData {
   name: string;
-  support_languages: string[];
+  supportLanguages: string[];
 }
 
 const FONTS_INFO_LIST = {
   abhaya_libreregular: {
     name: 'Abhaya Libre Regular',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -48,7 +48,7 @@ const FONTS_INFO_LIST = {
   },
   bebas: {
     name: 'Bebas',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -90,7 +90,7 @@ const FONTS_INFO_LIST = {
   },
   bree: {
     name: 'Bree',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -132,7 +132,7 @@ const FONTS_INFO_LIST = {
   },
   champagne: {
     name: 'Champagne',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -172,7 +172,7 @@ const FONTS_INFO_LIST = {
   },
   courier_prime: {
     name: 'Courier Prime',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -214,7 +214,7 @@ const FONTS_INFO_LIST = {
   },
   droid_serifregular: {
     name: 'Droid Serif',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -256,7 +256,7 @@ const FONTS_INFO_LIST = {
   },
   gandhi_serifregular: {
     name: 'Gandhi Serif',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -298,7 +298,7 @@ const FONTS_INFO_LIST = {
   },
   indie: {
     name: 'Indie',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -339,7 +339,7 @@ const FONTS_INFO_LIST = {
   },
   spartan: {
     name: 'Spartan',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -381,7 +381,7 @@ const FONTS_INFO_LIST = {
   },
   lt_regular: {
     name: 'Lato Regular',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -461,7 +461,7 @@ const FONTS_INFO_LIST = {
   },
   lt_bold: {
     name: 'Lato Bold',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -541,7 +541,7 @@ const FONTS_INFO_LIST = {
   },
   lt_bolditalic: {
     name: 'Lato Bold Italic',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -621,7 +621,7 @@ const FONTS_INFO_LIST = {
   },
   lt_hairline: {
     name: 'Lato Hairline',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -701,7 +701,7 @@ const FONTS_INFO_LIST = {
   },
   lt_italic: {
     name: 'Lato Italic',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -781,7 +781,7 @@ const FONTS_INFO_LIST = {
   },
   lt_thinitalic: {
     name: 'Lato Thin Italic',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -861,7 +861,7 @@ const FONTS_INFO_LIST = {
   },
   montserrat: {
     name: 'Montserrat',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -902,7 +902,7 @@ const FONTS_INFO_LIST = {
   },
   noto_regular: {
     name: 'Noto Regular',
-    support_languages: [
+    supportLanguages: [
       'azj',
       'bel',
       'bos',
@@ -985,7 +985,7 @@ const FONTS_INFO_LIST = {
   },
   playfair: {
     name: 'Playfair',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -1026,7 +1026,7 @@ const FONTS_INFO_LIST = {
   },
   raleway: {
     name: 'Raleway',
-    support_languages: [
+    supportLanguages: [
       'afr',
       'eus',
       'bem',
@@ -1085,6 +1085,6 @@ export class FontLanguageInfo {
     if (!this.fonts[fontFamily.toLowerCase()]) {
       return false;
     }
-    return this.fonts[fontFamily.toLowerCase()].support_languages.some(l => l === languageCode);
+    return this.fonts[fontFamily.toLowerCase()].supportLanguages.some(l => l === languageCode);
   }
 }
