@@ -1082,9 +1082,9 @@ export class FontLanguageInfo {
    * @param languageCode language code
    */
   public isFontSupported(fontFamily: string, languageCode: string): boolean {
-    if (!this.fonts[fontFamily]) {
+    if (!this.fonts[fontFamily.toLowerCase()]) {
       return false;
     }
-    return this.fonts[fontFamily].support_languages.some(l => l === languageCode);
+    return this.fonts[fontFamily.toLowerCase()].support_languages.some(l => l === languageCode);
   }
 }
