@@ -19,6 +19,20 @@ const fontLanguageInfo = new FontLanguageInfo()
 
 ```
 
+## Example
+
+```js
+import { FontLanguageInfo } from '@creately/font-family-lang-support';
+
+const fontLanguageInfo = new FontLanguageInfo();
+
+const result = fontLanguageInfo.isFontSupport( 'raleway', 'eng' );
+
+console.log( result ) // true
+                                
+
+```
+
 ## Support
 
 This supports the following languages codes :
@@ -431,6 +445,31 @@ This supports the following languages codes :
 | [`gaz`](http://www-01.sil.org/iso639-3/documentation.asp?id=gaz) | West Central Oromo | unknown |
 | [`pnb`](http://www-01.sil.org/iso639-3/documentation.asp?id=pnb) | Western Panjabi | unknown |
 | [`zro`](http://www-01.sil.org/iso639-3/documentation.asp?id=zro) | Záparo | unknown |
+
+This supports the following fonts :
+
+| Font family | font code |
+| - | - |
+| Abhaya Libre | abhaya_libreregular |
+| Bebas | bebas |
+| Bree | bree |
+| Champagne | champagne |
+| Courier Prime | courier_prime |
+| Droid Serif | droid_serifregular |
+| Droid Serif | droid_serifregular |
+| Gandhi Serif | gandhi_serifregular |
+| Indie | indie |
+| Spartan | spartan |
+| Lato Regular | lt_regular |
+| Lato Bold | lt_bold |
+| Lato Bold Italic | lt_bolditalic |
+| Lato Hairline | lt_hairline |
+| Lato Italic | lt_italic |
+| Lato Thin Italic | lt_thinitalic |
+| Montserrat | montserrat |
+| Noto Regular | noto_regular |
+| Playfair | playfair |
+| Raleway | raleway |
 
 ## API
 
