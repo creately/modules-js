@@ -15,7 +15,7 @@ $ npm install @creately/font-family-lang-support
 import { FontLanguageInfo } from '@creately/font-family-lang-support';
 
 const fontLanguageInfo = new FontLanguageInfo()
-                                .isFontSupport(fontFamily: string, languageCode: string)
+                                .isFontSupported(fontFamily: string, languageCode: string)
 
 ```
 
