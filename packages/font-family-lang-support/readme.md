@@ -26,7 +26,7 @@ import { FontLanguageInfo } from '@creately/font-family-lang-support';
 
 const fontLanguageInfo = new FontLanguageInfo();
 
-const result = fontLanguageInfo.isFontSupport( 'raleway', 'eng' );
+const result = fontLanguageInfo.isFontSupported( 'raleway', 'eng' );
 
 console.log( result ) // true
                                 
@@ -473,6 +473,6 @@ This supports the following fonts :
 
 ## API
 
-#### .isFontSupport(fontFamily: string, languageCode: string)
+#### .isFontSupported(fontFamily: string, languageCode: string)
 
 This returns a boolean value. True indicates that the font is supported for the given language.
