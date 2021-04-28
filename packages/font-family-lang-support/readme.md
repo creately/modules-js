@@ -1,7 +1,6 @@
-
 # @creately/font-family-lang-support
 
-> This package will be useful to check whether the given language is supported by the given font family. Returns true if it is supported.
+This package will be useful to check whether language support for font.Supports 406 languages as defined in the [franc](https://github.com/wooorm/franc) package.
 
 ## Install
 
@@ -15,7 +14,7 @@ $ npm install @creately/font-family-lang-support
 import { FontLanguageInfo } from '@creately/font-family-lang-support';
 
 const fontLanguageInfo = new FontLanguageInfo()
-                                .isFontSupported(fontFamily: string, languageCode: string)
+    .isFontSupported(fontFamily: string, languageCode: string)
 
 ```
 
@@ -28,14 +27,13 @@ const fontLanguageInfo = new FontLanguageInfo();
 
 const result = fontLanguageInfo.isFontSupported( 'raleway', 'eng' );
 
-console.log( result ) // true
-                                
+console.log( result ) // true                   
 
 ```
 
-## Support
+## Language support
 
-This supports the following languages codes :
+This supports the following languages codes [ISO 639-3](https://iso639-3.sil.org/code_tables/639/data) codes:
 
 | Code | Name | Speakers |
 | - | - | - |
@@ -446,9 +444,9 @@ This supports the following languages codes :
 | [`pnb`](http://www-01.sil.org/iso639-3/documentation.asp?id=pnb) | Western Panjabi | unknown |
 | [`zro`](http://www-01.sil.org/iso639-3/documentation.asp?id=zro) | Záparo | unknown |
 
-This supports the following fonts :
+This supports the following fonts:
 
-| Font family | font code |
+| Font family name | Font family code |
 | - | - |
 | Abhaya Libre | abhaya_libreregular |
 | Bebas | bebas |
@@ -470,9 +468,14 @@ This supports the following fonts :
 | Noto Regular | noto_regular |
 | Playfair | playfair |
 | Raleway | raleway |
+| Open Sans Condensed | open_sanscondensed |
 
 ## API
+#### .isFontSupported(fontFamilyCode: string, languageCode: string)
 
-#### .isFontSupported(fontFamily: string, languageCode: string)
+- fontFamilyCode: a font family code from the list of supported fonts
+- languageCode: a language code from the list of supported codes
 
-This returns a boolean value. True indicates that the font is supported for the given language.
+This returns a boolean value. True indicates whether the font is supported for the given language.
+
+## Utilities
