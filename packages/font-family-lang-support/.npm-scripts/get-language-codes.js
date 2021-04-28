@@ -14,6 +14,8 @@ const csv = require('csv-parser')
  * 2. Add the list of languages to languages.csv
  * 3. Run 'npm run code-gen'
  * 4. The suported language codes will be in codes.csv
+ * 
+ * This list can then be used to update the supportedLanguages for the font on the FONTS_INFO_LIST in the package.
  */
 
 const ROOT_DIR = path.resolve( __dirname, '../' );

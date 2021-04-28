@@ -15,7 +15,6 @@ import { FontLanguageInfo } from '@creately/font-family-lang-support';
 
 const fontLanguageInfo = new FontLanguageInfo()
     .isFontSupported(fontFamily: string, languageCode: string)
-
 ```
 
 ## Example
@@ -489,3 +488,5 @@ Usage:
 2. Add the list of languages to languages.csv
 3. Run 'npm run code-gen'
 4. The suported language codes will be in codes.csv
+
+This list can then be used to update the supportedLanguages for the font on the FONTS_INFO_LIST in the package.
