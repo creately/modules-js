@@ -479,3 +479,13 @@ This supports the following fonts:
 This returns a boolean value. True indicates whether the font is supported for the given language.
 
 ## Utilities
+
+### code-gen
+
+This script accepts a list of country names as a .csv file, and outputs a list of supported ISO 639-3 country codes as defined in the [franc](https://github.com/wooorm/franc) package. It supports 406 languages as defined in codes.csv.
+
+Usage:
+1. Get a list of languages supported by the font, e.g. from https://fontdrop.info
+2. Add the list of languages to languages.csv
+3. Run 'npm run code-gen'
+4. The suported language codes will be in codes.csv

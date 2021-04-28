@@ -3,9 +3,17 @@ const fs = require('fs');
 const csv = require('csv-parser')
 
 /**
- * This script accepts a list of country names as a .csv file, and returns
- * a list of ISO 639-3 country codes as defined in the franc package.
+ * This script accepts a list of country names as a .csv file, and outputs
+ * a list of supprted ISO 639-3 country codes as defined in the franc package.
  * It supports 406 languages as defined in codes.csv.
+ * 
+ * See https://github.com/wooorm/franc
+ * 
+ * Usage:
+ * 1. Get a list of languages supported by the font, e.g. from https://fontdrop.info
+ * 2. Add the list of languages to languages.csv
+ * 3. Run 'npm run code-gen'
+ * 4. The suported language codes will be in codes.csv
  */
 
 const ROOT_DIR = path.resolve( __dirname, '../' );
