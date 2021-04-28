@@ -1,6 +1,6 @@
 # @creately/font-family-lang-support
 
-This package will be useful to check whether language support for font.Supports 406 languages as defined in the [franc](https://github.com/wooorm/franc) package.
+This package will be useful to check whether language support for font. Supports 406 languages as defined in the [franc](https://github.com/wooorm/franc) package.
 
 ## Install
 

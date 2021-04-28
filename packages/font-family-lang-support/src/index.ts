@@ -1,12 +1,12 @@
 export interface IFontInfoData {
   name: string;
-  supportLanguages: string[];
+  supportedLanguages: string[];
 }
 
 const FONTS_INFO_LIST = {
   abhaya_libreregular: {
     name: 'Abhaya Libre Regular',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -48,7 +48,7 @@ const FONTS_INFO_LIST = {
   },
   bebas: {
     name: 'Bebas',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -90,7 +90,7 @@ const FONTS_INFO_LIST = {
   },
   bree: {
     name: 'Bree',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -132,7 +132,7 @@ const FONTS_INFO_LIST = {
   },
   champagne: {
     name: 'Champagne',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -172,7 +172,7 @@ const FONTS_INFO_LIST = {
   },
   courier_prime: {
     name: 'Courier Prime',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -214,7 +214,7 @@ const FONTS_INFO_LIST = {
   },
   droid_serifregular: {
     name: 'Droid Serif',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -256,7 +256,7 @@ const FONTS_INFO_LIST = {
   },
   gandhi_serifregular: {
     name: 'Gandhi Serif',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -298,7 +298,7 @@ const FONTS_INFO_LIST = {
   },
   indie: {
     name: 'Indie',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -339,7 +339,7 @@ const FONTS_INFO_LIST = {
   },
   spartan: {
     name: 'Spartan',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -419,7 +419,7 @@ const FONTS_INFO_LIST = {
   },
   lt_regular: {
     name: 'Lato Regular',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -499,7 +499,7 @@ const FONTS_INFO_LIST = {
   },
   lt_bold: {
     name: 'Lato Bold',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -579,7 +579,7 @@ const FONTS_INFO_LIST = {
   },
   lt_bolditalic: {
     name: 'Lato Bold Italic',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -659,7 +659,7 @@ const FONTS_INFO_LIST = {
   },
   lt_hairline: {
     name: 'Lato Hairline',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -739,7 +739,7 @@ const FONTS_INFO_LIST = {
   },
   lt_italic: {
     name: 'Lato Italic',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -819,7 +819,7 @@ const FONTS_INFO_LIST = {
   },
   lt_thinitalic: {
     name: 'Lato Thin Italic',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -899,7 +899,7 @@ const FONTS_INFO_LIST = {
   },
   montserrat: {
     name: 'Montserrat',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -940,7 +940,7 @@ const FONTS_INFO_LIST = {
   },
   noto_regular: {
     name: 'Noto Regular',
-    supportLanguages: [
+    supportedLanguages: [
       'azj',
       'bel',
       'bos',
@@ -1023,7 +1023,7 @@ const FONTS_INFO_LIST = {
   },
   playfair: {
     name: 'Playfair',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -1064,7 +1064,7 @@ const FONTS_INFO_LIST = {
   },
   raleway: {
     name: 'Raleway',
-    supportLanguages: [
+    supportedLanguages: [
       'afr',
       'eus',
       'bem',
@@ -1113,16 +1113,14 @@ export class FontLanguageInfo {
   }
 
   /**
-   * Check provided font family supported with
-   * given language code and if support returns true
-   * else returns false
-   * @param fontFamily font family
-   * @param languageCode language code
+   * Checks if the font family supports the given language code.
+   * @param fontFamilyCode font family code as defined in FONTS_INFO_LIST
+   * @param languageCode ISO 639-3 language code
    */
-  public isFontSupported(fontFamily: string, languageCode: string): boolean {
-    if (!this.fonts[fontFamily.toLowerCase()]) {
+  public isFontSupported(fontFamilyCode: string, languageCode: string): boolean {
+    if (!this.fonts[fontFamilyCode.toLowerCase()]) {
       return false;
     }
-    return this.fonts[fontFamily.toLowerCase()].supportLanguages.some(l => l === languageCode);
+    return this.fonts[fontFamilyCode.toLowerCase()].supportedLanguages.some(l => l === languageCode);
   }
 }
