@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "prettier --print-width 120 --single-quote --trailing-comma es5 --write \"src/**/*.ts\"",
+    "code-gen": "node ./.npm-scripts/get-language-codes.js",
     "prepublish": "npm run lint && npm run build"
   },
   "author": "Sajeeva Hasith",
