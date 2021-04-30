@@ -2,8 +2,8 @@
   "name": "@creately/font-family-lang-support",
   "version": "1.2.0",
   "description": "This package will be useful to check whether the given language is supported by the given font family. Returns true if it is supported.",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "prettier --print-width 120 --single-quote --trailing-comma es5 --write \"src/**/*.ts\"",
