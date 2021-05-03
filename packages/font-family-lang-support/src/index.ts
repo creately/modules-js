@@ -1,9 +1,20 @@
-export interface IFontInfoData {
-  name: string;
-  supportedLanguages: string[];
+/**
+ * Font language info. Maps the font family code
+ * to the font name and an array of supported languages.
+ */
+interface IFontLanguageInfo {
+  [code: string]: {
+    name: string;
+    supportedLanguages: string[];
+  };
 }
 
-const FONTS_INFO_LIST = {
+/**
+ * A map of supported fonts and the languages that they support.
+ * To add fonts or update the supported languages, use the
+ * .npm-scripts/get-language-codes.js script.
+ */
+const FONT_LANGUAGE_INFO: IFontLanguageInfo = {
   abhaya_libreregular: {
     name: 'Abhaya Libre Regular',
     supportedLanguages: [
@@ -1105,11 +1116,16 @@ const FONTS_INFO_LIST = {
   },
 };
 
-export class FontLanguageInfo {
-  protected fonts: { [font: string]: IFontInfoData };
+/**
+ * Contains a list of fonts and their supported languages,
+ * and provides a function to check if a font family supports
+ * a given language.
+ */
+class FontLanguageInfo {
+  protected fonts: IFontLanguageInfo;
 
   constructor() {
-    this.fonts = FONTS_INFO_LIST;
+    this.fonts = FONT_LANGUAGE_INFO;
   }
 
   /**
@@ -1124,3 +1140,5 @@ export class FontLanguageInfo {
     return this.fonts[fontFamilyCode.toLowerCase()].supportedLanguages.some(l => l === languageCode);
   }
 }
+
+export { IFontLanguageInfo, FONT_LANGUAGE_INFO, FontLanguageInfo };
