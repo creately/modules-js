@@ -1130,14 +1130,14 @@ class FontLanguageInfo {
 
   /**
    * Checks if the font family supports the given language code.
-   * @param fontFamilyCode font family code as defined in FONTS_INFO_LIST
+   * @param fontCode font code as defined in FONTS_INFO_LIST
    * @param languageCode ISO 639-3 language code
    */
-  public isFontSupported(fontFamilyCode: string, languageCode: string): boolean {
-    if (!this.fonts[fontFamilyCode.toLowerCase()]) {
+  public isFontSupported(fontCode: string, languageCode: string): boolean {
+    if (!this.fonts[fontCode.toLowerCase()]) {
       return false;
     }
-    return this.fonts[fontFamilyCode.toLowerCase()].supportedLanguages.some(l => l === languageCode);
+    return this.fonts[fontCode.toLowerCase()].supportedLanguages.some(l => l === languageCode);
   }
 }
 
