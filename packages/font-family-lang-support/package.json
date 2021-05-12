@@ -14,7 +14,9 @@
   "devDependencies": {
     "csv-parser": "^3.0.0",
     "prettier": "^1.19.1",
-    "typescript": "^3.9.7",
     "webpack": "^4.44.1"
+  },
+  "dependencies": {
+    "typescript": "^4.2.4"
   }
 }
