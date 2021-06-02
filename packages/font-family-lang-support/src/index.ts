@@ -1137,7 +1137,7 @@ class FontLanguageInfo {
     if (!this.fonts[fontCode.toLowerCase()]) {
       return false;
     }
-    return this.fonts[fontCode.toLowerCase()].supportedLanguages.some(l => l === languageCode);
+    return this.fonts[fontCode.toLowerCase()].supportedLanguages.some((l) => l === languageCode);
   }
 }
 
