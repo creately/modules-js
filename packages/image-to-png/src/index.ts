@@ -52,9 +52,7 @@ export class ImageToPng {
   private async convertSVGtoPNG(image: string) {
     const base64 = image.split(',')[1];
     const buffer = Buffer.from(base64, 'base64');
-    const data = await sharp(buffer)
-      .png()
-      .toBuffer();
+    const data = await sharp(buffer).png().toBuffer();
     return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(data)).toString('base64');
   }
 
@@ -116,7 +114,7 @@ export class ImageToPng {
    * @return Promise which resolves to the base64 string.
    */
   private getPngBase64(image: any): Promise<string> {
-    return new Promise<string>(resolve => {
+    return new Promise<string>((resolve) => {
       const stream = image.pipe(new Base64Encode());
       let pngBase64 = '';
       stream.on('data', (chunk: any) => {
@@ -132,7 +130,7 @@ export class ImageToPng {
 
   /**
    * This function converts PNG Interlaced files to PNG
-   * If the PNG is not interlaced 
+   * If the PNG is not interlaced
    * it will return the
    * original PNG image as it is.
    * @param image - PNG base64
@@ -143,7 +141,7 @@ export class ImageToPng {
       const base64 = image.split(',')[1];
       let buffer = Buffer.from(base64, 'base64');
       const png = PNG.sync.read(buffer);
-      if ( png.interlace ) {
+      if (png.interlace) {
         buffer = PNG.sync.write(png, { interlace: false });
       }
       return 'data:image/png;base64,' + Buffer.from(this.changePNGcolorType(buffer)).toString('base64');
@@ -160,7 +158,7 @@ export class ImageToPng {
   private changePNGcolorType(buffer: Buffer) {
     try {
       const png = PNG.sync.read(buffer);
-      if ( png.colorType != 2 ) {
+      if (png.colorType != 2) {
         buffer = PNG.sync.write(png, { colorType: 2 });
       }
       return buffer;

@@ -1,6 +1,6 @@
 {
   "name": "@creately/image-to-png",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "This will convert Interlace PNG, SVG, GIF, ICON, BMP format to PNG image.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,22 +13,21 @@
   },
   "author": "Vinoch Selvarathinam",
   "license": "MIT",
-  "devDependencies": {
-    "@types/base64-stream": "^1.0.0",
-    "@types/jest": "^24.9.1",
-    "jest": "^24.9.0",
-    "prettier": "^1.19.1",
-    "ts-jest": "^24.3.0",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.1"
-  },
   "dependencies": {
-    "@types/node": "^14.6.4",
     "@vingle/bmp-js": "^0.2.5",
     "base64-stream": "^1.0.0",
     "gif-frames": "^1.0.1",
     "ico-to-png": "^0.2.1",
     "pngjs": "^5.0.0",
-    "sharp": "^0.25.4"
+    "sharp": "^0.28.3"
+  },
+  "devDependencies": {
+    "@types/base64-stream": "^1.0.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.1",
+    "jest": "^24.9.0",
+    "prettier": "^2.3.0",
+    "ts-jest": "^27.0.2",
+    "typescript": "^4.3.2"
   }
 }
