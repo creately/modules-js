@@ -1,0 +1,25 @@
+{
+  "name": "npm2gpr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "prettier --write src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/creately/modules-js.git"
+  },
+  "author": "Ruwen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/creately/modules-js/issues"
+  },
+  "homepage": "https://github.com/creately/modules-js#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.2"
+  }
+}
