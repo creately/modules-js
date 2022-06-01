@@ -19,7 +19,7 @@
     "gif-frames": "^1.0.1",
     "ico-to-png": "^0.2.1",
     "pngjs": "^5.0.0",
-    "sharp": "^0.28.3"
+    "sharp": "^0.30.5"
   },
   "devDependencies": {
     "@types/base64-stream": "^1.0.0",
