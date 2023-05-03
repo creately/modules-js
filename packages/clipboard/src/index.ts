@@ -25,10 +25,10 @@ export class Clipboard {
     ),
     }"
    */
-  public async copy(data: any, useMime: boolean = false ): Promise<any> {
+  public async copy(data: any, useMime: boolean = false): Promise<any> {
     try {
-      if ( useMime ) {
-        const item = new clipboardpoly.ClipboardItem( data );
+      if (useMime) {
+        const item = new clipboardpoly.ClipboardItem(data);
         await clipboardpoly.write([item]);
       } else {
         await clipboardpoly.writeText(data);
@@ -45,12 +45,12 @@ export class Clipboard {
    * if it is embedded or it will pull data from system as fallback
    * pulls from local storage.
    */
-  public async paste( useMime: boolean = false ): Promise<any> {
+  public async paste(useMime: boolean = false): Promise<any> {
     if (window.self !== window.top) {
       return this.retriveLocalClipboardData();
     }
     try {
-      if ( useMime ) {
+      if (useMime) {
         return await clipboardpoly.read();
       }
       return await clipboardpoly.readText();
