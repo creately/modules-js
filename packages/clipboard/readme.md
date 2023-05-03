@@ -44,6 +44,30 @@ class MyClass {
 }
 ```
 
+### Usage with multiple mime types
+When using with multiple MIME types, you should call this with
+
+```js
+
+const data = {
+    "text/html": new Blob(
+      ["<i>Markup</i> <b>text</b>. Paste me into a rich text editor."],
+      { type: "text/html" }
+    ),
+    "text/plain": new Blob(
+      ["Fallback markup text. Paste me into a rich text editor."],
+      { type: "text/plain" }
+    ),
+    } // add any other supported mime type data to the object.
+
+// to copy
+this.clipboard.copy( data, true );
+
+// to paste
+this.clipboard.paste( true );
+
+```
+
 
 ## API
 

@@ -14,10 +14,25 @@ export class Clipboard {
   /**
    * This copies the given data to the system clipboard and local storage.
    * @param data data that needs to be copied to the clipboard
+   * @param useMime expects to recieve an object in the form of "{
+    "text/html": new Blob(
+      ["<i>Markup</i> <b>text</b>. Paste me into a rich text editor."],
+      { type: "text/html" }
+    ),
+    "text/plain": new Blob(
+      ["Fallback markup text. Paste me into a rich text editor."],
+      { type: "text/plain" }
+    ),
+    }"
    */
-  public async copy(data: any): Promise<any> {
+  public async copy(data: any, useMime: boolean = false ): Promise<any> {
     try {
-      await clipboardpoly.writeText(data);
+      if ( useMime ) {
+        const item = new clipboardpoly.ClipboardItem( data );
+        await clipboardpoly.write([item]);
+      } else {
+        await clipboardpoly.writeText(data);
+      }
     } catch {
       console.log('System clipboard is not supported.');
     } finally {
@@ -30,11 +45,14 @@ export class Clipboard {
    * if it is embedded or it will pull data from system as fallback
    * pulls from local storage.
    */
-  public async paste(): Promise<any> {
+  public async paste( useMime: boolean = false ): Promise<any> {
     if (window.self !== window.top) {
       return this.retriveLocalClipboardData();
     }
     try {
+      if ( useMime ) {
+        return await clipboardpoly.read();
+      }
       return await clipboardpoly.readText();
     } catch {
       return this.retriveLocalClipboardData();
